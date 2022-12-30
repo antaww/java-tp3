@@ -3,14 +3,23 @@ package Exo2;
 import javax.swing.*;
 import java.awt.*;
 
-public class exo2 {
+public class exo2_1 {
     public static void main(JFrame frame) {
-        JLabel titleLabel = (JLabel) ((JPanel) ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).getComponent(0)).getComponent(0);
-        titleLabel.setText("Exercice 2");
+        JPanel bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
+        Component[] bodyPanelComponents = bodyPanel.getComponents();
 
-        if (((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).getComponentCount() > 1) {
-            ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).remove(1);
+        if(bodyPanelComponents.length > 1) {
+            for (int i = 1; i < bodyPanelComponents.length; i++) {
+                bodyPanel.remove(bodyPanelComponents[i]);
+            }
+            bodyPanel.setLayout(new GridLayout(1, 1));
+            bodyPanel.revalidate();
+            bodyPanel.repaint();
         }
+
+        JLabel titleLabel = (JLabel) ((JPanel) ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).getComponent(0)).getComponent(0);
+        titleLabel.setText("Exercice 2.1 - JButton");
+
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new GridBagLayout());
         JButton button1 = new JButton("Bouton simple");
@@ -20,8 +29,8 @@ public class exo2 {
 
         buttonsPanel.add(button2);
 
-        ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).add(buttonsPanel);
-        ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).setLayout(new GridLayout(3, 1));
+        bodyPanel.add(buttonsPanel);
+        bodyPanel.setLayout(new GridLayout(3, 1));
         buttonsPanel.setLayout(new GridLayout(2, 1));
 
         button1.addActionListener(e -> JOptionPane.showMessageDialog(frame, "Vous avez cliqué sur : " + button1.getText()));

@@ -28,8 +28,10 @@ public class menu {
 
         JMenuItem exercise1Item = new JMenuItem("Exercice 1");
         menuMenu.add(exercise1Item);
-        JMenuItem exercise2Item = new JMenuItem("Exercice 2");
-        menuMenu.add(exercise2Item);
+        JMenuItem exercise2Item1 = new JMenuItem("Exercice 2.1 - JButton");
+        menuMenu.add(exercise2Item1);
+        JMenuItem exercise2Item2 = new JMenuItem("Exercice 2.2 - BoxLayout");
+        menuMenu.add(exercise2Item2);
         JMenuItem leaveItem = new JMenuItem("Quitter");
         menuMenu.add(leaveItem);
 
@@ -52,8 +54,10 @@ public class menu {
 
         bodyPanel.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
 
-        exercise2Item.addActionListener(e -> Exo2.exo2.main(frame));
+        exercise2Item1.addActionListener(e -> Exo2.exo2_1.main(frame));
+        exercise2Item2.addActionListener(e -> Exo2.exo2_2.main(frame));
 
         frame.setVisible(true);
     }
+
 }
