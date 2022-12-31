@@ -12,52 +12,53 @@ public class exo2_2 {
         JLabel titleLabel = (JLabel) ((JPanel) ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).getComponent(0)).getComponent(0);
         titleLabel.setText("Exercice 2.2 - BoxLayout");
 
-        JPanel secondPanel = new JPanel(new BorderLayout());
-
-        JPanel leftPanel = new JPanel(new BorderLayout());
-        JButton okButton = new JButton("OK");
-        JPanel centerPanel = new JPanel(new BorderLayout());
-        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
-        JPanel rightPanel = new JPanel(new BorderLayout());
-        JButton cancelButton = new JButton("Cancel");
-
-
-        JPanel centerSubPanel1 = new JPanel();
-        JLabel nameLabel = new JLabel("Nom :");
-        JTextField nameTextField = new JTextField();
-        JPanel centerSubPanel2 = new JPanel();
-        JLabel passwordLabel = new JLabel("Mot de passe :");
-        JPasswordField passwordField = new JPasswordField();
-
+        JPanel secondPanel = new JPanel();
+        secondPanel.setLayout(new GridLayout(2, 1));
 
         bodyPanel.add(secondPanel);
-        secondPanel.add(leftPanel, BorderLayout.WEST);
-        secondPanel.add(centerPanel, BorderLayout.CENTER);
-        secondPanel.add(rightPanel, BorderLayout.EAST);
-
-        leftPanel.add(okButton, BorderLayout.SOUTH);
-        rightPanel.add(cancelButton, BorderLayout.SOUTH);
-        centerPanel.add(centerSubPanel1);
-        centerPanel.add(centerSubPanel2);
-        centerSubPanel1.add(nameLabel);
-        centerSubPanel1.add(nameTextField);
-        centerSubPanel2.add(passwordLabel);
-        centerSubPanel2.add(passwordField);
-
-        leftPanel.setPreferredSize(new Dimension((int) (406/1.6/2.5), 180));
-        rightPanel.setPreferredSize(new Dimension((int) (406/1.6/2.5), 180));
-
-        secondPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        leftPanel.setBorder(BorderFactory.createLineBorder(Color.RED));
-        centerPanel.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-        rightPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-        centerSubPanel1.setBorder(BorderFactory.createLineBorder(Color.RED));
-        centerSubPanel2.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-
         bodyPanel.setLayout(new GridLayout(2, 1));
 
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
+
+        secondPanel.add(topPanel, BorderLayout.NORTH);
+        secondPanel.add(bottomPanel, BorderLayout.SOUTH);
+
+        JPanel namePanel = new JPanel();
+        JPanel passwordPanel = new JPanel();
+        JLabel nameLabel = new JLabel("Nom : ");
+        JLabel passwordLabel = new JLabel("Password : ");
+        JTextField nameInput = new JTextField();
+        nameInput.setPreferredSize(new Dimension(100, 20));
+        JPasswordField passwordInput = new JPasswordField();
+        passwordInput.setPreferredSize(new Dimension(100, 20));
+        namePanel.add(nameLabel);
+        namePanel.add(nameInput);
+        passwordPanel.add(passwordLabel);
+        passwordPanel.add(passwordInput);
+        topPanel.add(namePanel);
+        topPanel.add(passwordPanel);
+
+        JButton okButton = new JButton("OK");
+        JButton cancelButton = new JButton("Cancel");
+
+        bottomPanel.add(okButton);
+        bottomPanel.add(Box.createHorizontalGlue());
+        bottomPanel.add(cancelButton);
+
+        buttonClicked(frame, nameInput, passwordInput, okButton);
+        buttonClicked(frame, nameInput, passwordInput, cancelButton);
+
         frame.setVisible(true);
-        System.out.println(secondPanel.getWidth());
-        System.out.println(secondPanel.getHeight());
+    }
+
+    private static void buttonClicked(JFrame frame, JTextField nameInput, JPasswordField passwordInput, JButton button) {
+        button.addActionListener(e ->
+                JOptionPane.showMessageDialog(frame, nameInput.getText().isEmpty() || passwordInput.getPassword().length == 0
+                        ? "Vous devez remplir les champs nom et password"
+                        : "Vous avez cliqué sur : " + button.getText() + "\nNom : " + nameInput.getText() + "\nPassword : " + new String(passwordInput.getPassword()))
+        );
     }
 }
