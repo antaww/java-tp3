@@ -32,6 +32,8 @@ public class menu {
         menuMenu.add(exercise2Item1);
         JMenuItem exercise2Item2 = new JMenuItem("Exercice 2.2 - BoxLayout");
         menuMenu.add(exercise2Item2);
+        JMenuItem exercise2Item3 = new JMenuItem("Exercice 2.3 - Afficher carte");
+        menuMenu.add(exercise2Item3);
         JMenuItem leaveItem = new JMenuItem("Quitter");
         menuMenu.add(leaveItem);
 
@@ -56,6 +58,7 @@ public class menu {
 
         exercise2Item1.addActionListener(e -> Exo2.exo2_1.main(frame));
         exercise2Item2.addActionListener(e -> Exo2.exo2_2.main(frame));
+        exercise2Item3.addActionListener(e -> Exo2.exo2_3.main(frame));
 
         frame.setVisible(true);
     }
