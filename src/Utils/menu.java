@@ -1,5 +1,10 @@
 package Utils;
 
+import Exo2.Exo2_1;
+import Exo2.Exo2_2;
+import Exo2.Exo2_3;
+import Exo3.Exo3;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -32,8 +37,10 @@ public class menu {
         menuMenu.add(exercise2Item1);
         JMenuItem exercise2Item2 = new JMenuItem("Exercice 2.2 - BoxLayout");
         menuMenu.add(exercise2Item2);
-        JMenuItem exercise2Item3 = new JMenuItem("Exercice 2.3 - Afficher carte");
+        JMenuItem exercise2Item3 = new JMenuItem("Exercice 2.3 - Afficher Cartes");
         menuMenu.add(exercise2Item3);
+        JMenuItem exercise3Item1 = new JMenuItem("Exercice 3 - Yu-Gi-Oh! Carte Monstre");
+        menuMenu.add(exercise3Item1);
         JMenuItem leaveItem = new JMenuItem("Quitter");
         menuMenu.add(leaveItem);
 
@@ -50,15 +57,16 @@ public class menu {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 25));
 
         JPanel titlePanel = new JPanel();
-        titlePanel.setLayout(new GridBagLayout());
-        titlePanel.add(titleLabel);
+        titlePanel.setLayout(new BorderLayout());
+        titlePanel.add(titleLabel, BorderLayout.CENTER);
         bodyPanel.add(titlePanel);
 
         bodyPanel.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
 
-        exercise2Item1.addActionListener(e -> Exo2.exo2_1.main(frame));
-        exercise2Item2.addActionListener(e -> Exo2.exo2_2.main(frame));
-        exercise2Item3.addActionListener(e -> Exo2.exo2_3.main(frame));
+        exercise2Item1.addActionListener(e -> Exo2_1.main(frame));
+        exercise2Item2.addActionListener(e -> Exo2_2.main(frame));
+        exercise2Item3.addActionListener(e -> Exo2_3.main(frame));
+        exercise3Item1.addActionListener(e -> Exo3.main(frame));
 
         frame.setVisible(true);
     }

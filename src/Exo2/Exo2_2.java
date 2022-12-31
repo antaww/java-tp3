@@ -5,7 +5,7 @@ import java.awt.*;
 
 import static Utils.utils.cleanBodyPanel;
 
-public class exo2_2 {
+public class Exo2_2 {
     public static void main(JFrame frame) {
         JPanel bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
         cleanBodyPanel(bodyPanel);

@@ -11,7 +11,7 @@ import java.util.Random;
 
 import static Utils.utils.cleanBodyPanel;
 
-public class exo2_3 {
+public class Exo2_3 {
     private static final int CARD_WIDTH = 640/13;
     private static final int CARD_HEIGHT = 256/4;
     static Random random = new Random();
@@ -21,7 +21,7 @@ public class exo2_3 {
         JPanel bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
         cleanBodyPanel(bodyPanel);
         JLabel titleLabel = (JLabel) ((JPanel) ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).getComponent(0)).getComponent(0);
-        titleLabel.setText("Exercice 2.3 - Afficher carte");
+        titleLabel.setText("Exercice 2.3 - Afficher Cartes");
 
         JPanel secondPanel = new JPanel(new BorderLayout());
         JPanel buttonPanel = new JPanel();
