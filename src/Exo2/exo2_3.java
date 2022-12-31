@@ -44,7 +44,7 @@ public class exo2_3 {
         pickCardButton.addActionListener(e -> {
             int numCards = cardsPanel.getComponentCount();
             if (numCards < 52) {
-                BufferedImage cardImage = pickRandomCard();
+                BufferedImage cardImage = pickRandomCard(numCards);
                 Image scaledCardImage = cardImage.getScaledInstance(CARD_WIDTH/2, CARD_HEIGHT/2, Image.SCALE_SMOOTH);
                 ImageIcon icon = new ImageIcon(scaledCardImage);
                 JLabel label = new JLabel(icon);
@@ -60,7 +60,8 @@ public class exo2_3 {
     }
 
     static ArrayList<Integer> cards = new ArrayList<>();
-    private static BufferedImage pickRandomCard() {
+    private static BufferedImage pickRandomCard(int numCards) {
+        cards = numCards == 0 ? new ArrayList<>() : cards;
         int index;
         do {
             index = random.nextInt(52);
