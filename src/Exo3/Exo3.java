@@ -2,7 +2,6 @@ package Exo3;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -93,7 +92,6 @@ public class Exo3 {
                 resultImagePanel.setVisible(false);
             }
         });
-
         frame.setVisible(true);
     }
 
@@ -102,8 +100,6 @@ public class Exo3 {
         monsterCard1.setLevel(4);
         monsterCard1.setAttribute("Vent");
         monsterCard1.setPrimaryType("Magicien");
-        monsterCard1.setSecondaryType("");
-        monsterCard1.setTertiaryType("");
         monsterCard1.setMonsterType("Effet");
         monsterCard1.setReference("ys14-fr017");
         monsterCard1.setStats(new String[]{"1500", "600"});
