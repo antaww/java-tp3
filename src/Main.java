@@ -1,5 +1,7 @@
+import PUtils.Menu;
+
 public class Main {
     public static void main(String[] args) {
-        Utils.menu.main(args);
+        Menu.main(args);
     }
 }

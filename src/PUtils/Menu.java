@@ -1,14 +1,14 @@
-package Utils;
+package PUtils;
 
-import Exo2.Exo2_1;
-import Exo2.Exo2_2;
-import Exo2.Exo2_3;
-import Exo3.Exo3;
+import PExo2.Exo2_1;
+import PExo2.Exo2_2;
+import PExo2.Exo2_3;
+import PExo3.Exo3;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class menu {
+public class Menu {
     public static void main(String[] args) {
         JFrame frame = new JFrame("JAVA - TP3");
         frame.setSize(500, 500);

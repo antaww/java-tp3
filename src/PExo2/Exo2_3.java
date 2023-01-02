@@ -1,4 +1,4 @@
-package Exo2;
+package PExo2;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static Utils.utils.cleanBodyPanel;
+import static PUtils.Utils.cleanBodyPanel;
 
 public class Exo2_3 {
     private static final int CARD_WIDTH = 640/13;

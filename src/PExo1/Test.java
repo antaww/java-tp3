@@ -1,4 +1,4 @@
-package Exo1;
+package PExo1;
 
 public class Test {
     public void testEtudiant() {

@@ -1,4 +1,4 @@
-package Exo3;
+package PExo3;
 
 public class MonsterCard {
     private String name;
