@@ -35,7 +35,7 @@ public class Exo2_3 {
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
 
         try {
-            String SPRITE_SHEET_FILENAME = "src/Exo2/images/deck.png";
+            String SPRITE_SHEET_FILENAME = "src/PExo2/PImages/deck.png";
             spriteSheet = ImageIO.read(new File(SPRITE_SHEET_FILENAME));
         } catch (IOException e) {
             e.printStackTrace();

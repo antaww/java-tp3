@@ -4,11 +4,11 @@ public class MonsterCard {
     private String name;
     private int level; // 1-12
     private String attribute; // Eau, Feu, Terre, Vent, Lumière, Ténèbres, Divin
-    private String primaryType; // Magicien, Bête, Dinosaure, Pyro, Psychique, Dragon, Bête-ailée, Reptile, Tonnerre, Bête-divine, Zombie,
+    private PrimaryType primaryType; // Magicien, Bête, Dinosaure, Pyro, Psychique, Dragon, Bête-ailée, Reptile, Tonnerre, Bête-divine, Zombie,
     // Démon, Poisson, Rocher, Wyrm, Guerrier, Elfe, Serpent De Mer, Plante, Cyberse, Bête-guerrier, Insecte, Aqua, Machine, Créateur
-    private String secondaryType = ""; // Fusion, Synchro, Xyz, Rituel, Pendule, Lien
-    private String tertiaryType = ""; // Flip, Toon, Spirit, Union, Gémeau, Synthoniseur
-    private String monsterType; // Normal, Effet
+    private SecondaryType secondaryType = null; // Fusion, Synchro, Xyz, Rituel, Pendule, Lien
+    private TertiaryType tertiaryType = null; // Flip, Toon, Spirit, Union, Gémeau, Synthoniseur
+    private MonsterType monsterType; // Normal, Effet
     // Types primaire et monstre obligatoires, types secondaire et type tertiaire facultatifs
     // Peut avoir 2 à 4 types (primaire, ?secondaire, ?tertiaire, monstre)
     private String reference; // XXXX-XXXXX
@@ -40,22 +40,22 @@ public class MonsterCard {
     }
 
     public String getAllTypes() {
-        return "[" + primaryType + (secondaryType.equals("") ? "" : " / " + secondaryType) + (tertiaryType.equals("") ? "" : " / " + tertiaryType) + " / " + monsterType + "]";
+        return "[" + primaryType + (secondaryType == null ? "" : " / " + secondaryType) + (tertiaryType == null ? "" : " / " + tertiaryType) + " / " + monsterType + "]";
     }
 
-    public void setPrimaryType(String primaryType) {
+    public void setPrimaryType(PrimaryType primaryType) {
         this.primaryType = primaryType;
     }
 
-    public void setSecondaryType(String secondaryType) {
+    public void setSecondaryType(SecondaryType secondaryType) {
         this.secondaryType = secondaryType;
     }
 
-    public void setTertiaryType(String tertiaryType) {
+    public void setTertiaryType(TertiaryType tertiaryType) {
         this.tertiaryType = tertiaryType;
     }
 
-    public void setMonsterType(String monsterType) {
+    public void setMonsterType(MonsterType monsterType) {
         this.monsterType = monsterType;
     }
 

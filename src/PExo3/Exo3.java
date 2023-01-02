@@ -1,4 +1,4 @@
-package Exo3;
+package PExo3;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -7,7 +7,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
-import static Utils.utils.cleanBodyPanel;
+import static PUtils.Utils.cleanBodyPanel;
+import static PUtils.Utils.setMonsterCard;
 
 public class Exo3 {
     public static void main(JFrame frame) {
@@ -55,7 +56,7 @@ public class Exo3 {
             if (!isDisplayButtonClicked[0]) {
                 isDisplayButtonClicked[0] = true;
                 MonsterCard monsterCard1 = new MonsterCard();
-                setMonsterCard(monsterCard1);
+                setMonsterCard(monsterCard1, "Invocateur Dragon Bleu", 4, "Vent", PrimaryType.Magicien, MonsterType.Effet, "ys14-fr017", 1500, 600, "Si cette carte est envoyée depuis le Terrain au Cimetière : vous pouvez ajouter 1 Monstre Normal de Type Dragon/Guerrier/Magicien depuis votre Deck a votre main.");
                 resultLabel.setText("<html>" +
                         "<div>" +
                         "<p><u>Nom</u> : " + monsterCard1.getName() +
@@ -93,16 +94,5 @@ public class Exo3 {
             }
         });
         frame.setVisible(true);
-    }
-
-    private static void setMonsterCard(MonsterCard monsterCard1) {
-        monsterCard1.setName("Invocateur Dragon Bleu");
-        monsterCard1.setLevel(4);
-        monsterCard1.setAttribute("Vent");
-        monsterCard1.setPrimaryType("Magicien");
-        monsterCard1.setMonsterType("Effet");
-        monsterCard1.setReference("ys14-fr017");
-        monsterCard1.setStats(new String[]{"1500", "600"});
-        monsterCard1.setDescription("Si cette carte est envoyée depuis le Terrain au Cimetière : vous pouvez ajouter 1 Monstre Normal de Type Dragon/Guerrier/Magicien depuis votre Deck a votre main.");
     }
 }
