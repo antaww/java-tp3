@@ -31,9 +31,9 @@ public class Exo2_2 {
         JLabel nameLabel = new JLabel("Nom : ");
         JLabel passwordLabel = new JLabel("Password : ");
         JTextField nameInput = new JTextField();
-        nameInput.setPreferredSize(new Dimension(100, 20));
+        nameInput.setPreferredSize(new Dimension(100, 30));
         JPasswordField passwordInput = new JPasswordField();
-        passwordInput.setPreferredSize(new Dimension(100, 20));
+        passwordInput.setPreferredSize(new Dimension(100, 30));
         namePanel.add(nameLabel);
         namePanel.add(nameInput);
         passwordPanel.add(passwordLabel);

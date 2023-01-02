@@ -2,9 +2,9 @@ package PExo3;
 
 public enum SecondaryType {
     Fusion,
-    Synchro,
-    Xyz,
-    Rituel,
+    Lien,
     Pendule,
-    Lien
+    Rituel,
+    Synchro,
+    Xyz
 }

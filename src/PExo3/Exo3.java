@@ -37,6 +37,7 @@ public class Exo3 {
         thirdPanelBody.add(displayButtonPanel, BorderLayout.NORTH);
 
         JLabel resultLabel = new JLabel();
+        resultLabel.setFont(new Font("Arial", Font.BOLD, 12));
         resultLabel.setText("Cliquer sur le bouton pour afficher la carte...");
         resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
         resultLabel.setVerticalAlignment(SwingConstants.TOP);
@@ -88,11 +89,15 @@ public class Exo3 {
                 isDisplayButtonClicked[0] = false;
                 displayButton.setText("Afficher la carte");
                 resultLabel.setText("Cliquer sur le bouton pour afficher la carte...");
-                //todo: resultPanel layout reset (to center resultLabel)
+                resultPanel.setLayout(new FlowLayout());
+                resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
+//                resultPanel.setPreferredSize(new Dimension(402, 0));
                 resultImagePanel.removeAll();
                 resultImagePanel.setVisible(false);
             }
+            System.out.println(resultPanel.getLayout());
         });
+        System.out.println(resultPanel.getLayout());
         frame.setVisible(true);
     }
 }
