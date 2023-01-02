@@ -1,4 +1,4 @@
-package PExo2;
+package fr.ynov.tp3.PExo2;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static PUtils.Utils.cleanBodyPanel;
+import static fr.ynov.tp3.PUtils.Utils.cleanBodyPanel;
 
 public class Exo2_3 {
     private static final int CARD_WIDTH = 640/13;
@@ -35,7 +35,7 @@ public class Exo2_3 {
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
 
         try {
-            String SPRITE_SHEET_FILENAME = "src/PExo2/PImages/deck.png";
+            String SPRITE_SHEET_FILENAME = "src/main/resources/deck.png";
             spriteSheet = ImageIO.read(new File(SPRITE_SHEET_FILENAME));
         } catch (IOException e) {
             e.printStackTrace();

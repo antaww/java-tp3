@@ -1,4 +1,4 @@
-package PExo1;
+package fr.ynov.tp3.PExo1;
 
 public class Test {
     public void testEtudiant() {

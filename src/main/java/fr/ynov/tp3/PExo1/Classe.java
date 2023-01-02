@@ -1,4 +1,4 @@
-package PExo1;
+package fr.ynov.tp3.PExo1;
 
 import java.util.HashMap;
 import java.util.Map;

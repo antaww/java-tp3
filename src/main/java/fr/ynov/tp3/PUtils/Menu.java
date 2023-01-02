@@ -1,9 +1,11 @@
-package PUtils;
+package fr.ynov.tp3.PUtils;
 
-import PExo2.Exo2_1;
-import PExo2.Exo2_2;
-import PExo2.Exo2_3;
-import PExo3.Exo3;
+
+import fr.ynov.tp3.PExo2.Exo2_1;
+import fr.ynov.tp3.PExo2.Exo2_2;
+import fr.ynov.tp3.PExo2.Exo2_3;
+import fr.ynov.tp3.PExo3.Exo3;
+import fr.ynov.tp3.PExo4.Exo4_1;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,8 +46,12 @@ public class Menu {
         menuMenu.add(exercise2Item2);
         JMenuItem exercise2Item3 = new JMenuItem("Exercice 2.3 - Afficher Cartes");
         menuMenu.add(exercise2Item3);
-        JMenuItem exercise3Item1 = new JMenuItem("Exercice 3 - Yu-Gi-Oh! Carte Monstre");
-        menuMenu.add(exercise3Item1);
+        JMenuItem exercise3Item = new JMenuItem("Exercice 3 - Yu-Gi-Oh! Carte Monstre");
+        menuMenu.add(exercise3Item);
+        JMenuItem exercise4Item1 = new JMenuItem("Exercice 4.1 - Yu-Gi-Oh! Carte Magie");
+        menuMenu.add(exercise4Item1);
+        JMenuItem exercise4Item2 = new JMenuItem("Exercice 4.2 - Yu-Gi-Oh! Carte Piège");
+        menuMenu.add(exercise4Item2);
         JMenuItem leaveItem = new JMenuItem("Quitter");
         menuMenu.add(leaveItem);
 
@@ -71,7 +77,9 @@ public class Menu {
         exercise2Item1.addActionListener(e -> Exo2_1.main(frame));
         exercise2Item2.addActionListener(e -> Exo2_2.main(frame));
         exercise2Item3.addActionListener(e -> Exo2_3.main(frame));
-        exercise3Item1.addActionListener(e -> Exo3.main(frame));
+        exercise3Item.addActionListener(e -> Exo3.main(frame));
+        exercise4Item1.addActionListener(e -> Exo4_1.main(frame));
+        leaveItem.addActionListener(e -> System.exit(0));
 
         frame.setVisible(true);
     }

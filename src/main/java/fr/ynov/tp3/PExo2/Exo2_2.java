@@ -1,9 +1,9 @@
-package PExo2;
+package fr.ynov.tp3.PExo2;
 
 import javax.swing.*;
 import java.awt.*;
 
-import static PUtils.Utils.cleanBodyPanel;
+import static fr.ynov.tp3.PUtils.Utils.cleanBodyPanel;
 
 public class Exo2_2 {
     public static void main(JFrame frame) {

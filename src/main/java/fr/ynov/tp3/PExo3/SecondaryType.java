@@ -1,4 +1,4 @@
-package PExo3;
+package fr.ynov.tp3.PExo3;
 
 public enum SecondaryType {
     Fusion,

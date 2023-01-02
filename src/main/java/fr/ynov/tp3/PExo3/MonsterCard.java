@@ -1,6 +1,8 @@
-package PExo3;
+package fr.ynov.tp3.PExo3;
 
-public class MonsterCard {
+import fr.ynov.tp3.Card;
+
+public class MonsterCard implements Card {
     private String name;
     private int level; // 1-12
     private String attribute; // Eau, Feu, Terre, Vent, Lumière, Ténèbres, Divin
