@@ -4,6 +4,7 @@ import fr.ynov.tp3.Card;
 import fr.ynov.tp3.PExo3.*;
 import fr.ynov.tp3.PExo4.SpecialCards;
 import fr.ynov.tp3.PExo4.SpecialIcon;
+import fr.ynov.tp3.PExo4.SpecialType;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -25,6 +26,10 @@ public class Utils {
             bodyPanel.revalidate();
             bodyPanel.repaint();
         }
+    }
+
+    public static String hasUnderscore(String str) {
+        return (str.contains("_")) ? str.replace("_", " ") : str;
     }
 
     public static Map<String, JComponent> createCardPanel(JPanel bodyPanel, String subtitle) {
@@ -83,19 +88,19 @@ public class Utils {
         resultLabel.setPreferredSize(new Dimension(402, 250));
     }
 
-    public static void setMonsterCard(MonsterCard monsterCard, String name, int level, String attribute, PrimaryType primaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
+    public static void setMonsterCard(MonsterCard monsterCard, String name, int level, Attribute attribute, PrimaryType primaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
         setMonsterCard(monsterCard, name, level, attribute, primaryType, null, null, monsterType, reference, atk, def, description);
     }
 
-    public static void setMonsterCard(MonsterCard monsterCard, String name, int level, String attribute, PrimaryType primaryType, TertiaryType tertiaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
+    public static void setMonsterCard(MonsterCard monsterCard, String name, int level, Attribute attribute, PrimaryType primaryType, TertiaryType tertiaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
         setMonsterCard(monsterCard, name, level, attribute, primaryType, null, tertiaryType, monsterType, reference, atk, def, description);
     }
 
-    public static void setMonsterCard(MonsterCard monsterCard, String name, int level, String attribute, PrimaryType primaryType, SecondaryType secondaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
+    public static void setMonsterCard(MonsterCard monsterCard, String name, int level, Attribute attribute, PrimaryType primaryType, SecondaryType secondaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
         setMonsterCard(monsterCard, name, level, attribute, primaryType, secondaryType, null, monsterType, reference, atk, def, description);
     }
 
-    public static void setMonsterCard(MonsterCard monsterCard, String name, int level, String attribute, PrimaryType primaryType, SecondaryType secondaryType, TertiaryType tertiaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
+    public static void setMonsterCard(MonsterCard monsterCard, String name, int level, Attribute attribute, PrimaryType primaryType, SecondaryType secondaryType, TertiaryType tertiaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
         monsterCard.setName(name);
         monsterCard.setLevel(level);
         monsterCard.setAttribute(attribute);
@@ -108,7 +113,7 @@ public class Utils {
         monsterCard.setDescription(description);
     }
 
-    public static void setSpecialCard(SpecialCards specialCard, String name, String type, SpecialIcon specialIcon, String reference, String description) {
+    public static void setSpecialCard(SpecialCards specialCard, String name, SpecialType type, SpecialIcon specialIcon, String reference, String description) {
         specialCard.setName(name);
         specialCard.setType(type);
         specialCard.setSpecialIcon(specialIcon);
