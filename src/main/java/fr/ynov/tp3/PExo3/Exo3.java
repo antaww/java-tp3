@@ -24,8 +24,8 @@ public class Exo3 {
             if (!isDisplayButtonClicked[0]) {
                 isDisplayButtonClicked[0] = true;
                 MonsterCard monsterCard1 = new MonsterCard();
-                setMonsterCard(monsterCard1, "Invocateur Dragon Bleu", 4, "Vent", PrimaryType.Magicien, MonsterType.Effet, "ys14-fr017", 1500, 600, "Si cette carte est envoyée depuis le Terrain au Cimetière : vous pouvez ajouter 1 Monstre Normal de Type Dragon/Guerrier/Magicien depuis votre Deck a votre main.");
-                resultLabel.setText("<html>" +
+                setMonsterCard(monsterCard1, "Invocateur Dragon Bleu", 4, Attribute.Vent, PrimaryType.Magicien, MonsterType.Effet, "ys14-fr017", 1500, 600, "Si cette carte est envoyée depuis le Terrain au Cimetière : vous pouvez ajouter 1 Monstre Normal de Type Dragon/Guerrier/Magicien depuis votre Deck a votre main.");
+                resultLabel.setText(hasUnderscore("<html>" +
                         "<div>" +
                         "<p><u>Nom</u> : " + monsterCard1.getName() +
                         "<br><u>Niveau</u> : " + monsterCard1.getLevel() +
@@ -35,7 +35,7 @@ public class Exo3 {
                         "<br><u>Statistiques</u> : " + monsterCard1.getStats() +
                         "<br><u>Description</u> : " + monsterCard1.getDescription() +
                         "</div>" +
-                        "</html>");
+                        "</html>"));
                 displayCardImage(displayButton, resultLabel, resultImagePanel, resultPanel, monsterCard1.getReference(), monsterCard1);
             } else {
                 isDisplayButtonClicked[0] = false;

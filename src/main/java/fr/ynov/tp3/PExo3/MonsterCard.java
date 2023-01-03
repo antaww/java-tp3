@@ -5,7 +5,7 @@ import fr.ynov.tp3.Card;
 public class MonsterCard implements Card {
     private String name;
     private int level; // 1-12
-    private String attribute; // Eau, Feu, Terre, Vent, Lumière, Ténèbres, Divin
+    private Attribute attribute; // Eau, Feu, Terre, Vent, Lumière, Ténèbres, Divin
     private PrimaryType primaryType; // Magicien, Bête, Dinosaure, Pyro, Psychique, Dragon, Bête-ailée, Reptile, Tonnerre, Bête-divine, Zombie,
     // Démon, Poisson, Rocher, Wyrm, Guerrier, Elfe, Serpent De Mer, Plante, Cyberse, Bête-guerrier, Insecte, Aqua, Machine, Créateur
     private SecondaryType secondaryType = null; // Fusion, Synchro, Xyz, Rituel, Pendule, Lien
@@ -34,10 +34,10 @@ public class MonsterCard implements Card {
     }
 
     public String getAttribute() {
-        return attribute;
+        return attribute.toString();
     }
 
-    public void setAttribute(String attribute) {
+    public void setAttribute(Attribute attribute) {
         this.attribute = attribute;
     }
 
