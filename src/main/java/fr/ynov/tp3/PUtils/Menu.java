@@ -5,7 +5,7 @@ import fr.ynov.tp3.PExo2.Exo2_1;
 import fr.ynov.tp3.PExo2.Exo2_2;
 import fr.ynov.tp3.PExo2.Exo2_3;
 import fr.ynov.tp3.PExo3.Exo3;
-import fr.ynov.tp3.PExo4.Exo4_1;
+import fr.ynov.tp3.PExo4.Exo4;
 
 import javax.swing.*;
 import java.awt.*;
@@ -78,7 +78,8 @@ public class Menu {
         exercise2Item2.addActionListener(e -> Exo2_2.main(frame));
         exercise2Item3.addActionListener(e -> Exo2_3.main(frame));
         exercise3Item.addActionListener(e -> Exo3.main(frame));
-        exercise4Item1.addActionListener(e -> Exo4_1.main(frame));
+        exercise4Item1.addActionListener(e -> Exo4.main(frame, "Carte Magie"));
+        exercise4Item2.addActionListener(e -> Exo4.main(frame, "Carte Piège"));
         leaveItem.addActionListener(e -> System.exit(0));
 
         frame.setVisible(true);

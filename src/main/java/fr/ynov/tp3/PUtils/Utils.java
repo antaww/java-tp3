@@ -88,14 +88,19 @@ public class Utils {
         resultLabel.setPreferredSize(new Dimension(402, 250));
     }
 
+    //if card doesn't have secondary type & tertiary type
     public static void setMonsterCard(MonsterCard monsterCard, String name, int level, Attribute attribute, PrimaryType primaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
         setMonsterCard(monsterCard, name, level, attribute, primaryType, null, null, monsterType, reference, atk, def, description);
     }
 
+    //if card doesn't have secondary type
+    //unused for the moment but useful if we want to add a card with tertiary type but without secondary type
     public static void setMonsterCard(MonsterCard monsterCard, String name, int level, Attribute attribute, PrimaryType primaryType, TertiaryType tertiaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
         setMonsterCard(monsterCard, name, level, attribute, primaryType, null, tertiaryType, monsterType, reference, atk, def, description);
     }
 
+    //if card doesn't have tertiary type
+    //unused for the moment but useful if we want to add a card with secondary type but without tertiary type
     public static void setMonsterCard(MonsterCard monsterCard, String name, int level, Attribute attribute, PrimaryType primaryType, SecondaryType secondaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
         setMonsterCard(monsterCard, name, level, attribute, primaryType, secondaryType, null, monsterType, reference, atk, def, description);
     }
