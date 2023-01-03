@@ -4,7 +4,7 @@ import fr.ynov.tp3.Card;
 
 public class SpecialCards implements Card {
     private String name;
-    private String type; // Magie, Piège
+    private SpecialType type; // Magie, Piège
     private SpecialIcon specialIcon; // Continu, Contre, Équipement, Jeu_Rapide, Rituel, Terrain
     private String reference; // XXXX-XXXXX
     private String description;
@@ -21,12 +21,12 @@ public class SpecialCards implements Card {
         return "[" + type + "]";
     }
 
-    public void setType(String type) {
+    public void setType(SpecialType type) {
         this.type = type;
     }
 
-    public SpecialIcon getSpecialIcon() {
-        return specialIcon;
+    public String getSpecialIcon() {
+        return specialIcon.toString();
     }
 
     public void setSpecialIcon(SpecialIcon specialIcon) {

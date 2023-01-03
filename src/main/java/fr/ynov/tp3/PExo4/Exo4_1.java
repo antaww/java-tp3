@@ -24,17 +24,16 @@ public class Exo4_1 {
             if (!isDisplayButtonClicked[0]) {
                 isDisplayButtonClicked[0] = true;
                 SpecialCards spellCard1 = new SpecialCards();
-                setSpecialCard(spellCard1, "Typhon d'Espace Mysthique", "Magie", SpecialIcon.Jeu_Rapide,"ys14-fr024", "Ciblez 1 Carte Magie/Piège sur le Terrain ; détruisez la cible.");
-                resultLabel.setText("<html>" +
+                setSpecialCard(spellCard1, "Typhon d'Espace Mysthique", SpecialType.Magie, SpecialIcon.Jeu_Rapide,"ys14-fr024", "Ciblez 1 Carte Magie/Piège sur le Terrain ; détruisez la cible.");
+                resultLabel.setText(hasUnderscore("<html>" +
                         "<div>" +
                         "<p><u>Nom</u> : " + spellCard1.getName() +
                         "<br><u>Type</u> : " + spellCard1.getType() +
-                        //todo: enlever l'underscore de l'icone
                         "<br><u>Icône</u> : " + spellCard1.getSpecialIcon() +
                         "<br><u>Référence</u> : " + spellCard1.getReference().toUpperCase() +
                         "<br><u>Description</u> : " + spellCard1.getDescription() +
                         "</div>" +
-                        "</html>");
+                        "</html>"));
                 displayCardImage(displayButton, resultLabel, resultImagePanel, resultPanel, spellCard1.getReference(), spellCard1);
             } else {
                 isDisplayButtonClicked[0] = false;
