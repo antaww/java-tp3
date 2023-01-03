@@ -69,7 +69,7 @@ public class Utils {
         return Map.of("displayButton", displayButton, "resultLabel", resultLabel, "resultImagePanel", resultImagePanel, "resultPanel", resultPanel);
     }
 
-    public static void displayCardImage(JButton displayButton, JLabel resultLabel, JPanel resultImagePanel, JPanel resultPanel, String cardReference, Card card) {
+    public static void displayCardImage(JButton displayButton, JLabel resultLabel, JPanel resultImagePanel, JPanel resultPanel, Card card) {
         try {
             String reference = card.getReference();
             String firstPart = reference.substring(0, reference.indexOf("-"));

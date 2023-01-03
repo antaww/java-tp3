@@ -34,7 +34,7 @@ public class Exo4_1 {
                         "<br><u>Description</u> : " + spellCard1.getDescription() +
                         "</div>" +
                         "</html>"));
-                displayCardImage(displayButton, resultLabel, resultImagePanel, resultPanel, spellCard1.getReference(), spellCard1);
+                displayCardImage(displayButton, resultLabel, resultImagePanel, resultPanel, spellCard1);
             } else {
                 isDisplayButtonClicked[0] = false;
                 displayButton.setText("Afficher la carte");

@@ -36,7 +36,7 @@ public class Exo3 {
                         "<br><u>Description</u> : " + monsterCard1.getDescription() +
                         "</div>" +
                         "</html>"));
-                displayCardImage(displayButton, resultLabel, resultImagePanel, resultPanel, monsterCard1.getReference(), monsterCard1);
+                displayCardImage(displayButton, resultLabel, resultImagePanel, resultPanel, monsterCard1);
             } else {
                 isDisplayButtonClicked[0] = false;
                 displayButton.setText("Afficher la carte");
