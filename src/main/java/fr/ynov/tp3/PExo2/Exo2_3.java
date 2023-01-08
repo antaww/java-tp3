@@ -18,15 +18,15 @@ public class Exo2_3 {
     static BufferedImage spriteSheet;
 
     public static void main(JFrame frame){
-        JPanel bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
+        var bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
         cleanBodyPanel(bodyPanel);
-        JLabel titleLabel = (JLabel) ((JPanel) ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).getComponent(0)).getComponent(0);
+        var titleLabel = (JLabel) ((JPanel) ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).getComponent(0)).getComponent(0);
         titleLabel.setText("Exercice 2.3 - Afficher Cartes");
 
-        JPanel secondPanel = new JPanel(new BorderLayout());
-        JPanel buttonPanel = new JPanel();
-        JPanel cardsPanel = new JPanel();
-        JButton pickCardButton = new JButton("Tirer une carte");
+        var secondPanel = new JPanel(new BorderLayout());
+        var buttonPanel = new JPanel();
+        var cardsPanel = new JPanel();
+        var pickCardButton = new JButton("Tirer une carte");
         buttonPanel.add(pickCardButton);
         secondPanel.add(buttonPanel, BorderLayout.NORTH);
         secondPanel.add(cardsPanel, BorderLayout.CENTER);
@@ -35,19 +35,19 @@ public class Exo2_3 {
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
 
         try {
-            String SPRITE_SHEET_FILENAME = "src/main/resources/deck.png";
+            var SPRITE_SHEET_FILENAME = "src/main/resources/deck.png";
             spriteSheet = ImageIO.read(new File(SPRITE_SHEET_FILENAME));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         pickCardButton.addActionListener(e -> {
-            int numCards = cardsPanel.getComponentCount();
+            var numCards = cardsPanel.getComponentCount();
             if (numCards < 52) {
-                BufferedImage cardImage = pickRandomCard(numCards);
-                Image scaledCardImage = cardImage.getScaledInstance(CARD_WIDTH/2, CARD_HEIGHT/2, Image.SCALE_SMOOTH);
-                ImageIcon icon = new ImageIcon(scaledCardImage);
-                JLabel label = new JLabel(icon);
+                var cardImage = pickRandomCard(numCards);
+                var scaledCardImage = cardImage.getScaledInstance(CARD_WIDTH/2, CARD_HEIGHT/2, Image.SCALE_SMOOTH);
+                var icon = new ImageIcon(scaledCardImage);
+                var label = new JLabel(icon);
                 cardsPanel.add(label);
                 cardsPanel.revalidate();
                 cardsPanel.repaint();
@@ -68,8 +68,8 @@ public class Exo2_3 {
         } while (cards.contains(index));
         cards.add(index);
         cards.sort(Integer::compareTo);
-        int x = index % 13 * CARD_WIDTH;
-        int y = index / 13 * CARD_HEIGHT;
+        var x = index % 13 * CARD_WIDTH;
+        var y = index / 13 * CARD_HEIGHT;
         return spriteSheet.getSubimage(x, y, CARD_WIDTH, CARD_HEIGHT);
     }
 }

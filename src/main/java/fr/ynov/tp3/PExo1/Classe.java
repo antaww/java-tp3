@@ -14,9 +14,9 @@ public class Classe {
 
     public void afficher() {
         System.out.println("Voici la liste des étudiants de la classe " + nom + " :");
-        for (Map.Entry<String, Etudiant> entry : etudiants.entrySet()) {
-            String nomEtudiant = entry.getKey();
-            Etudiant etudiant = entry.getValue();
+        for (var entry : etudiants.entrySet()) {
+            var nomEtudiant = entry.getKey();
+            var etudiant = entry.getValue();
             System.out.println(" - " + nomEtudiant);
         }
     }
@@ -27,18 +27,18 @@ public class Classe {
 
     public float moyenneClasse(String matiere) {
         double somme = 0;
-        int nbEtudiants = 0;
+        var nbEtudiants = 0;
         if (matiere == null || matiere.isEmpty()) {
-            for (Map.Entry<String, Etudiant> entry : etudiants.entrySet()) {
-                Etudiant etudiant = entry.getValue();
+            for (var entry : etudiants.entrySet()) {
+                var etudiant = entry.getValue();
                 if (etudiant.moyenne(matiere) != -1) {
                     somme += etudiant.moyenne(matiere);
                     nbEtudiants++;
                 }
             }
         } else {
-            for (Map.Entry<String, Etudiant> entry : etudiants.entrySet()) {
-                Etudiant etudiant = entry.getValue();
+            for (var entry : etudiants.entrySet()) {
+                var etudiant = entry.getValue();
                 if (etudiant.moyenne(matiere) != -1) {
                     somme += etudiant.moyenne(matiere);
                     nbEtudiants++;
@@ -49,9 +49,9 @@ public class Classe {
     }
 
     public void setEtudiant(Etudiant etudiant) {
-        String nomEtudiant = etudiant.nom;
-        String prenomEtudiant = etudiant.prenom;
-        String cle = nomEtudiant + " " + prenomEtudiant;
+        var nomEtudiant = etudiant.nom;
+        var prenomEtudiant = etudiant.prenom;
+        var cle = nomEtudiant + " " + prenomEtudiant;
         etudiants.put(cle, etudiant);
     }
 }

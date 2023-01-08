@@ -12,23 +12,23 @@ import static fr.ynov.tp3.PUtils.Utils.*;
 
 public class Exo3 {
     public static void main(JFrame frame) {
-        JPanel bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
+        var bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
         cleanBodyPanel(bodyPanel);
-        JLabel titleLabel = (JLabel) ((JPanel) ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).getComponent(0)).getComponent(0);
+        var titleLabel = (JLabel) ((JPanel) ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).getComponent(0)).getComponent(0);
         titleLabel.setText("Exercice 3 - Yu-Gi-Oh!");
 
         var cardPanel = createCardPanel(bodyPanel, "Carte Monstre");
-        JButton displayButton = (JButton) cardPanel.get("displayButton");
-        JLabel resultLabel = (JLabel) cardPanel.get("resultLabel");
-        JPanel resultImagePanel = (JPanel) cardPanel.get("resultImagePanel");
-        JPanel resultPanel = (JPanel) cardPanel.get("resultPanel");
+        var displayButton = (JButton) cardPanel.get("displayButton");
+        var resultLabel = (JLabel) cardPanel.get("resultLabel");
+        var resultImagePanel = (JPanel) cardPanel.get("resultImagePanel");
+        var resultPanel = (JPanel) cardPanel.get("resultPanel");
 
         final Boolean[] isDisplayButtonClicked = {false};
 
         displayButton.addActionListener(e -> {
             if (!isDisplayButtonClicked[0]) {
                 isDisplayButtonClicked[0] = true;
-                MonsterCard monsterCard1 = new MonsterCard();
+                var monsterCard1 = new MonsterCard();
                 JsonElement jsonElement;
                 try {
                     jsonElement = JsonParser.parseReader(new FileReader("src/main/resources/cards.json"));
@@ -37,17 +37,17 @@ public class Exo3 {
                 }
 
                 jsonElement.getAsJsonArray().forEach(jsonElement1 -> {
-                    String cardName = jsonElement1.getAsJsonObject().get("name").getAsString();
+                    var cardName = jsonElement1.getAsJsonObject().get("name").getAsString();
                     if (cardName.equals("Invocateur Dragon Bleu")) {
-                        int cardLevel = jsonElement1.getAsJsonObject().get("level").getAsInt();
-                        String cardAttribute = jsonElement1.getAsJsonObject().get("attribute").getAsString();
-                        String cardRace = jsonElement1.getAsJsonObject().get("race").getAsString();
-                        String cardType = jsonElement1.getAsJsonObject().get("type").getAsString();
-                        String cardReference = jsonElement1.getAsJsonObject().get("card_sets").getAsJsonArray().get(0).getAsJsonObject().get("set_code").getAsString();
-                        int cardAtk = jsonElement1.getAsJsonObject().get("atk").getAsInt();
-                        int cardDef = jsonElement1.getAsJsonObject().get("def").getAsInt();
-                        String cardDescription = jsonElement1.getAsJsonObject().get("desc").getAsString();
-                        String cardImage = jsonElement1.getAsJsonObject().get("card_images").getAsJsonArray().get(0).getAsJsonObject().get("image_url").getAsString();
+                        var cardLevel = jsonElement1.getAsJsonObject().get("level").getAsInt();
+                        var cardAttribute = jsonElement1.getAsJsonObject().get("attribute").getAsString();
+                        var cardRace = jsonElement1.getAsJsonObject().get("race").getAsString();
+                        var cardType = jsonElement1.getAsJsonObject().get("type").getAsString();
+                        var cardReference = jsonElement1.getAsJsonObject().get("card_sets").getAsJsonArray().get(0).getAsJsonObject().get("set_code").getAsString();
+                        var cardAtk = jsonElement1.getAsJsonObject().get("atk").getAsInt();
+                        var cardDef = jsonElement1.getAsJsonObject().get("def").getAsInt();
+                        var cardDescription = jsonElement1.getAsJsonObject().get("desc").getAsString();
+                        var cardImage = jsonElement1.getAsJsonObject().get("card_images").getAsJsonArray().get(0).getAsJsonObject().get("image_url").getAsString();
 
                         System.out.println("Nom : " + cardName);
                         System.out.println("Niveau : " + cardLevel);

@@ -3,10 +3,10 @@ package fr.ynov.tp3.PExo1;
 public class Test {
     public void testEtudiant() {
         // Création d'un étudiant et ajout de quelques notes
-        Etudiant etudiant1 = new Etudiant("Dupont", "Jean");
-        Etudiant etudiant2 = new Etudiant("Némar", "Jean");
-        Etudiant etudiant3 = new Etudiant("Doe", "John");
-        Etudiant etudiant4 = new Etudiant("Doe", "Jane");
+        var etudiant1 = new Etudiant("Dupont", "Jean");
+        var etudiant2 = new Etudiant("Némar", "Jean");
+        var etudiant3 = new Etudiant("Doe", "John");
+        var etudiant4 = new Etudiant("Doe", "Jane");
         etudiant1.setNote("Maths", "Examen", 2, 10);
         etudiant1.setNote("Maths", "Devoir", 8);
         etudiant1.setNote("Physique", "Examen", 2, 9);
@@ -49,8 +49,7 @@ public class Test {
         System.out.println("\n");
 
 
-
-        Classe maClasse = new Classe("B2 - Linux/Réseaux");
+        var maClasse = new Classe("B2 - Linux/Réseaux");
         maClasse.setEtudiant(etudiant1);
         maClasse.setEtudiant(etudiant2);
         maClasse.setEtudiant(etudiant3);

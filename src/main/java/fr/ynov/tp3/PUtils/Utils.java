@@ -8,7 +8,6 @@ import fr.ynov.tp3.PExo4.SpecialType;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -16,10 +15,10 @@ import java.util.Map;
 
 public class Utils {
     public static void cleanBodyPanel(JPanel bodyPanel) {
-        Component[] bodyPanelComponents = bodyPanel.getComponents();
+        var bodyPanelComponents = bodyPanel.getComponents();
 
         if (bodyPanelComponents.length > 1) {
-            for (int i = 1; i < bodyPanelComponents.length; i++) {
+            for (var i = 1; i < bodyPanelComponents.length; i++) {
                 bodyPanel.remove(bodyPanelComponents[i]);
             }
             bodyPanel.setLayout(new GridLayout(1, 1));
@@ -33,10 +32,10 @@ public class Utils {
         translations.put("Effect", "Effet");
         translations.put("world", "monde");
 
-        String[] words = stringToTranslate.split(" ");
-        StringBuilder output = new StringBuilder();
-        for (String word : words) {
-            String translatedWord = translations.get(word);
+        var words = stringToTranslate.split(" ");
+        var output = new StringBuilder();
+        for (var word : words) {
+            var translatedWord = translations.get(word);
             if (translatedWord != null) {
                 output.append(translatedWord).append(" ");
             } else {
@@ -52,33 +51,33 @@ public class Utils {
     }
 
     public static Map<String, JComponent> createCardPanel(JPanel bodyPanel, String subtitle) {
-        JPanel secondPanel = new JPanel();
-        JLabel subtitleLabel = new JLabel(subtitle);
+        var secondPanel = new JPanel();
+        var subtitleLabel = new JLabel(subtitle);
         subtitleLabel.setFont(new Font("Arial", Font.BOLD, 20));
         subtitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         secondPanel.add(subtitleLabel);
         bodyPanel.add(secondPanel);
         bodyPanel.add(Box.createRigidArea(new Dimension(0, 30)));
 
-        JPanel thirdPanel = new JPanel();
+        var thirdPanel = new JPanel();
         thirdPanel.setLayout(new BoxLayout(thirdPanel, BoxLayout.Y_AXIS));
-        JPanel thirdPanelBody = new JPanel(new BorderLayout());
+        var thirdPanelBody = new JPanel(new BorderLayout());
         thirdPanel.add(thirdPanelBody);
 
-        JPanel displayButtonPanel = new JPanel();
-        JButton displayButton = new JButton("Afficher la carte");
+        var displayButtonPanel = new JPanel();
+        var displayButton = new JButton("Afficher la carte");
         displayButton.setPreferredSize(new Dimension(200, 30));
         displayButtonPanel.add(displayButton);
         thirdPanelBody.add(displayButtonPanel, BorderLayout.NORTH);
 
-        JLabel resultLabel = new JLabel();
+        var resultLabel = new JLabel();
         resultLabel.setFont(new Font("Arial", Font.BOLD, 12));
         resultLabel.setText("Cliquer sur le bouton pour afficher la carte...");
         resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
         resultLabel.setVerticalAlignment(SwingConstants.TOP);
-        JPanel resultImagePanel = new JPanel();
+        var resultImagePanel = new JPanel();
 
-        JPanel resultPanel = new JPanel();
+        var resultPanel = new JPanel();
         resultPanel.add(resultLabel);
         resultPanel.add(resultImagePanel);
         thirdPanelBody.add(resultPanel, BorderLayout.CENTER);
@@ -90,13 +89,13 @@ public class Utils {
 
     public static void displayCardImage(JButton displayButton, JLabel resultLabel, JPanel resultImagePanel, JPanel resultPanel, String cardImage) {
         try {
-            URL url = new URL(cardImage);
-            BufferedImage image = ImageIO.read(url);
-            Image scaledImage = image.getScaledInstance(image.getWidth() / 3, image.getHeight() / 3, Image.SCALE_SMOOTH);
-            JLabel picLabel = new JLabel(new ImageIcon(scaledImage));
+            var url = new URL(cardImage);
+            var image = ImageIO.read(url);
+            var scaledImage = image.getScaledInstance(image.getWidth() / 3, image.getHeight() / 3, Image.SCALE_SMOOTH);
+            var picLabel = new JLabel(new ImageIcon(scaledImage));
             resultImagePanel.add(picLabel);
         } catch (IOException ioException) {
-            JLabel errorLabel = new JLabel("Image error 404");
+            var errorLabel = new JLabel("Image error 404");
             resultImagePanel.add(errorLabel);
         }
         displayButton.setText("Masquer la carte");
