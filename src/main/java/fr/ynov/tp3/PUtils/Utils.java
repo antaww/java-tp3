@@ -1,6 +1,5 @@
 package fr.ynov.tp3.PUtils;
 
-import fr.ynov.tp3.Card;
 import fr.ynov.tp3.PExo3.*;
 import fr.ynov.tp3.PExo4.SpecialCards;
 import fr.ynov.tp3.PExo4.SpecialIcon;
@@ -12,6 +11,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Utils {
@@ -26,6 +26,25 @@ public class Utils {
             bodyPanel.revalidate();
             bodyPanel.repaint();
         }
+    }
+
+    public static void translateString(String stringToTranslate){
+        Map<String, String> translations = new HashMap<>();
+        translations.put("Effect", "Effet");
+        translations.put("world", "monde");
+
+        String[] words = stringToTranslate.split(" ");
+        StringBuilder output = new StringBuilder();
+        for (String word : words) {
+            String translatedWord = translations.get(word);
+            if (translatedWord != null) {
+                output.append(translatedWord).append(" ");
+            } else {
+                output.append(word).append(" ");
+            }
+        }
+
+        System.out.println(output.toString().trim());
     }
 
     public static String hasUnderscore(String str) {
@@ -69,13 +88,11 @@ public class Utils {
         return Map.of("displayButton", displayButton, "resultLabel", resultLabel, "resultImagePanel", resultImagePanel, "resultPanel", resultPanel);
     }
 
-    public static void displayCardImage(JButton displayButton, JLabel resultLabel, JPanel resultImagePanel, JPanel resultPanel, Card card) {
+    public static void displayCardImage(JButton displayButton, JLabel resultLabel, JPanel resultImagePanel, JPanel resultPanel, String cardImage) {
         try {
-            String reference = card.getReference();
-            String firstPart = reference.substring(0, reference.indexOf("-"));
-            URL url = new URL("https://www.ultrajeux.com/images/yugioh/scan/normal/fr/" + firstPart + "/" + reference + ".jpg");
+            URL url = new URL(cardImage);
             BufferedImage image = ImageIO.read(url);
-            Image scaledImage = image.getScaledInstance(image.getWidth() / 2, image.getHeight() / 2, Image.SCALE_SMOOTH);
+            Image scaledImage = image.getScaledInstance(image.getWidth() / 3, image.getHeight() / 3, Image.SCALE_SMOOTH);
             JLabel picLabel = new JLabel(new ImageIcon(scaledImage));
             resultImagePanel.add(picLabel);
         } catch (IOException ioException) {

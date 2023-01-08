@@ -30,7 +30,7 @@ public class Exo4 {
                     case "Carte Magie" -> {
                         SpecialCards spellCard1 = new SpecialCards();
                         setSpecialCard(spellCard1, "Typhon d'Espace Mysthique", SpecialType.Magie, SpecialIcon.Jeu_Rapide, "ys14-fr024", "Ciblez 1 Carte Magie/Piège sur le Terrain ; détruisez la cible.");
-                        displayCardImage(displayButton, resultLabel, resultImagePanel, resultPanel, spellCard1);
+//                        displayCardImage(displayButton, resultLabel, resultImagePanel, resultPanel, spellCard1);
                         resultLabel.setText(hasUnderscore("<html>" +
                                 "<div>" +
                                 "<p><u>Nom</u> : " + spellCard1.getName() +
@@ -44,7 +44,7 @@ public class Exo4 {
                     case "Carte Piège" -> {
                         SpecialCards trapCard1 = new SpecialCards();
                         setSpecialCard(trapCard1, "Sortilège De l'Ombre", SpecialType.Piege, SpecialIcon.Continu, "ys14-fr034", "Activez cette carte en ciblant 1 monstre face recto contrôlé par votre adversaire ; il perd 700 ATK, et aussi, il ne peut ni attaquer ni changer sa position de combat. Lorsqu’il quitte le Terrain, détruisez cette carte.");
-                        displayCardImage(displayButton, resultLabel, resultImagePanel, resultPanel, trapCard1);
+//                        displayCardImage(displayButton, resultLabel, resultImagePanel, resultPanel, trapCard1);
                         resultLabel.setText(hasUnderscore("<html>" +
                                 "<div>" +
                                 "<p><u>Nom</u> : " + trapCard1.getName() +

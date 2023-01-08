@@ -1,10 +1,21 @@
 package fr.ynov.tp3.PExo3;
 
 public enum TertiaryType {
-    Flip,
-    Toon,
-    Spirit,
-    Union,
-    Gemeau,
-    Synthoniseur
+    Flip("Flip"),
+    Gemini("Gémeau"),
+    Spirit("Spirit"),
+    Synchro("Synchro"),
+    Toon("Toon"),
+    Tuner("Synthoniseur"),
+    Union("Union");
+
+    final String displayName;
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    TertiaryType(String displayName){
+        this.displayName = displayName;
+    }
 }

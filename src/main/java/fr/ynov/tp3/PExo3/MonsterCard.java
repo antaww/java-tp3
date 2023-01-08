@@ -42,7 +42,7 @@ public class MonsterCard implements Card {
     }
 
     public String getAllTypes() {
-        return "[" + primaryType + (secondaryType == null ? "" : " / " + secondaryType) + (tertiaryType == null ? "" : " / " + tertiaryType) + " / " + monsterType + "]";
+        return "[" + primaryType.getDisplayName() + (secondaryType == null ? "" : " / " + secondaryType.getDisplayName()) + (tertiaryType == null ? "" : " / " + tertiaryType.getDisplayName()) + " / " + monsterType.getDisplayName() + "]";
     }
 
     public void setPrimaryType(PrimaryType primaryType) {
