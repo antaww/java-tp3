@@ -38,7 +38,8 @@ public class Exo3 {
 
                 jsonElement.getAsJsonArray().forEach(jsonElement1 -> {
                     var cardName = jsonElement1.getAsJsonObject().get("name").getAsString();
-                    if (cardName.equals("Invocateur Dragon Bleu")) {
+//                    if (cardName.equals("Invocateur Dragon Bleu")) {
+                    if (cardName.equals("Ukiyoe-P.U.N.K. Dragon Extraordinaire")) {
                         var cardLevel = jsonElement1.getAsJsonObject().get("level").getAsInt();
                         var cardAttribute = jsonElement1.getAsJsonObject().get("attribute").getAsString();
                         var cardRace = jsonElement1.getAsJsonObject().get("race").getAsString();
@@ -48,6 +49,7 @@ public class Exo3 {
                         var cardDef = jsonElement1.getAsJsonObject().get("def").getAsInt();
                         var cardDescription = jsonElement1.getAsJsonObject().get("desc").getAsString();
                         var cardImage = jsonElement1.getAsJsonObject().get("card_images").getAsJsonArray().get(0).getAsJsonObject().get("image_url").getAsString();
+                        var cardTypes = cardRace + " " + cardType;
 
                         System.out.println("Nom : " + cardName);
                         System.out.println("Niveau : " + cardLevel);
@@ -60,9 +62,8 @@ public class Exo3 {
                         System.out.println("DEF : " + cardDef);
                         System.out.println("Description : " + cardDescription);
                         System.out.println("Image : " + cardImage);
-                        setMonsterCard(monsterCard1, cardName, cardLevel, Attribute.valueOf(cardAttribute), PrimaryType.valueOf(cardRace), MonsterType.Effect, cardReference, cardAtk, cardDef, cardDescription);
+                        setMonsterCard(monsterCard1, cardName, cardLevel, Attribute.valueOf(cardAttribute), cardTypes, cardReference, cardAtk, cardDef, cardDescription);
                         displayCardImage(displayButton, resultLabel, resultImagePanel, resultPanel, cardImage);
-                        translateString("test de l'effect Effect");
                     }
                 });
 
@@ -72,7 +73,7 @@ public class Exo3 {
                         "<p><u>Nom</u> : " + monsterCard1.getName() +
                         "<br><u>Niveau</u> : " + monsterCard1.getLevel() +
                         "<br><u>Attribut</u> : " + monsterCard1.getAttribute() +
-                        "<br><u>Types</u> : " + monsterCard1.getAllTypes() +
+                        "<br><u>Types</u> : " + "[" + translateString(monsterCard1.getTypes()) + "]" +
                         "<br><u>Référence</u> : " + monsterCard1.getReference().toUpperCase() +
                         "<br><u>Statistiques</u> : " + monsterCard1.getStats() +
                         "<br><u>Description</u> : " + monsterCard1.getDescription() +

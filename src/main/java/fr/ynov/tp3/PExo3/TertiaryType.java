@@ -4,7 +4,6 @@ public enum TertiaryType {
     Flip("Flip"),
     Gemini("Gémeau"),
     Spirit("Spirit"),
-    Synchro("Synchro"),
     Toon("Toon"),
     Tuner("Synthoniseur"),
     Union("Union");

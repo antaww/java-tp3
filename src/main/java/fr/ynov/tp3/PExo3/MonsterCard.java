@@ -6,11 +6,12 @@ public class MonsterCard implements Card {
     private String name;
     private int level; // 1-12
     private Attribute attribute; // Eau, Feu, Terre, Vent, Lumière, Ténèbres, Divin
-    private PrimaryType primaryType; // Magicien, Bête, Dinosaure, Pyro, Psychique, Dragon, Bête-ailée, Reptile, Tonnerre, Bête-divine, Zombie,
+    private String types;
+    //private PrimaryType primaryType; // Magicien, Bête, Dinosaure, Pyro, Psychique, Dragon, Bête-ailée, Reptile, Tonnerre, Bête-divine, Zombie,
     // Démon, Poisson, Rocher, Wyrm, Guerrier, Elfe, Serpent De Mer, Plante, Cyberse, Bête-guerrier, Insecte, Aqua, Machine, Créateur
-    private SecondaryType secondaryType = null; // Fusion, Synchro, Xyz, Rituel, Pendule, Lien
-    private TertiaryType tertiaryType = null; // Flip, Toon, Spirit, Union, Gémeau, Synthoniseur
-    private MonsterType monsterType; // Normal, Effet
+    //private SecondaryType secondaryType = null; // Fusion, Synchro, Xyz, Rituel, Pendule, Lien
+    //private TertiaryType tertiaryType = null; // Flip, Toon, Spirit, Union, Gémeau, Synthoniseur
+    //private MonsterType monsterType; // Normal, Effet
     // Types primaire et monstre obligatoires, types secondaire et type tertiaire facultatifs
     // Peut avoir 2 à 4 types (primaire, ?secondaire, ?tertiaire, monstre)
     private String reference; // XXXX-XXXXX
@@ -41,25 +42,25 @@ public class MonsterCard implements Card {
         this.attribute = attribute;
     }
 
-    public String getAllTypes() {
-        return "[" + primaryType.getDisplayName() + (secondaryType == null ? "" : " / " + secondaryType.getDisplayName()) + (tertiaryType == null ? "" : " / " + tertiaryType.getDisplayName()) + " / " + monsterType.getDisplayName() + "]";
-    }
-
-    public void setPrimaryType(PrimaryType primaryType) {
-        this.primaryType = primaryType;
-    }
-
-    public void setSecondaryType(SecondaryType secondaryType) {
-        this.secondaryType = secondaryType;
-    }
-
-    public void setTertiaryType(TertiaryType tertiaryType) {
-        this.tertiaryType = tertiaryType;
-    }
-
-    public void setMonsterType(MonsterType monsterType) {
-        this.monsterType = monsterType;
-    }
+//    public String getAllTypes() {
+//        return "[" + primaryType.getDisplayName() + (secondaryType == null ? "" : " / " + secondaryType.getDisplayName()) + (tertiaryType == null ? "" : " / " + tertiaryType.getDisplayName()) + " / " + monsterType.getDisplayName() + "]";
+//    }
+//
+//    public void setPrimaryType(PrimaryType primaryType) {
+//        this.primaryType = primaryType;
+//    }
+//
+//    public void setSecondaryType(SecondaryType secondaryType) {
+//        this.secondaryType = secondaryType;
+//    }
+//
+//    public void setTertiaryType(TertiaryType tertiaryType) {
+//        this.tertiaryType = tertiaryType;
+//    }
+//
+//    public void setMonsterType(MonsterType monsterType) {
+//        this.monsterType = monsterType;
+//    }
 
     public String getReference() {
         return reference;
@@ -83,6 +84,14 @@ public class MonsterCard implements Card {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getTypes() {
+        return types;
+    }
+
+    public void setTypes(String types) {
+        this.types = types;
     }
 }
 

@@ -1,6 +1,7 @@
 package fr.ynov.tp3.PUtils;
 
-import fr.ynov.tp3.PExo3.*;
+import fr.ynov.tp3.PExo3.Attribute;
+import fr.ynov.tp3.PExo3.MonsterCard;
 import fr.ynov.tp3.PExo4.SpecialCards;
 import fr.ynov.tp3.PExo4.SpecialIcon;
 import fr.ynov.tp3.PExo4.SpecialType;
@@ -27,13 +28,69 @@ public class Utils {
         }
     }
 
-    public static void translateString(String stringToTranslate){
+    public static String translateString(String stringToTranslate) {
         Map<String, String> translations = new HashMap<>();
+        //todo : traduire le mot en ajoutant " / " a la fin
+
+        //MonsterType
         translations.put("Effect", "Effet");
-        translations.put("world", "monde");
+        translations.put("Normal", ""); // Do not display "Normal" in the card
+        translations.put("Monster", ""); // Do not display "Monster" in the card
+
+        //PrimaryType
+        translations.put("Aqua", "Aqua");
+        translations.put("Beast", "Bête");
+        translations.put("Beast-Warrior", "Bête-guerrier");
+        translations.put("Creator-God", "Créateur");
+        translations.put("Cyberse", "Cyberse");
+        translations.put("Dinosaur", "Dinosaure");
+        translations.put("Divine-Beast", "Bête-divine");
+        translations.put("Dragon", "Dragon");
+        translations.put("Fairy", "Elfe");
+        translations.put("Fiend", "Démon");
+        translations.put("Fish", "Poisson");
+        translations.put("Insect", "Insecte");
+        translations.put("Machine", "Machine");
+        translations.put("Plant", "Plante");
+        translations.put("Psychic", "Psychique");
+        translations.put("Pyro", "Pyro");
+        translations.put("Reptile", "Reptile");
+        translations.put("Rock", "Rocher");
+        translations.put("Sea Serpent", "Serpent De Mer");
+        translations.put("Spellcaster", "Magicien");
+        translations.put("Thunder", "Tonnerre");
+        translations.put("Warrior", "Guerrier");
+        translations.put("Winged Beast", "Bête-ailée");
+        translations.put("Wyrm", "Wyrm");
+        translations.put("Zombie", "Zombie");
+
+        //SecondaryType
+        translations.put("Fusion", "Fusion");
+        translations.put("Link", "Lien");
+        translations.put("Pendulum", "Pendule");
+        translations.put("Ritual", "Rituel");
+        translations.put("XYZ", "Xyz");
+
+        //TertiaryType
+        translations.put("Flip", "Flip");
+        translations.put("Gemini", "Gémeau");
+        translations.put("Spirit", "Spirit");
+        translations.put("Synchro", "Synchro");
+        translations.put("Toon", "Toon");
+        translations.put("Tuner", "Synthoniseur");
+        translations.put("Union", "Union");
+
+        StringBuilder output;
+        if (stringToTranslate.contains(" ")) { //If the string to translate is a combination of words
+            for (var entry : translations.entrySet()) {
+                if (stringToTranslate.contains(entry.getKey())) {
+                    stringToTranslate = stringToTranslate.replace(entry.getKey(), entry.getValue());
+                }
+            }
+        }
 
         var words = stringToTranslate.split(" ");
-        var output = new StringBuilder();
+        output = new StringBuilder();
         for (var word : words) {
             var translatedWord = translations.get(word);
             if (translatedWord != null) {
@@ -43,7 +100,7 @@ public class Utils {
             }
         }
 
-        System.out.println(output.toString().trim());
+        return output.toString().trim();
     }
 
     public static String hasUnderscore(String str) {
@@ -104,31 +161,32 @@ public class Utils {
         resultLabel.setPreferredSize(new Dimension(402, 250));
     }
 
-    //if card doesn't have secondary type & tertiary type
-    public static void setMonsterCard(MonsterCard monsterCard, String name, int level, Attribute attribute, PrimaryType primaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
-        setMonsterCard(monsterCard, name, level, attribute, primaryType, null, null, monsterType, reference, atk, def, description);
-    }
+//    //if card doesn't have secondary type & tertiary type
+//    public static void setMonsterCard(MonsterCard monsterCard, String name, int level, Attribute attribute, PrimaryType primaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
+//        setMonsterCard(monsterCard, name, level, attribute, primaryType, null, null, monsterType, reference, atk, def, description);
+//    }
+//
+//    //if card doesn't have secondary type
+//    //unused for the moment but useful if we want to add a card with tertiary type but without secondary type
+//    public static void setMonsterCard(MonsterCard monsterCard, String name, int level, Attribute attribute, PrimaryType primaryType, TertiaryType tertiaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
+//        setMonsterCard(monsterCard, name, level, attribute, primaryType, null, tertiaryType, monsterType, reference, atk, def, description);
+//    }
+//
+//    //if card doesn't have tertiary type
+//    //unused for the moment but useful if we want to add a card with secondary type but without tertiary type
+//    public static void setMonsterCard(MonsterCard monsterCard, String name, int level, Attribute attribute, PrimaryType primaryType, SecondaryType secondaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
+//        setMonsterCard(monsterCard, name, level, attribute, primaryType, secondaryType, null, monsterType, reference, atk, def, description);
+//    }
 
-    //if card doesn't have secondary type
-    //unused for the moment but useful if we want to add a card with tertiary type but without secondary type
-    public static void setMonsterCard(MonsterCard monsterCard, String name, int level, Attribute attribute, PrimaryType primaryType, TertiaryType tertiaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
-        setMonsterCard(monsterCard, name, level, attribute, primaryType, null, tertiaryType, monsterType, reference, atk, def, description);
-    }
-
-    //if card doesn't have tertiary type
-    //unused for the moment but useful if we want to add a card with secondary type but without tertiary type
-    public static void setMonsterCard(MonsterCard monsterCard, String name, int level, Attribute attribute, PrimaryType primaryType, SecondaryType secondaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
-        setMonsterCard(monsterCard, name, level, attribute, primaryType, secondaryType, null, monsterType, reference, atk, def, description);
-    }
-
-    public static void setMonsterCard(MonsterCard monsterCard, String name, int level, Attribute attribute, PrimaryType primaryType, SecondaryType secondaryType, TertiaryType tertiaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
+    public static void setMonsterCard(MonsterCard monsterCard, String name, int level, Attribute attribute, String types, String reference, int atk, int def, String description) {
         monsterCard.setName(name);
         monsterCard.setLevel(level);
         monsterCard.setAttribute(attribute);
-        monsterCard.setPrimaryType(primaryType);
-        monsterCard.setSecondaryType(secondaryType);
-        monsterCard.setTertiaryType(tertiaryType);
-        monsterCard.setMonsterType(monsterType);
+        monsterCard.setTypes(types);
+//        monsterCard.setPrimaryType(primaryType);
+//        monsterCard.setSecondaryType(secondaryType);
+//        monsterCard.setTertiaryType(tertiaryType);
+//        monsterCard.setMonsterType(monsterType);
         monsterCard.setReference(reference);
         monsterCard.setStats(new String[]{String.valueOf(atk), String.valueOf(def)});
         monsterCard.setDescription(description);
