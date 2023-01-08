@@ -34,7 +34,7 @@ public class MonsterCard implements Card {
     }
 
     public String getAttribute() {
-        return attribute.toString();
+        return attribute.getDisplayName();
     }
 
     public void setAttribute(Attribute attribute) {

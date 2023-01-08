@@ -1,7 +1,12 @@
 package fr.ynov.tp3.PExo3;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 import static fr.ynov.tp3.PUtils.Utils.*;
 
@@ -24,7 +29,33 @@ public class Exo3 {
             if (!isDisplayButtonClicked[0]) {
                 isDisplayButtonClicked[0] = true;
                 MonsterCard monsterCard1 = new MonsterCard();
-                setMonsterCard(monsterCard1, "Invocateur Dragon Bleu", 4, Attribute.Vent, PrimaryType.Magicien, MonsterType.Effet, "ys14-fr017", 1500, 600, "Si cette carte est envoyée depuis le Terrain au Cimetière : vous pouvez ajouter 1 Monstre Normal de Type Dragon/Guerrier/Magicien depuis votre Deck a votre main.");
+                JsonElement jsonElement;
+                try {
+                    jsonElement = JsonParser.parseReader(new FileReader("src/main/resources/cards.json"));
+                } catch (FileNotFoundException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                jsonElement.getAsJsonArray().forEach(jsonElement1 -> {
+                    if(jsonElement1.getAsJsonObject().get("name").getAsString().equals("Invocateur Dragon Bleu")) {
+                        System.out.println(jsonElement1);
+                        System.out.println("Nom : " + jsonElement1.getAsJsonObject().get("name").getAsString());
+                        System.out.println("Niveau : " + jsonElement1.getAsJsonObject().get("level").getAsString());
+                        System.out.println("Attribut : " + jsonElement1.getAsJsonObject().get("attribute").getAsString());
+                        //todo: regrouper type & race pour types (supprimer primaryType, secondaryType etc.)
+                        System.out.println("Type : " + jsonElement1.getAsJsonObject().get("type").getAsString());
+                        System.out.println("Race : " + jsonElement1.getAsJsonObject().get("race").getAsString());
+                        System.out.println("Référence : " + jsonElement1.getAsJsonObject().get("card_sets").getAsJsonArray().get(0).getAsJsonObject().get("set_code").getAsString());
+                        System.out.println("ATK : " + jsonElement1.getAsJsonObject().get("atk").getAsString());
+                        System.out.println("DEF : " + jsonElement1.getAsJsonObject().get("def").getAsString());
+                        System.out.println("Description : " + jsonElement1.getAsJsonObject().get("desc").getAsString());
+                        System.out.println("Image : " + jsonElement1.getAsJsonObject().get("card_images").getAsJsonArray().get(0).getAsJsonObject().get("image_url").getAsString());
+//                        setMonsterCard(monsterCard1, "Invocateur Dragon Bleu", 4, Attribute.valueOf(jsonElement1.getAsJsonObject().get("attribute").getAsString()), PrimaryType.Magicien, MonsterType.Effet, "ys14-fr017", 1500, 600, "Si cette carte est envoyée depuis le Terrain au Cimetière : vous pouvez ajouter 1 Monstre Normal de Type Dragon/Guerrier/Magicien depuis votre Deck a votre main.");
+
+                    }
+                });
+
+                setMonsterCard(monsterCard1, "Invocateur Dragon Bleu", 4, Attribute.WIND, PrimaryType.Magicien, MonsterType.Effet, "ys14-fr017", 1500, 600, "Si cette carte est envoyée depuis le Terrain au Cimetière : vous pouvez ajouter 1 Monstre Normal de Type Dragon/Guerrier/Magicien depuis votre Deck a votre main.");
                 resultLabel.setText(hasUnderscore("<html>" +
                         "<div>" +
                         "<p><u>Nom</u> : " + monsterCard1.getName() +
