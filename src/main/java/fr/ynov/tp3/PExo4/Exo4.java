@@ -42,42 +42,11 @@ public class Exo4 {
                 switch (specialType) {
                     case "Carte Magie" -> {
                         var spellCard1 = new SpecialCards();
-                        jsonElement.getAsJsonArray().forEach(jsonElement1 -> {
-                            var cardName = jsonElement1.getAsJsonObject().get("name").getAsString();
-                            if (cardName.equals("Typhon d'Espace Mystique")) {
-                                var cardType = replaceByUnderscore(jsonElement1.getAsJsonObject().get("type").getAsString());
-                                var cardRace = replaceByUnderscore(jsonElement1.getAsJsonObject().get("race").getAsString());
-                                var cardReference = jsonElement1.getAsJsonObject().get("card_sets").getAsJsonArray().get(0).getAsJsonObject().get("set_code").getAsString();
-                                var cardDescription = jsonElement1.getAsJsonObject().get("desc").getAsString();
-                                var cardImage = jsonElement1.getAsJsonObject().get("card_images").getAsJsonArray().get(0).getAsJsonObject().get("image_url").getAsString();
-
-                                setSpecialCard(spellCard1, cardName, SpecialType.valueOf(cardType), SpecialIcon.valueOf(cardRace), cardReference, cardDescription);
-                                displayCardImage(displayButton, resultLabel, resultImagePanel, resultPanel, cardImage);
-                            }
-                        });
-                        resultLabel.setText(hasUnderscore("<html>" +
-                                "<div>" +
-                                "<p><u>Nom</u> : " + spellCard1.getName() +
-                                "<br><u>Type</u> : " + spellCard1.getType() +
-                                "<br><u>Icône</u> : " + spellCard1.getSpecialIcon() +
-                                "<br><u>Référence</u> : " + spellCard1.getReference().toUpperCase() +
-                                "<br><u>Description</u> : " + spellCard1.getDescription() +
-                                "</div>" +
-                                "</html>"));
+                        createAndDisplaySpecialCard(spellCard1, "Typhon d'Espace Mystique", displayButton, resultLabel, resultImagePanel, resultPanel, jsonElement);
                     }
                     case "Carte Piège" -> {
-//                        var trapCard1 = new SpecialCards();
-//                        setSpecialCard(trapCard1, "Sortilège De l'Ombre", SpecialType.Piege, SpecialIcon.Continu, "ys14-fr034", "Activez cette carte en ciblant 1 monstre face recto contrôlé par votre adversaire ; il perd 700 ATK, et aussi, il ne peut ni attaquer ni changer sa position de combat. Lorsqu’il quitte le Terrain, détruisez cette carte.");
-////                        displayCardImage(displayButton, resultLabel, resultImagePanel, resultPanel, trapCard1);
-//                        resultLabel.setText(hasUnderscore("<html>" +
-//                                "<div>" +
-//                                "<p><u>Nom</u> : " + trapCard1.getName() +
-//                                "<br><u>Type</u> : " + trapCard1.getType() +
-//                                "<br><u>Icône</u> : " + trapCard1.getSpecialIcon() +
-//                                "<br><u>Référence</u> : " + trapCard1.getReference().toUpperCase() +
-//                                "<br><u>Description</u> : " + trapCard1.getDescription() +
-//                                "</div>" +
-//                                "</html>"));
+                        var trapCard1 = new SpecialCards();
+                        createAndDisplaySpecialCard(trapCard1, "Sortilège de l'ombre", displayButton, resultLabel, resultImagePanel, resultPanel, jsonElement);
                     }
                 }
             } else {
@@ -92,6 +61,4 @@ public class Exo4 {
         });
         frame.setVisible(true);
     }
-
-
 }

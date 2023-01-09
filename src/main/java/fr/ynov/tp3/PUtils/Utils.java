@@ -1,5 +1,6 @@
 package fr.ynov.tp3.PUtils;
 
+import com.google.gson.JsonElement;
 import fr.ynov.tp3.PExo3.Attribute;
 import fr.ynov.tp3.PExo3.MonsterCard;
 import fr.ynov.tp3.PExo4.SpecialCards;
@@ -110,6 +111,32 @@ public class Utils {
 
     public static String replaceByUnderscore(String str) {
         return (str.contains("-") || str.contains(" ")) ? str.replace("-", "_").replace(" ", "_") : str;
+    }
+
+    public static void createAndDisplaySpecialCard(SpecialCards spellCard1, String specialCardName, JButton displayButton, JLabel resultLabel, JPanel resultImagePanel, JPanel resultPanel, JsonElement jsonElement) {
+        jsonElement.getAsJsonArray().forEach(jsonElement1 -> {
+            var cardName = jsonElement1.getAsJsonObject().get("name").getAsString();
+            if (cardName.equals(specialCardName)) {
+                var cardType = replaceByUnderscore(jsonElement1.getAsJsonObject().get("type").getAsString());
+                var cardRace = replaceByUnderscore(jsonElement1.getAsJsonObject().get("race").getAsString());
+                var cardReference = jsonElement1.getAsJsonObject().get("card_sets").getAsJsonArray().get(0).getAsJsonObject().get("set_code").getAsString();
+                var cardDescription = jsonElement1.getAsJsonObject().get("desc").getAsString();
+                var cardImage = jsonElement1.getAsJsonObject().get("card_images").getAsJsonArray().get(0).getAsJsonObject().get("image_url").getAsString();
+
+                setSpecialCard(spellCard1, cardName, SpecialType.valueOf(cardType), SpecialIcon.valueOf(cardRace), cardReference, cardDescription);
+                displayCardImage(displayButton, resultLabel, resultImagePanel, resultPanel, cardImage);
+            }
+        });
+        resultLabel.setText(hasUnderscore("<html>" +
+                "<div>" +
+                "<p><u>Nom</u> : " + spellCard1.getName() +
+                "<br><u>Type</u> : " + spellCard1.getType() +
+                "<br><u>Icône</u> : " + spellCard1.getSpecialIcon() +
+                "<br><u>Référence</u> : " + spellCard1.getReference().toUpperCase() +
+                "<br><u>Description</u> : " + spellCard1.getDescription() +
+                "</div>" +
+                "</html>")
+        );
     }
 
     public static Map<String, JComponent> createCardPanel(JPanel bodyPanel, String subtitle) {
