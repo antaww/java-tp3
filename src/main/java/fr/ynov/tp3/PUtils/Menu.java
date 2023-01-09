@@ -21,6 +21,7 @@ public class Menu {
             e.printStackTrace();
         }
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setIconImage(new ImageIcon("src/main/resources/logo.png").getImage());
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
 
