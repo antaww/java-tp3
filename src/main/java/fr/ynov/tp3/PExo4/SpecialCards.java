@@ -18,7 +18,7 @@ public class SpecialCards implements Card {
     }
 
     public String getType() {
-        return "[" + type + "]";
+        return type.getDisplayName();
     }
 
     public void setType(SpecialType type) {
@@ -26,7 +26,7 @@ public class SpecialCards implements Card {
     }
 
     public String getSpecialIcon() {
-        return specialIcon.toString();
+        return specialIcon.getDisplayName();
     }
 
     public void setSpecialIcon(SpecialIcon specialIcon) {

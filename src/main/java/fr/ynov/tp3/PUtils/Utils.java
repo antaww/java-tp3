@@ -108,6 +108,10 @@ public class Utils {
         return (str.contains("_")) ? str.replace("_", " ") : str;
     }
 
+    public static String replaceByUnderscore(String str) {
+        return (str.contains("-") || str.contains(" ")) ? str.replace("-", "_").replace(" ", "_") : str;
+    }
+
     public static Map<String, JComponent> createCardPanel(JPanel bodyPanel, String subtitle) {
         var secondPanel = new JPanel();
         var subtitleLabel = new JLabel(subtitle);
@@ -184,10 +188,6 @@ public class Utils {
         monsterCard.setLevel(level);
         monsterCard.setAttribute(attribute);
         monsterCard.setTypes(types);
-//        monsterCard.setPrimaryType(primaryType);
-//        monsterCard.setSecondaryType(secondaryType);
-//        monsterCard.setTertiaryType(tertiaryType);
-//        monsterCard.setMonsterType(monsterType);
         monsterCard.setReference(reference);
         monsterCard.setStats(new String[]{String.valueOf(atk), String.valueOf(def)});
         monsterCard.setDescription(description);
