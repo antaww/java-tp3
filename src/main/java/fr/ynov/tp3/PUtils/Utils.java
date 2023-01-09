@@ -30,55 +30,53 @@ public class Utils {
 
     public static String translateString(String stringToTranslate) {
         Map<String, String> translations = new HashMap<>();
-        //todo : traduire le mot en ajoutant " / " a la fin
-
-        //MonsterType
-        translations.put("Effect", "Effet");
-        translations.put("Normal", ""); // Do not display "Normal" in the card
-        translations.put("Monster", ""); // Do not display "Monster" in the card
-
         //PrimaryType
-        translations.put("Aqua", "Aqua");
-        translations.put("Beast", "Bête");
-        translations.put("Beast-Warrior", "Bête-guerrier");
-        translations.put("Creator-God", "Créateur");
-        translations.put("Cyberse", "Cyberse");
-        translations.put("Dinosaur", "Dinosaure");
-        translations.put("Divine-Beast", "Bête-divine");
-        translations.put("Dragon", "Dragon");
-        translations.put("Fairy", "Elfe");
-        translations.put("Fiend", "Démon");
-        translations.put("Fish", "Poisson");
-        translations.put("Insect", "Insecte");
-        translations.put("Machine", "Machine");
-        translations.put("Plant", "Plante");
-        translations.put("Psychic", "Psychique");
-        translations.put("Pyro", "Pyro");
-        translations.put("Reptile", "Reptile");
-        translations.put("Rock", "Rocher");
-        translations.put("Sea Serpent", "Serpent De Mer");
-        translations.put("Spellcaster", "Magicien");
-        translations.put("Thunder", "Tonnerre");
-        translations.put("Warrior", "Guerrier");
-        translations.put("Winged Beast", "Bête-ailée");
-        translations.put("Wyrm", "Wyrm");
-        translations.put("Zombie", "Zombie");
+        translations.put("Aqua", "Aqua /");
+        translations.put("Beast", "Bête /");
+        translations.put("Beast-Warrior", "Bête-guerrier /");
+        translations.put("Creator-God", "Créateur /");
+        translations.put("Cyberse", "Cyberse /");
+        translations.put("Dinosaur", "Dinosaure /");
+        translations.put("Divine-Beast", "Bête-divine /");
+        translations.put("Dragon", "Dragon /");
+        translations.put("Fairy", "Elfe /");
+        translations.put("Fiend", "Démon /");
+        translations.put("Fish", "Poisson /");
+        translations.put("Insect", "Insecte /");
+        translations.put("Machine", "Machine /");
+        translations.put("Plant", "Plante /");
+        translations.put("Psychic", "Psychique /");
+        translations.put("Pyro", "Pyro /");
+        translations.put("Reptile", "Reptile /");
+        translations.put("Rock", "Rocher /");
+        translations.put("Sea Serpent", "Serpent De Mer /");
+        translations.put("Spellcaster", "Magicien /");
+        translations.put("Thunder", "Tonnerre /");
+        translations.put("Warrior", "Guerrier /");
+        translations.put("Winged Beast", "Bête-ailée /");
+        translations.put("Wyrm", "Wyrm /");
+        translations.put("Zombie", "Zombie /");
 
         //SecondaryType
-        translations.put("Fusion", "Fusion");
-        translations.put("Link", "Lien");
-        translations.put("Pendulum", "Pendule");
-        translations.put("Ritual", "Rituel");
-        translations.put("XYZ", "Xyz");
+        translations.put("Fusion", "Fusion /");
+        translations.put("Link", "Lien /");
+        translations.put("Pendulum", "Pendule /");
+        translations.put("Ritual", "Rituel /");
+        translations.put("XYZ", "Xyz /");
 
         //TertiaryType
-        translations.put("Flip", "Flip");
-        translations.put("Gemini", "Gémeau");
-        translations.put("Spirit", "Spirit");
-        translations.put("Synchro", "Synchro");
-        translations.put("Toon", "Toon");
-        translations.put("Tuner", "Synthoniseur");
-        translations.put("Union", "Union");
+        translations.put("Flip", "Flip /");
+        translations.put("Gemini", "Gémeau /");
+        translations.put("Spirit", "Spirit /");
+        translations.put("Synchro", "Synchro /");
+        translations.put("Toon", "Toon /");
+        translations.put("Tuner", "Synthoniseur /");
+        translations.put("Union", "Union /");
+
+        //MonsterType
+        translations.put("Effect", "Effet /");
+        translations.put("Normal", ""); // Do not display "Normal" in the card
+        translations.put("Monster", ""); // Do not display "Monster" in the card
 
         StringBuilder output;
         if (stringToTranslate.contains(" ")) { //If the string to translate is a combination of words
@@ -100,7 +98,10 @@ public class Utils {
             }
         }
 
-        return output.toString().trim();
+        var result = output.toString().trim();
+        return result.endsWith(" /")
+                ? result.substring(0, result.length() - 2)
+                : result;
     }
 
     public static String hasUnderscore(String str) {

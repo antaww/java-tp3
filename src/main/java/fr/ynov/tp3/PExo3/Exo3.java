@@ -38,36 +38,21 @@ public class Exo3 {
 
                 jsonElement.getAsJsonArray().forEach(jsonElement1 -> {
                     var cardName = jsonElement1.getAsJsonObject().get("name").getAsString();
-//                    if (cardName.equals("Invocateur Dragon Bleu")) {
-                    if (cardName.equals("Ukiyoe-P.U.N.K. Dragon Extraordinaire")) {
+                    if (cardName.equals("Invocateur Dragon Bleu")) {
                         var cardLevel = jsonElement1.getAsJsonObject().get("level").getAsInt();
                         var cardAttribute = jsonElement1.getAsJsonObject().get("attribute").getAsString();
-                        var cardRace = jsonElement1.getAsJsonObject().get("race").getAsString();
-                        var cardType = jsonElement1.getAsJsonObject().get("type").getAsString();
+                        var cardTypes = jsonElement1.getAsJsonObject().get("race").getAsString() + " " + jsonElement1.getAsJsonObject().get("type").getAsString();
                         var cardReference = jsonElement1.getAsJsonObject().get("card_sets").getAsJsonArray().get(0).getAsJsonObject().get("set_code").getAsString();
                         var cardAtk = jsonElement1.getAsJsonObject().get("atk").getAsInt();
                         var cardDef = jsonElement1.getAsJsonObject().get("def").getAsInt();
                         var cardDescription = jsonElement1.getAsJsonObject().get("desc").getAsString();
                         var cardImage = jsonElement1.getAsJsonObject().get("card_images").getAsJsonArray().get(0).getAsJsonObject().get("image_url").getAsString();
-                        var cardTypes = cardRace + " " + cardType;
 
-                        System.out.println("Nom : " + cardName);
-                        System.out.println("Niveau : " + cardLevel);
-                        System.out.println("Attribut : " + cardAttribute);
-                        //todo: regrouper race & type puis traduire en map
-                        System.out.println("Race : " + cardRace);
-                        System.out.println("Type : " + cardType);
-                        System.out.println("Référence : " + cardReference);
-                        System.out.println("ATK : " + cardAtk);
-                        System.out.println("DEF : " + cardDef);
-                        System.out.println("Description : " + cardDescription);
-                        System.out.println("Image : " + cardImage);
                         setMonsterCard(monsterCard1, cardName, cardLevel, Attribute.valueOf(cardAttribute), cardTypes, cardReference, cardAtk, cardDef, cardDescription);
                         displayCardImage(displayButton, resultLabel, resultImagePanel, resultPanel, cardImage);
                     }
                 });
 
-//                setMonsterCard(monsterCard1, "Invocateur Dragon Bleu", 4, Attribute.WIND, PrimaryType.Magicien, MonsterType.Effet, "ys14-fr017", 1500, 600, "Si cette carte est envoyée depuis le Terrain au Cimetière : vous pouvez ajouter 1 Monstre Normal de Type Dragon/Guerrier/Magicien depuis votre Deck a votre main.");
                 resultLabel.setText(hasUnderscore("<html>" +
                         "<div>" +
                         "<p><u>Nom</u> : " + monsterCard1.getName() +
