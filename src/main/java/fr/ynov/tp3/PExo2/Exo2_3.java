@@ -30,6 +30,7 @@ public class Exo2_3 {
         buttonPanel.add(pickCardButton);
         secondPanel.add(buttonPanel, BorderLayout.NORTH);
         secondPanel.add(cardsPanel, BorderLayout.CENTER);
+        secondPanel.setPreferredSize(new Dimension(750, 300));
 
         bodyPanel.add(secondPanel);
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
@@ -45,7 +46,7 @@ public class Exo2_3 {
             var numCards = cardsPanel.getComponentCount();
             if (numCards < 52) {
                 var cardImage = pickRandomCard(numCards);
-                var scaledCardImage = cardImage.getScaledInstance(CARD_WIDTH/2, CARD_HEIGHT/2, Image.SCALE_SMOOTH);
+                var scaledCardImage = cardImage.getScaledInstance(CARD_WIDTH, CARD_HEIGHT, Image.SCALE_SMOOTH);
                 var icon = new ImageIcon(scaledCardImage);
                 var label = new JLabel(icon);
                 cardsPanel.add(label);

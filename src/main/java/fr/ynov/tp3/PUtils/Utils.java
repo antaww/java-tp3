@@ -149,7 +149,7 @@ public class Utils {
         try {
             var url = new URL(cardImage);
             var image = ImageIO.read(url);
-            var scaledImage = image.getScaledInstance(image.getWidth() / 3, image.getHeight() / 3, Image.SCALE_SMOOTH);
+            var scaledImage = image.getScaledInstance(280, 435, Image.SCALE_SMOOTH); // Default size : 525 × 768
             var picLabel = new JLabel(new ImageIcon(scaledImage));
             resultImagePanel.add(picLabel);
         } catch (IOException ioException) {

@@ -12,8 +12,9 @@ import java.awt.*;
 
 public class Menu {
     public static void main(String[] args) {
+        //todo: background color to rgb(68, 70, 84)
         var frame = new JFrame("JAVA - TP3");
-        frame.setSize(500, 500);
+        frame.setSize(700, 700);
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {

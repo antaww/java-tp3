@@ -23,6 +23,8 @@ public class Exo3 {
         var resultImagePanel = (JPanel) cardPanel.get("resultImagePanel");
         var resultPanel = (JPanel) cardPanel.get("resultPanel");
 
+        resultLabel.setFont(new Font("Arial", Font.BOLD, 15));
+
         final Boolean[] isDisplayButtonClicked = {false};
 
         displayButton.addActionListener(e -> {
@@ -74,6 +76,7 @@ public class Exo3 {
                 resultImagePanel.setVisible(false);
             }
         });
+
         frame.setVisible(true);
     }
 }
