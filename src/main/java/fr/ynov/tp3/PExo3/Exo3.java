@@ -2,6 +2,7 @@ package fr.ynov.tp3.PExo3;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 import static fr.ynov.tp3.PUtils.Utils.*;
 
@@ -30,12 +31,14 @@ public class Exo3 {
             jsonElement.getAsJsonArray().forEach(jsonElement1 -> {
                 var cardName = jsonElement1.getAsJsonObject().get("name").getAsString();
                 if (cardName.equals(selected)) {
-                    var cardLevel = jsonElement1.getAsJsonObject().get("level").getAsInt();
+                    var cardLevel = jsonElement1.getAsJsonObject().has("level") ? jsonElement1.getAsJsonObject().get("level").getAsInt() : -1;
                     var cardAttribute = jsonElement1.getAsJsonObject().get("attribute").getAsString();
                     var cardTypes = jsonElement1.getAsJsonObject().get("race").getAsString() + " " + jsonElement1.getAsJsonObject().get("type").getAsString();
-                    var cardReference = jsonElement1.getAsJsonObject().get("card_sets").getAsJsonArray().get(0).getAsJsonObject().get("set_code").getAsString();
-                    var cardAtk = jsonElement1.getAsJsonObject().get("atk").getAsInt();
-                    var cardDef = jsonElement1.getAsJsonObject().get("def").getAsInt();
+                    var cardReference = jsonElement1.getAsJsonObject().has("card_sets") && jsonElement1.getAsJsonObject().get("card_sets").getAsJsonArray().size() > 0
+                            ? jsonElement1.getAsJsonObject().get("card_sets").getAsJsonArray().get(0).getAsJsonObject().get("set_code").getAsString()
+                            : "N/A";
+                    var cardAtk = jsonElement1.getAsJsonObject().has("atk") ? jsonElement1.getAsJsonObject().get("atk").getAsInt() : -1;
+                    var cardDef = jsonElement1.getAsJsonObject().has("def") ? jsonElement1.getAsJsonObject().get("def").getAsInt() : -1;
                     var cardDescription = jsonElement1.getAsJsonObject().get("desc").getAsString();
                     var cardImage = jsonElement1.getAsJsonObject().get("card_images").getAsJsonArray().get(0).getAsJsonObject().get("image_url").getAsString();
                     setMonsterCard(monsterCard1, cardName, cardLevel, Attribute.valueOf(cardAttribute), cardTypes, cardReference, cardAtk, cardDef, cardDescription);
@@ -46,10 +49,10 @@ public class Exo3 {
             resultLabel.setText(hasUnderscore("<html>" +
                     "<div>" +
                     "<p><u>Nom</u> : " + monsterCard1.getName() +
-                    "<br><u>Niveau</u> : " + monsterCard1.getLevel() +
+                    "<br><u>Niveau</u> : " + (monsterCard1.getLevel() != -1 ? monsterCard1.getLevel() : "Aucun niveau disponible pour cette carte.") +
                     "<br><u>Attribut</u> : " + monsterCard1.getAttribute() +
                     "<br><u>Types</u> : " + "[" + translateString(monsterCard1.getTypes()) + "]" +
-                    "<br><u>Référence</u> : " + monsterCard1.getReference().toUpperCase() +
+                    "<br><u>Référence</u> : " + (!Objects.equals(monsterCard1.getReference(), "N/A") ? monsterCard1.getReference().toUpperCase() : "Aucune référence disponible pour cette carte.") +
                     "<br><u>Statistiques</u> : " + monsterCard1.getStats() +
                     "<br><u>Description</u> : " + monsterCard1.getDescription() +
                     "</div>" +

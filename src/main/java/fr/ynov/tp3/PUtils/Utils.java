@@ -49,12 +49,12 @@ public class Utils {
             }
         });
         monstersList.sort(String::compareToIgnoreCase);
+        //todo: add "Aucune carte" to the list and hide card when the user select it
         monstersList.forEach(comboBox::addItem);
         return jsonElement;
     }
 
     public static String translateString(String stringToTranslate) {
-        //todo: fix cards which dont have level like "Arc-En-Ciel, Peintre Météorologique" (check if every card has every attribute)
         Map<String, String> translations = new HashMap<>();
         //PrimaryType
         translations.put("Aqua", "Aqua");
@@ -144,7 +144,7 @@ public class Utils {
     public static Map<String, JComponent> createCardPanel(JPanel bodyPanel, String subtitle) {
         var secondPanel = new JPanel();
         var subtitleLabel = new JLabel(subtitle);
-        subtitleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        subtitleLabel.setFont(new Font("Arial", Font.BOLD, 25));
         subtitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         secondPanel.add(subtitleLabel);
         bodyPanel.add(secondPanel);
@@ -162,7 +162,7 @@ public class Utils {
 
         var resultLabel = new JLabel();
         resultLabel.setFont(new Font("Arial", Font.BOLD, 12));
-        resultLabel.setText("Cliquer sur le bouton pour afficher la carte...");
+        resultLabel.setText("Choisissez une carte à afficher...");
         resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
         resultLabel.setVerticalAlignment(SwingConstants.TOP);
         var resultImagePanel = new JPanel();
@@ -217,7 +217,7 @@ public class Utils {
         monsterCard.setAttribute(attribute);
         monsterCard.setTypes(types);
         monsterCard.setReference(reference);
-        monsterCard.setStats(new String[]{String.valueOf(atk), String.valueOf(def)});
+        monsterCard.setStats(new int[]{atk, def});
         monsterCard.setDescription(description);
     }
 

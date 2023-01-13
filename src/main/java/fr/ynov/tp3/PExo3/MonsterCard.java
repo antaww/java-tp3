@@ -15,7 +15,7 @@ public class MonsterCard implements Card {
     // Types primaire et monstre obligatoires, types secondaire et type tertiaire facultatifs
     // Peut avoir 2 à 4 types (primaire, ?secondaire, ?tertiaire, monstre)
     private String reference; // XXXX-XXXXX
-    private String[] stats = new String[0]; // [0] = ATK/{int} [1] = DEF/{int}
+    private int[] stats = new int[0]; // [0] = ATK/{int} [1] = DEF/{int}
     private String description;
 
     public String getName() {
@@ -71,10 +71,10 @@ public class MonsterCard implements Card {
     }
 
     public String getStats() {
-        return "ATK/" + stats[0] + " DEF/" + stats[1];
+        return (stats[0] != -1 ? "ATK/" + stats[0] : "") + (stats[1] != -1 ? " DEF/" + stats[1] : "");
     }
 
-    public void setStats(String[] stats) {
+    public void setStats(int[] stats) {
         this.stats = stats;
     }
 
