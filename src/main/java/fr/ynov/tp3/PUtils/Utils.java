@@ -1,6 +1,7 @@
 package fr.ynov.tp3.PUtils;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import fr.ynov.tp3.PExo3.Attribute;
 import fr.ynov.tp3.PExo3.MonsterCard;
 import fr.ynov.tp3.PExo4.SpecialCards;
@@ -10,8 +11,11 @@ import fr.ynov.tp3.PExo4.SpecialType;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +31,26 @@ public class Utils {
             bodyPanel.revalidate();
             bodyPanel.repaint();
         }
+    }
+
+    public static JsonElement getJsonElement(JComboBox<String> comboBox, String cardType) {
+        JsonElement jsonElement;
+        try {
+            jsonElement = JsonParser.parseReader(new FileReader("src/main/resources/cards.json"));
+        } catch (FileNotFoundException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        var monstersList = new ArrayList<String>();
+        jsonElement.getAsJsonArray().forEach(jsonElement1 -> {
+            var type = jsonElement1.getAsJsonObject().get("type").getAsString();
+            if (type.contains(cardType)) {
+                monstersList.add(jsonElement1.getAsJsonObject().get("name").getAsString());
+            }
+        });
+        monstersList.sort(String::compareToIgnoreCase);
+        monstersList.forEach(comboBox::addItem);
+        return jsonElement;
     }
 
     public static String translateString(String stringToTranslate) {
@@ -81,7 +105,6 @@ public class Utils {
         translations.put("Monster", ""); // Do not display "Monster" in the card
 
         StringBuilder output;
-        System.out.println(stringToTranslate);
         if (stringToTranslate.contains(" ")) { //If the string to translate is a combination of words
             for (var entry : translations.entrySet()) {
                 if (stringToTranslate.contains(entry.getKey())) {
@@ -116,31 +139,7 @@ public class Utils {
         return (str.contains("-") || str.contains(" ")) ? str.replace("-", "_").replace(" ", "_") : str;
     }
 
-    public static void createAndDisplaySpecialCard(SpecialCards spellCard1, String specialCardName, JButton displayButton, JLabel resultLabel, JPanel resultImagePanel, JPanel resultPanel, JsonElement jsonElement) {
-        jsonElement.getAsJsonArray().forEach(jsonElement1 -> {
-            var cardName = jsonElement1.getAsJsonObject().get("name").getAsString();
-            if (cardName.equals(specialCardName)) {
-                var cardType = replaceByUnderscore(jsonElement1.getAsJsonObject().get("type").getAsString());
-                var cardRace = replaceByUnderscore(jsonElement1.getAsJsonObject().get("race").getAsString());
-                var cardReference = jsonElement1.getAsJsonObject().get("card_sets").getAsJsonArray().get(0).getAsJsonObject().get("set_code").getAsString();
-                var cardDescription = jsonElement1.getAsJsonObject().get("desc").getAsString();
-                var cardImage = jsonElement1.getAsJsonObject().get("card_images").getAsJsonArray().get(0).getAsJsonObject().get("image_url").getAsString();
 
-                setSpecialCard(spellCard1, cardName, SpecialType.valueOf(cardType), SpecialIcon.valueOf(cardRace), cardReference, cardDescription);
-                displayCardImage(resultLabel, resultImagePanel, resultPanel, cardImage);
-            }
-        });
-        resultLabel.setText(hasUnderscore("<html>" +
-                "<div>" +
-                "<p><u>Nom</u> : " + spellCard1.getName() +
-                "<br><u>Type</u> : " + spellCard1.getType() +
-                "<br><u>Icône</u> : " + spellCard1.getSpecialIcon() +
-                "<br><u>Référence</u> : " + spellCard1.getReference().toUpperCase() +
-                "<br><u>Description</u> : " + spellCard1.getDescription() +
-                "</div>" +
-                "</html>")
-        );
-    }
 
     public static Map<String, JComponent> createCardPanel(JPanel bodyPanel, String subtitle) {
         var secondPanel = new JPanel();
@@ -157,8 +156,6 @@ public class Utils {
         thirdPanel.add(thirdPanelBody);
 
         var displayButtonPanel = new JPanel();
-//        var displayButton = new JButton("Afficher la carte");
-//        displayButton.setPreferredSize(new Dimension(200, 30));
         var comboBox = new JComboBox<String>();
         displayButtonPanel.add(comboBox);
         thirdPanelBody.add(displayButtonPanel, BorderLayout.NORTH);

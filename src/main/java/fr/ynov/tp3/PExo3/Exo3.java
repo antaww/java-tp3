@@ -1,13 +1,7 @@
 package fr.ynov.tp3.PExo3;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.ArrayList;
 
 import static fr.ynov.tp3.PUtils.Utils.*;
 
@@ -26,22 +20,7 @@ public class Exo3 {
 
         resultLabel.setFont(new Font("Arial", Font.BOLD, 15));
 
-        JsonElement jsonElement;
-        try {
-            jsonElement = JsonParser.parseReader(new FileReader("src/main/resources/cards.json"));
-        } catch (FileNotFoundException ex) {
-            throw new RuntimeException(ex);
-        }
-
-        var monstersList = new ArrayList<String>();
-        jsonElement.getAsJsonArray().forEach(jsonElement1 -> {
-            var cardType = jsonElement1.getAsJsonObject().get("type").getAsString();
-            if (cardType.contains("Monster")) {
-                monstersList.add(jsonElement1.getAsJsonObject().get("name").getAsString());
-            }
-        });
-        monstersList.sort(String::compareToIgnoreCase);
-        monstersList.forEach(comboBox::addItem);
+        var jsonElement = getJsonElement(comboBox, "Monster");
 
         comboBox.addActionListener(e -> {
             resultImagePanel.removeAll();
@@ -59,7 +38,6 @@ public class Exo3 {
                     var cardDef = jsonElement1.getAsJsonObject().get("def").getAsInt();
                     var cardDescription = jsonElement1.getAsJsonObject().get("desc").getAsString();
                     var cardImage = jsonElement1.getAsJsonObject().get("card_images").getAsJsonArray().get(0).getAsJsonObject().get("image_url").getAsString();
-
                     setMonsterCard(monsterCard1, cardName, cardLevel, Attribute.valueOf(cardAttribute), cardTypes, cardReference, cardAtk, cardDef, cardDescription);
                     displayCardImage(resultLabel, resultImagePanel, resultPanel, cardImage);
                 }
@@ -77,7 +55,6 @@ public class Exo3 {
                     "</div>" +
                     "</html>"));
         });
-
         frame.setVisible(true);
     }
 }
