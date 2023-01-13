@@ -67,7 +67,7 @@ public class Menu {
         mainPanel.add(bodyPanel, BorderLayout.CENTER);
 
         var titleLabel = new JLabel("JAVA - TP3", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 33));
 
         var titlePanel = new JPanel();
         titlePanel.setLayout(new BorderLayout());

@@ -30,56 +30,58 @@ public class Utils {
     }
 
     public static String translateString(String stringToTranslate) {
+        //todo: fix cards which dont have level like "Arc-En-Ciel, Peintre Météorologique" (check if every card has every attribute)
         Map<String, String> translations = new HashMap<>();
         //PrimaryType
-        translations.put("Aqua", "Aqua /");
+        translations.put("Aqua", "Aqua");
         translations.put("Beast", "Bête /");
         translations.put("Beast-Warrior", "Bête-guerrier /");
         translations.put("Creator-God", "Créateur /");
-        translations.put("Cyberse", "Cyberse /");
+        translations.put("Cyberse", "Cyberse");
         translations.put("Dinosaur", "Dinosaure /");
         translations.put("Divine-Beast", "Bête-divine /");
-        translations.put("Dragon", "Dragon /");
+        translations.put("Dragon", "Dragon");
         translations.put("Fairy", "Elfe /");
         translations.put("Fiend", "Démon /");
         translations.put("Fish", "Poisson /");
         translations.put("Insect", "Insecte /");
-        translations.put("Machine", "Machine /");
+        translations.put("Machine", "Machine");
         translations.put("Plant", "Plante /");
         translations.put("Psychic", "Psychique /");
-        translations.put("Pyro", "Pyro /");
-        translations.put("Reptile", "Reptile /");
+        translations.put("Pyro", "Pyro");
+        translations.put("Reptile", "Reptile");
         translations.put("Rock", "Rocher /");
         translations.put("Sea Serpent", "Serpent De Mer /");
         translations.put("Spellcaster", "Magicien /");
         translations.put("Thunder", "Tonnerre /");
         translations.put("Warrior", "Guerrier /");
         translations.put("Winged Beast", "Bête-ailée /");
-        translations.put("Wyrm", "Wyrm /");
-        translations.put("Zombie", "Zombie /");
+        translations.put("Wyrm", "Wyrm");
+        translations.put("Zombie", "Zombie");
 
         //SecondaryType
-        translations.put("Fusion", "Fusion /");
+        translations.put("Fusion", "Fusion");
         translations.put("Link", "Lien /");
         translations.put("Pendulum", "Pendule /");
         translations.put("Ritual", "Rituel /");
         translations.put("XYZ", "Xyz /");
 
         //TertiaryType
-        translations.put("Flip", "Flip /");
+        translations.put("Flip", "Flip");
         translations.put("Gemini", "Gémeau /");
-        translations.put("Spirit", "Spirit /");
-        translations.put("Synchro", "Synchro /");
-        translations.put("Toon", "Toon /");
+        translations.put("Spirit", "Esprit /");
+        translations.put("Synchro", "Synchro");
+        translations.put("Toon", "Toon");
         translations.put("Tuner", "Synthoniseur /");
-        translations.put("Union", "Union /");
+        translations.put("Union", "Union");
 
         //MonsterType
-        translations.put("Effect", "Effet /");
+        translations.put("Effect", "Effet");
         translations.put("Normal", ""); // Do not display "Normal" in the card
         translations.put("Monster", ""); // Do not display "Monster" in the card
 
         StringBuilder output;
+        System.out.println(stringToTranslate);
         if (stringToTranslate.contains(" ")) { //If the string to translate is a combination of words
             for (var entry : translations.entrySet()) {
                 if (stringToTranslate.contains(entry.getKey())) {
@@ -93,16 +95,17 @@ public class Utils {
         for (var word : words) {
             var translatedWord = translations.get(word);
             if (translatedWord != null) {
-                output.append(translatedWord).append(" ");
+                output.append(translatedWord).append(" / ");
             } else {
                 output.append(word).append(" ");
             }
         }
 
         var result = output.toString().trim();
-        return result.endsWith(" /")
-                ? result.substring(0, result.length() - 2)
-                : result;
+        while (result.endsWith(" /")) {
+            result = result.substring(0, result.length() - 2);
+        }
+        return result;
     }
 
     public static String hasUnderscore(String str) {
@@ -124,7 +127,7 @@ public class Utils {
                 var cardImage = jsonElement1.getAsJsonObject().get("card_images").getAsJsonArray().get(0).getAsJsonObject().get("image_url").getAsString();
 
                 setSpecialCard(spellCard1, cardName, SpecialType.valueOf(cardType), SpecialIcon.valueOf(cardRace), cardReference, cardDescription);
-                displayCardImage(displayButton, resultLabel, resultImagePanel, resultPanel, cardImage);
+                displayCardImage(resultLabel, resultImagePanel, resultPanel, cardImage);
             }
         });
         resultLabel.setText(hasUnderscore("<html>" +
@@ -154,9 +157,10 @@ public class Utils {
         thirdPanel.add(thirdPanelBody);
 
         var displayButtonPanel = new JPanel();
-        var displayButton = new JButton("Afficher la carte");
-        displayButton.setPreferredSize(new Dimension(200, 30));
-        displayButtonPanel.add(displayButton);
+//        var displayButton = new JButton("Afficher la carte");
+//        displayButton.setPreferredSize(new Dimension(200, 30));
+        var comboBox = new JComboBox<String>();
+        displayButtonPanel.add(comboBox);
         thirdPanelBody.add(displayButtonPanel, BorderLayout.NORTH);
 
         var resultLabel = new JLabel();
@@ -173,10 +177,10 @@ public class Utils {
 
         bodyPanel.add(thirdPanel);
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
-        return Map.of("displayButton", displayButton, "resultLabel", resultLabel, "resultImagePanel", resultImagePanel, "resultPanel", resultPanel);
+        return Map.of("comboBox", comboBox, "resultLabel", resultLabel, "resultImagePanel", resultImagePanel, "resultPanel", resultPanel);
     }
 
-    public static void displayCardImage(JButton displayButton, JLabel resultLabel, JPanel resultImagePanel, JPanel resultPanel, String cardImage) {
+    public static void displayCardImage(JLabel resultLabel, JPanel resultImagePanel, JPanel resultPanel, String cardImage) {
         try {
             var url = new URL(cardImage);
             var image = ImageIO.read(url);
@@ -187,7 +191,7 @@ public class Utils {
             var errorLabel = new JLabel("Image error 404");
             resultImagePanel.add(errorLabel);
         }
-        displayButton.setText("Masquer la carte");
+//        displayButton.setText("Masquer la carte");
         resultImagePanel.setVisible(true);
         resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.X_AXIS));
         resultLabel.setPreferredSize(new Dimension(402, 250));
