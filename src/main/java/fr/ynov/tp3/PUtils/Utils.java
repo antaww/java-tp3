@@ -2,11 +2,6 @@ package fr.ynov.tp3.PUtils;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import fr.ynov.tp3.PExo3.Attribute;
-import fr.ynov.tp3.PExo3.MonsterCard;
-import fr.ynov.tp3.PExo4.SpecialCards;
-import fr.ynov.tp3.PExo4.SpecialIcon;
-import fr.ynov.tp3.PExo4.SpecialType;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -46,7 +41,6 @@ public class Utils {
             }
             if(c instanceof JComboBox<?>){
                 c.setBackground(new Color(28, 28, 28));
-//                c.setFocusable(false);
                 ((JComboBox<?>) c).setBorder(null);
                 ((JComboBox<?>) c).setBorder(BorderFactory.createEmptyBorder());
                 //todo: remove inside borders from items
@@ -193,15 +187,13 @@ public class Utils {
         return result;
     }
 
-    public static String hasUnderscore(String str) {
-        return (str.contains("_")) ? str.replace("_", " ") : str;
+    public static String replaceUnderscore(String str) {
+        return str.replaceAll("_", " ");
     }
 
     public static String replaceByUnderscore(String str) {
-        return (str.contains("-") || str.contains(" ")) ? str.replace("-", "_").replace(" ", "_") : str;
+        return str.replaceAll("[ -]", "_");
     }
-
-
 
     public static Map<String, JComponent> createCardPanel(JPanel bodyPanel, String subtitle) {
         var secondPanel = new JPanel();
@@ -217,10 +209,10 @@ public class Utils {
         var thirdPanelBody = new JPanel(new BorderLayout());
         thirdPanel.add(thirdPanelBody);
 
-        var displayButtonPanel = new JPanel();
+        var comboBoxPanel = new JPanel();
         var comboBox = new JComboBox<String>();
-        displayButtonPanel.add(comboBox);
-        thirdPanelBody.add(displayButtonPanel, BorderLayout.NORTH);
+        comboBoxPanel.add(comboBox);
+        thirdPanelBody.add(comboBoxPanel, BorderLayout.NORTH);
 
         var resultLabel = new JLabel();
         resultLabel.setFont(new Font("Arial", Font.BOLD, 12));
@@ -250,44 +242,8 @@ public class Utils {
             var errorLabel = new JLabel("Image error 404");
             resultImagePanel.add(errorLabel);
         }
-//        displayButton.setText("Masquer la carte");
         resultImagePanel.setVisible(true);
         resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.X_AXIS));
         resultLabel.setPreferredSize(new Dimension(402, 250));
-    }
-
-//    //if card doesn't have secondary type & tertiary type
-//    public static void setMonsterCard(MonsterCard monsterCard, String name, int level, Attribute attribute, PrimaryType primaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
-//        setMonsterCard(monsterCard, name, level, attribute, primaryType, null, null, monsterType, reference, atk, def, description);
-//    }
-//
-//    //if card doesn't have secondary type
-//    //unused for the moment but useful if we want to add a card with tertiary type but without secondary type
-//    public static void setMonsterCard(MonsterCard monsterCard, String name, int level, Attribute attribute, PrimaryType primaryType, TertiaryType tertiaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
-//        setMonsterCard(monsterCard, name, level, attribute, primaryType, null, tertiaryType, monsterType, reference, atk, def, description);
-//    }
-//
-//    //if card doesn't have tertiary type
-//    //unused for the moment but useful if we want to add a card with secondary type but without tertiary type
-//    public static void setMonsterCard(MonsterCard monsterCard, String name, int level, Attribute attribute, PrimaryType primaryType, SecondaryType secondaryType, MonsterType monsterType, String reference, int atk, int def, String description) {
-//        setMonsterCard(monsterCard, name, level, attribute, primaryType, secondaryType, null, monsterType, reference, atk, def, description);
-//    }
-
-    public static void setMonsterCard(MonsterCard monsterCard, String name, int level, Attribute attribute, String types, String reference, int atk, int def, String description) {
-        monsterCard.setName(name);
-        monsterCard.setLevel(level);
-        monsterCard.setAttribute(attribute);
-        monsterCard.setTypes(types);
-        monsterCard.setReference(reference);
-        monsterCard.setStats(new int[]{atk, def});
-        monsterCard.setDescription(description);
-    }
-
-    public static void setSpecialCard(SpecialCards specialCard, String name, SpecialType type, SpecialIcon specialIcon, String reference, String description) {
-        specialCard.setName(name);
-        specialCard.setType(type);
-        specialCard.setSpecialIcon(specialIcon);
-        specialCard.setReference(reference);
-        specialCard.setDescription(description);
     }
 }
