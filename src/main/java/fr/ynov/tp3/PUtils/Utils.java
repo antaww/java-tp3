@@ -46,7 +46,7 @@ public class Utils {
             }
             if(c instanceof JComboBox<?>){
                 c.setBackground(new Color(28, 28, 28));
-                c.setFocusable(false);
+//                c.setFocusable(false);
                 ((JComboBox<?>) c).setBorder(null);
                 ((JComboBox<?>) c).setBorder(BorderFactory.createEmptyBorder());
                 //todo: remove inside borders from items
