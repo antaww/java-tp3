@@ -16,10 +16,8 @@ public class Exo2_1 {
         var buttonsPanel = new JPanel();
         var button1 = new JButton("Bouton simple");
         var button2 = new JButton("Bouton fantaisie");
-        button1.setFont(new Font("Arial", Font.BOLD, 15));
+        button1.setFont(new Font("Arial", Font.BOLD, 16));
         button2.setFont(new Font("Arial", Font.BOLD, 15));
-        button1.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-        button2.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         button2.setIcon(new ImageIcon(new ImageIcon("src/main/resources/canard.png").getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH)));
 
         buttonsPanel.add(button1);

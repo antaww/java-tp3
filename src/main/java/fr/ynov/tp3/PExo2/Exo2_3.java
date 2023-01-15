@@ -28,6 +28,7 @@ public class Exo2_3 {
         var buttonPanel = new JPanel();
         var cardsPanel = new JPanel();
         var pickCardButton = new JButton("Tirer une carte");
+        pickCardButton.setFont(new Font("Arial", Font.BOLD, 15));
         buttonPanel.add(pickCardButton);
         secondPanel.add(buttonPanel, BorderLayout.NORTH);
         secondPanel.add(cardsPanel, BorderLayout.CENTER);

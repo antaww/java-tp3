@@ -39,6 +39,18 @@ public class Utils {
             if (c instanceof Container) {
                 setPanelsBackgroundColor((Container) c);
             }
+            if(c instanceof JButton){
+                c.setBackground(new Color(28, 28, 28));
+                ((JButton) c).setBorderPainted(false);
+                ((JButton) c).setFocusPainted(false);
+            }
+            if(c instanceof JComboBox<?>){
+                c.setBackground(new Color(28, 28, 28));
+                c.setFocusable(false);
+                ((JComboBox<?>) c).setBorder(null);
+                ((JComboBox<?>) c).setBorder(BorderFactory.createEmptyBorder());
+                //todo: remove inside borders from items
+            }
         }
     }
 
@@ -54,10 +66,12 @@ public class Utils {
     public static void setBackgroundColorForMenuBar(JMenuBar menuBar, Color color) {
         for (var c : menuBar.getComponents()) {
             c.setBackground(color);
+            c.setFont(new Font("Arial", Font.BOLD, 14));
             if (c instanceof JMenu) {
                 for (var c2 : ((JMenu) c).getMenuComponents()) {
                     c2.setBackground(color);
                     c2.setForeground(new Color(255, 255, 255));
+                    c2.setFont(new Font("Arial", Font.BOLD, 14));
                 }
             }
         }

@@ -32,9 +32,13 @@ public class Exo2_2 {
         var nameLabel = new JLabel("Nom : ");
         var passwordLabel = new JLabel("Password : ");
         var nameInput = new JTextField();
-        nameInput.setPreferredSize(new Dimension(100, 30));
         var passwordInput = new JPasswordField();
+        nameInput.setPreferredSize(new Dimension(100, 30));
         passwordInput.setPreferredSize(new Dimension(100, 30));
+        nameLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        passwordLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        nameInput.setFont(new Font("Arial", Font.BOLD, 15));
+        passwordInput.setFont(new Font("Arial", Font.BOLD, 15));
         namePanel.add(nameLabel);
         namePanel.add(nameInput);
         passwordPanel.add(passwordLabel);
@@ -44,6 +48,8 @@ public class Exo2_2 {
 
         var okButton = new JButton("OK");
         var cancelButton = new JButton("Cancel");
+        okButton.setFont(new Font("Arial", Font.BOLD, 15));
+        cancelButton.setFont(new Font("Arial", Font.BOLD, 15));
 
         bottomPanel.add(okButton);
         bottomPanel.add(Box.createHorizontalGlue());
