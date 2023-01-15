@@ -33,6 +33,54 @@ public class Utils {
         }
     }
 
+    public static void setPanelsBackgroundColor(Container container) {
+        container.setBackground(new Color(33, 33, 33));
+        for (var c : container.getComponents()) {
+            if (c instanceof Container) {
+                setPanelsBackgroundColor((Container) c);
+            }
+        }
+    }
+
+    public static void setFontColor(Container container) {
+        container.setForeground(new Color(255, 255, 255));
+        for (var c : container.getComponents()) {
+            if (c instanceof Container) {
+                setFontColor((Container) c);
+            }
+        }
+    }
+
+    public static void setBackgroundColorForMenuBar(JMenuBar menuBar, Color color) {
+        for (var c : menuBar.getComponents()) {
+            c.setBackground(color);
+            if (c instanceof JMenu) {
+                for (var c2 : ((JMenu) c).getMenuComponents()) {
+                    c2.setBackground(color);
+                    c2.setForeground(new Color(255, 255, 255));
+                }
+            }
+        }
+    }
+
+    public static void removeMenuBarBorders(JMenuBar menuBar) {
+        for (var component : menuBar.getComponents()) {
+            if (component instanceof JMenu) {
+                for (var component1 : ((JMenu) component).getMenuComponents()) {
+                    if (component1 instanceof JMenuItem) {
+                        ((JMenuItem) component1).setBorder(null);
+                    }
+                }
+            }
+        }
+    }
+
+    public static void displayFrame(JFrame frame) {
+        setPanelsBackgroundColor(frame);
+        setFontColor(frame);
+        frame.setVisible(true);
+    }
+
     public static JsonElement getJsonElement(JComboBox<String> comboBox, String cardType) {
         JsonElement jsonElement;
         try {

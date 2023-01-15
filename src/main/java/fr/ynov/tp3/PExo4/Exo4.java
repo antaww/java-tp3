@@ -65,6 +65,6 @@ public class Exo4 {
                     "</html>")
             );
         });
-        frame.setVisible(true);
+        displayFrame(frame);
     }
 }

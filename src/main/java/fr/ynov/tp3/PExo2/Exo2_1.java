@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import static fr.ynov.tp3.PUtils.Utils.cleanBodyPanel;
+import static fr.ynov.tp3.PUtils.Utils.displayFrame;
 
 public class Exo2_1 {
     public static void main(JFrame frame) {
@@ -15,6 +16,10 @@ public class Exo2_1 {
         var buttonsPanel = new JPanel();
         var button1 = new JButton("Bouton simple");
         var button2 = new JButton("Bouton fantaisie");
+        button1.setFont(new Font("Arial", Font.BOLD, 15));
+        button2.setFont(new Font("Arial", Font.BOLD, 15));
+        button1.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        button2.setBorder(BorderFactory.createLineBorder(Color.WHITE));
         button2.setIcon(new ImageIcon(new ImageIcon("src/main/resources/canard.png").getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH)));
 
         buttonsPanel.add(button1);
@@ -30,7 +35,6 @@ public class Exo2_1 {
             JOptionPane.showMessageDialog(frame, "Vous avez cliqué sur : " + button2.getText());
             button2.setIcon(new ImageIcon(new ImageIcon("src/main/resources/canard.png").getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH)));
         });
-
-        frame.setVisible(true);
+        displayFrame(frame);
     }
 }

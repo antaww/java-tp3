@@ -1,6 +1,5 @@
 package fr.ynov.tp3.PUtils;
 
-
 import fr.ynov.tp3.PExo2.Exo2_1;
 import fr.ynov.tp3.PExo2.Exo2_2;
 import fr.ynov.tp3.PExo2.Exo2_3;
@@ -8,18 +7,17 @@ import fr.ynov.tp3.PExo3.Exo3;
 import fr.ynov.tp3.PExo4.Exo4;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
+
+import static fr.ynov.tp3.PUtils.Utils.*;
 
 public class Menu {
     public static void main(String[] args) {
-        //todo: background color to rgb(68, 70, 84)
+        //todo: remove inside borders from items (buttons, combobox etc.)
         var frame = new JFrame("JAVA - TP3");
         frame.setSize(800, 800);
-        try {
-            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
+        UIManager.put("PopupMenu.border", new LineBorder(new Color(33, 33, 33)));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setIconImage(new ImageIcon("src/main/resources/logo.png").getImage());
         frame.setResizable(false);
@@ -84,6 +82,15 @@ public class Menu {
         exercise4Item2.addActionListener(e -> Exo4.main(frame, "Carte Piège"));
         leaveItem.addActionListener(e -> System.exit(0));
 
+        setPanelsBackgroundColor(frame);
+        setFontColor(frame);
+        setBackgroundColorForMenuBar(menuBar, new Color(33, 33, 33));
+        removeMenuBarBorders(menuBar);
+
+        menuMenu.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, new Color(33, 33, 33)));
+        creditsMenu.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, new Color(33, 33, 33)));
+
         frame.setVisible(true);
     }
 }
+

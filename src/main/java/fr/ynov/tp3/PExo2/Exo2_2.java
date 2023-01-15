@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import static fr.ynov.tp3.PUtils.Utils.cleanBodyPanel;
+import static fr.ynov.tp3.PUtils.Utils.displayFrame;
 
 public class Exo2_2 {
     public static void main(JFrame frame) {
@@ -51,7 +52,7 @@ public class Exo2_2 {
         buttonClicked(frame, nameInput, passwordInput, okButton);
         buttonClicked(frame, nameInput, passwordInput, cancelButton);
 
-        frame.setVisible(true);
+        displayFrame(frame);
     }
 
     private static void buttonClicked(JFrame frame, JTextField nameInput, JPasswordField passwordInput, JButton button) {

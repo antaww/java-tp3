@@ -58,6 +58,6 @@ public class Exo3 {
                     "</div>" +
                     "</html>"));
         });
-        frame.setVisible(true);
+        displayFrame(frame);
     }
 }

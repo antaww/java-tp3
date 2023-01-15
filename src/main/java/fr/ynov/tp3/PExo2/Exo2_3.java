@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import static fr.ynov.tp3.PUtils.Utils.cleanBodyPanel;
+import static fr.ynov.tp3.PUtils.Utils.displayFrame;
 
 public class Exo2_3 {
     private static final int CARD_WIDTH = 640/13;
@@ -56,8 +57,7 @@ public class Exo2_3 {
                 JOptionPane.showMessageDialog(frame, "Il n'y a plus de cartes disponibles");
             }
         });
-
-        frame.setVisible(true);
+        displayFrame(frame);
     }
 
     static ArrayList<Integer> cards = new ArrayList<>();
