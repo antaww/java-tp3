@@ -37,9 +37,10 @@ public class YugiohAPI {
         var subList = dataList.subList(0,500);
         var jsonString = gson.toJson(subList);
 
-        var file = new File("src/main/resources/cards.json");
-        var writer = new FileWriter(file, true);
-        writer.append(jsonString);
-        writer.close();
+        //  Uncomment to write to file
+        //  var file = new File("src/main/resources/cards.json");
+        //  var writer = new FileWriter(file, true);
+        //  writer.append(jsonString);
+        //  writer.close();
     }
 }
