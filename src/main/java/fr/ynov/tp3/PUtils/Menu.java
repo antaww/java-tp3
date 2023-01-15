@@ -5,12 +5,11 @@ import fr.ynov.tp3.PExo2.Exo2_2;
 import fr.ynov.tp3.PExo2.Exo2_3;
 import fr.ynov.tp3.PExo3.Exo3;
 import fr.ynov.tp3.PExo4.Exo4;
+import fr.ynov.tp3.PExo5.Exo5;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-
-import static fr.ynov.tp3.PUtils.Utils.*;
 
 public class Menu {
     public static void main(String[] args) {
@@ -51,6 +50,8 @@ public class Menu {
         menuMenu.add(exercise4Item1);
         var exercise4Item2 = new JMenuItem("Exercice 4.2 - Yu-Gi-Oh! Carte Piège");
         menuMenu.add(exercise4Item2);
+        var exercise5Item = new JMenuItem("Exercice 5 - Yu-Gi-Oh! Héritage");
+        menuMenu.add(exercise5Item);
         var leaveItem = new JMenuItem("Quitter");
         menuMenu.add(leaveItem);
 
@@ -79,12 +80,14 @@ public class Menu {
         exercise3Item.addActionListener(e -> Exo3.main(frame));
         exercise4Item1.addActionListener(e -> Exo4.main(frame, "Carte Magie"));
         exercise4Item2.addActionListener(e -> Exo4.main(frame, "Carte Piège"));
+        exercise5Item.addActionListener(e -> Exo5.main(frame));
+
         leaveItem.addActionListener(e -> System.exit(0));
 
-        setPanelsBackgroundColor(frame);
-        setFontColor(frame);
-        setBackgroundColorForMenuBar(menuBar, new Color(33, 33, 33));
-        removeMenuBarBorders(menuBar);
+        Utils.setPanelsBackgroundColor(frame);
+        Utils.setFontColor(frame);
+        Utils.setBackgroundColorForMenuBar(menuBar, new Color(33, 33, 33));
+        Utils.removeMenuBarBorders(menuBar);
 
         //todo: listen to menuMenu items hover and set the background color to 28, 28, 28
         //todo: remove blue background on click (buttons & menu items)

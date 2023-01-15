@@ -1,98 +1,30 @@
 package fr.ynov.tp3.PExo3;
 
-import fr.ynov.tp3.Card;
+import fr.ynov.tp3.PExo5.AMonstre;
 
-public class MonsterCard implements Card {
-    private String name;
-    private int level; // 1-12
-    private Attribute attribute; // Eau, Feu, Terre, Vent, Lumière, Ténèbres, Divin
-    private String types;
-    //private PrimaryType primaryType; // Magicien, Bête, Dinosaure, Pyro, Psychique, Dragon, Bête-ailée, Reptile, Tonnerre, Bête-divine, Zombie,
-    // Démon, Poisson, Rocher, Wyrm, Guerrier, Elfe, Serpent De Mer, Plante, Cyberse, Bête-guerrier, Insecte, Aqua, Machine, Créateur
-    //private SecondaryType secondaryType = null; // Fusion, Synchro, Xyz, Rituel, Pendule, Lien
-    //private TertiaryType tertiaryType = null; // Flip, Toon, Spirit, Union, Gémeau, Synthoniseur
-    //private MonsterType monsterType; // Normal, Effet
-    // Types primaire et monstre obligatoires, types secondaire et type tertiaire facultatifs
-    // Peut avoir 2 à 4 types (primaire, ?secondaire, ?tertiaire, monstre)
-    private String reference; // XXXX-XXXXX
-    private int[] stats = new int[0]; // [0] = ATK/{int} [1] = DEF/{int}
-    private String description;
+import java.util.Arrays;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+public class MonsterCard extends AMonstre {
+    public MonsterCard(String name, int level, Attribute attribute, String types, String reference, int atk, int def, String description) {
         this.name = name;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
         this.level = level;
-    }
-
-    public String getAttribute() {
-        return attribute.getDisplayName();
-    }
-
-    public void setAttribute(Attribute attribute) {
         this.attribute = attribute;
-    }
-
-//    public String getAllTypes() {
-//        return "[" + primaryType.getDisplayName() + (secondaryType == null ? "" : " / " + secondaryType.getDisplayName()) + (tertiaryType == null ? "" : " / " + tertiaryType.getDisplayName()) + " / " + monsterType.getDisplayName() + "]";
-//    }
-//
-//    public void setPrimaryType(PrimaryType primaryType) {
-//        this.primaryType = primaryType;
-//    }
-//
-//    public void setSecondaryType(SecondaryType secondaryType) {
-//        this.secondaryType = secondaryType;
-//    }
-//
-//    public void setTertiaryType(TertiaryType tertiaryType) {
-//        this.tertiaryType = tertiaryType;
-//    }
-//
-//    public void setMonsterType(MonsterType monsterType) {
-//        this.monsterType = monsterType;
-//    }
-
-    public String getReference() {
-        return reference;
-    }
-
-    public void setReference(String reference) {
+        this.types = types;
         this.reference = reference;
-    }
-
-    public String getStats() {
-        return (stats[0] != -1 ? "ATK/" + stats[0] : "") + (stats[1] != -1 ? " DEF/" + stats[1] : "");
-    }
-
-    public void setStats(int[] stats) {
-        this.stats = stats;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
+        this.stats = new int[]{atk, def};
         this.description = description;
     }
 
-    public String getTypes() {
-        return types;
-    }
-
-    public void setTypes(String types) {
-        this.types = types;
+    @Override
+    public String toString() {
+        return "MonsterCard{" +
+                "name='" + name + '\'' +
+                ", level=" + level +
+                ", attribute=" + attribute +
+                ", types='" + types + '\'' +
+                ", reference='" + reference + '\'' +
+                ", stats=" + Arrays.toString(stats) +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
-
-
