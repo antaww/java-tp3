@@ -1,15 +1,14 @@
 package fr.ynov.tp3.PExo2;
 
+import fr.ynov.tp3.PUtils.Utils;
+
 import javax.swing.*;
 import java.awt.*;
-
-import static fr.ynov.tp3.PUtils.Utils.cleanBodyPanel;
-import static fr.ynov.tp3.PUtils.Utils.displayFrame;
 
 public class Exo2_1 {
     public static void main(JFrame frame) {
         var bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
-        cleanBodyPanel(bodyPanel);
+        Utils.cleanBodyPanel(bodyPanel);
         var titleLabel = (JLabel) ((JPanel) ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).getComponent(0)).getComponent(0);
         titleLabel.setText("Exercice 2.1 - JButton");
 
@@ -33,6 +32,6 @@ public class Exo2_1 {
             JOptionPane.showMessageDialog(frame, "Vous avez cliqué sur : " + button2.getText());
             button2.setIcon(new ImageIcon(new ImageIcon("src/main/resources/canard.png").getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH)));
         });
-        displayFrame(frame);
+        Utils.displayFrame(frame);
     }
 }

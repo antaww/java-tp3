@@ -1,15 +1,14 @@
 package fr.ynov.tp3.PExo2;
 
+import fr.ynov.tp3.PUtils.Utils;
+
 import javax.swing.*;
 import java.awt.*;
-
-import static fr.ynov.tp3.PUtils.Utils.cleanBodyPanel;
-import static fr.ynov.tp3.PUtils.Utils.displayFrame;
 
 public class Exo2_2 {
     public static void main(JFrame frame) {
         var bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
-        cleanBodyPanel(bodyPanel);
+        Utils.cleanBodyPanel(bodyPanel);
         var titleLabel = (JLabel) ((JPanel) ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).getComponent(0)).getComponent(0);
         titleLabel.setText("Exercice 2.2 - BoxLayout");
 
@@ -58,7 +57,7 @@ public class Exo2_2 {
         buttonClicked(frame, nameInput, passwordInput, okButton);
         buttonClicked(frame, nameInput, passwordInput, cancelButton);
 
-        displayFrame(frame);
+        Utils.displayFrame(frame);
     }
 
     private static void buttonClicked(JFrame frame, JTextField nameInput, JPasswordField passwordInput, JButton button) {

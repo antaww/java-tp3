@@ -1,19 +1,19 @@
 package fr.ynov.tp3.PExo3;
 
+import fr.ynov.tp3.PUtils.Utils;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
-import static fr.ynov.tp3.PUtils.Utils.*;
-
 public class Exo3 {
     public static void main(JFrame frame) {
         var bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
-        cleanBodyPanel(bodyPanel);
+        Utils.cleanBodyPanel(bodyPanel);
         var titleLabel = (JLabel) ((JPanel) ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).getComponent(0)).getComponent(0);
         titleLabel.setText("Exercice 3 - Yu-Gi-Oh!");
 
-        var cardPanel = createCardPanel(bodyPanel, "Carte Monstre");
+        var cardPanel = Utils.createCardPanel(bodyPanel, "Carte Monstre");
         var comboBox = (JComboBox<String>) cardPanel.get("comboBox");
         var resultLabel = (JLabel) cardPanel.get("resultLabel");
         var resultImagePanel = (JPanel) cardPanel.get("resultImagePanel");
@@ -21,12 +21,11 @@ public class Exo3 {
 
         resultLabel.setFont(new Font("Arial", Font.BOLD, 15));
 
-        var jsonElement = getJsonElement(comboBox, "Monster");
+        var jsonElement = Utils.getJsonElement(comboBox, "Monster");
 
         comboBox.addActionListener(e -> {
             resultImagePanel.removeAll();
             var selected = comboBox.getSelectedItem();
-            var monsterCard1 = new MonsterCard();
 
             jsonElement.getAsJsonArray().forEach(jsonElement1 -> {
                 var cardName = jsonElement1.getAsJsonObject().get("name").getAsString();
@@ -41,23 +40,24 @@ public class Exo3 {
                     var cardDef = jsonElement1.getAsJsonObject().has("def") ? jsonElement1.getAsJsonObject().get("def").getAsInt() : -1;
                     var cardDescription = jsonElement1.getAsJsonObject().get("desc").getAsString();
                     var cardImage = jsonElement1.getAsJsonObject().get("card_images").getAsJsonArray().get(0).getAsJsonObject().get("image_url").getAsString();
-                    setMonsterCard(monsterCard1, cardName, cardLevel, Attribute.valueOf(cardAttribute), cardTypes, cardReference, cardAtk, cardDef, cardDescription);
-                    displayCardImage(resultLabel, resultImagePanel, resultPanel, cardImage);
+                    var monsterCard1 = new MonsterCard(cardName, cardLevel, Attribute.valueOf(cardAttribute), cardTypes, cardReference, cardAtk, cardDef, cardDescription);
+
+                    Utils.displayCardImage(resultLabel, resultImagePanel, resultPanel, cardImage);
+                    resultLabel.setText(Utils.replaceUnderscore("<html>" +
+                            "<div>" +
+                            "<p><u>Nom</u> : " + monsterCard1.getName() +
+                            "<br><u>Niveau</u> : " + (monsterCard1.getLevel() != -1 ? monsterCard1.getLevel() : "Aucun niveau disponible pour cette carte.") +
+                            "<br><u>Attribut</u> : " + monsterCard1.getAttribute() +
+                            "<br><u>Types</u> : " + "[" + Utils.translateString(monsterCard1.getTypes()) + "]" +
+                            "<br><u>Référence</u> : " + (!Objects.equals(monsterCard1.getReference(), "N/A") ? monsterCard1.getReference().toUpperCase() : "Aucune référence disponible pour cette carte.") +
+                            "<br><u>Statistiques</u> : " + monsterCard1.getStats() +
+                            "<br><u>Description</u> : " + monsterCard1.getDescription() +
+                            "</div>" +
+                            "</html>")
+                    );
                 }
             });
-
-            resultLabel.setText(hasUnderscore("<html>" +
-                    "<div>" +
-                    "<p><u>Nom</u> : " + monsterCard1.getName() +
-                    "<br><u>Niveau</u> : " + (monsterCard1.getLevel() != -1 ? monsterCard1.getLevel() : "Aucun niveau disponible pour cette carte.") +
-                    "<br><u>Attribut</u> : " + monsterCard1.getAttribute() +
-                    "<br><u>Types</u> : " + "[" + translateString(monsterCard1.getTypes()) + "]" +
-                    "<br><u>Référence</u> : " + (!Objects.equals(monsterCard1.getReference(), "N/A") ? monsterCard1.getReference().toUpperCase() : "Aucune référence disponible pour cette carte.") +
-                    "<br><u>Statistiques</u> : " + monsterCard1.getStats() +
-                    "<br><u>Description</u> : " + monsterCard1.getDescription() +
-                    "</div>" +
-                    "</html>"));
         });
-        displayFrame(frame);
+        Utils.displayFrame(frame);
     }
 }

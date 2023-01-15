@@ -1,5 +1,7 @@
 package fr.ynov.tp3.PExo2;
 
+import fr.ynov.tp3.PUtils.Utils;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -9,9 +11,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static fr.ynov.tp3.PUtils.Utils.cleanBodyPanel;
-import static fr.ynov.tp3.PUtils.Utils.displayFrame;
-
 public class Exo2_3 {
     private static final int CARD_WIDTH = 640/13;
     private static final int CARD_HEIGHT = 256/4;
@@ -20,7 +19,7 @@ public class Exo2_3 {
 
     public static void main(JFrame frame){
         var bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
-        cleanBodyPanel(bodyPanel);
+        Utils.cleanBodyPanel(bodyPanel);
         var titleLabel = (JLabel) ((JPanel) ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).getComponent(0)).getComponent(0);
         titleLabel.setText("Exercice 2.3 - Afficher Cartes");
 
@@ -58,7 +57,7 @@ public class Exo2_3 {
                 JOptionPane.showMessageDialog(frame, "Il n'y a plus de cartes disponibles");
             }
         });
-        displayFrame(frame);
+        Utils.displayFrame(frame);
     }
 
     static ArrayList<Integer> cards = new ArrayList<>();
