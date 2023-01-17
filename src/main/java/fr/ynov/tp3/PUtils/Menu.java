@@ -1,5 +1,6 @@
 package fr.ynov.tp3.PUtils;
 
+import fr.ynov.tp3.PExo1.TP_Classe;
 import fr.ynov.tp3.PExo2.Exo2_1;
 import fr.ynov.tp3.PExo2.Exo2_2;
 import fr.ynov.tp3.PExo2.Exo2_3;
@@ -74,6 +75,7 @@ public class Menu {
 
         bodyPanel.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
 
+        exercise1Item.addActionListener(e -> TP_Classe.main(frame));
         exercise2Item1.addActionListener(e -> Exo2_1.main(frame));
         exercise2Item2.addActionListener(e -> Exo2_2.main(frame));
         exercise2Item3.addActionListener(e -> Exo2_3.main(frame));

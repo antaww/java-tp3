@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Classe {
-    private final String nom;
+    final String nom;
     private final Map<String, Etudiant> etudiants;
 
     public Classe(String nom) {
@@ -16,7 +16,6 @@ public class Classe {
         System.out.println("Voici la liste des étudiants de la classe " + nom + " :");
         for (var entry : etudiants.entrySet()) {
             var nomEtudiant = entry.getKey();
-            var etudiant = entry.getValue();
             System.out.println(" - " + nomEtudiant);
         }
     }
@@ -53,5 +52,17 @@ public class Classe {
         var prenomEtudiant = etudiant.prenom;
         var cle = nomEtudiant + " " + prenomEtudiant;
         etudiants.put(cle, etudiant);
+    }
+
+
+
+    public String[] getEtudiants() {
+        String[] etudiants = new String[this.etudiants.size()];
+        int i = 0;
+        for (var entry : this.etudiants.entrySet()) {
+            etudiants[i] = entry.getKey();
+            i++;
+        }
+        return etudiants;
     }
 }
