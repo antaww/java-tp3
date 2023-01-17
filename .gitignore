@@ -23,5 +23,7 @@
 hs_err_pid*
 
 out
-.idea
+/.idea/**/*.xml
+/.idea/.gitignore
+!/.idea/libraries/*.xml
 myCard.txt
