@@ -20,15 +20,25 @@ public class Exo5 {
         var titleLabel = (JLabel) ((JPanel) ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).getComponent(0)).getComponent(0);
         titleLabel.setText("Exercice 5 - Yu-Gi-Oh!");
 
-        var secondPanel = new JPanel(new GridLayout(2, 6));
+        var secondPanel = new JPanel();
+        var thirdPanel = new JPanel();
+        var itemsSize = new Dimension(150, 60);
+
         var buttonsPanel = new JPanel();
+        var resultLabel = new JLabel();
+        var resultPanel = new JPanel();
+        resultPanel.add(resultLabel);
         bodyPanel.add(secondPanel);
+        bodyPanel.add(thirdPanel);
+        bodyPanel.add(resultPanel);
+        bodyPanel.add(Box.createRigidArea(new Dimension(0, 120)));
         bodyPanel.add(buttonsPanel);
+        bodyPanel.add(Box.createRigidArea(new Dimension(0, 30)));
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
 
-        var resultLabel = new JLabel();
-
-        secondPanel.add(resultLabel);
+        resultLabel.setPreferredSize(new Dimension(bodyPanel.getWidth()-100, 200));
+        resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        resultLabel.setVerticalAlignment(SwingConstants.TOP);
 
         //todo: add a button to create a monstercard or a specialcard
         var fileName = "myCard.txt";
@@ -43,6 +53,9 @@ public class Exo5 {
         var descriptionArea = new JTextField();
         var createButton = new JButton("Créer");
         var clearButton = new JButton("Effacer");
+
+        createButton.setPreferredSize(new Dimension(100, 40));
+        clearButton.setPreferredSize(new Dimension(100, 40));
 
         nameField.setBorder(BorderFactory.createTitledBorder(null, "Nom", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, Color.WHITE));
         levelSpinner.setBorder(BorderFactory.createTitledBorder(null, "Niveau", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, Color.WHITE));
@@ -69,16 +82,11 @@ public class Exo5 {
         attackSpinner.setModel(attackSpinnerModel);
         defenseSpinner.setModel(defenseSpinnerModel);
 
-        for (var attribute : Attribute.values()) {
-            attributeComboBox.addItem(attribute.getDisplayName());
-        }
-
-
         var listElements = new String[]{
-                "Aqua", "Bête", "Bête-guerrier", "Créateur", "Cyberse", "Dinosaure", "Bête-divine",
-                "Dragon", "Elfe", "Démon", "Poisson", "Insecte", "Machine", "Plante", "Psychique", "Pyro", "Reptile", "Rocher",
-                "Serpent De Mer", "Magicien", "Tonnerre", "Guerrier", "Bête-ailée", "Wyrm", "Zombie", "Fusion", "Lien", "Pendule",
-                "Rituel", "Xyz", "Flip", "Gémeau", "Esprit", "Synchro", "Toon", "Synthoniseur", "Union", "Effet"
+                "Aqua", "Bête", "Bête-ailée", "Bête-divine", "Bête-guerrier", "Créateur", "Cyberse", "Dinosaure", "Dragon",
+                "Démon", "Effet", "Elfe", "Esprit", "Flip", "Fusion", "Guerrier", "Gémeau", "Insecte", "Lien", "Machine",
+                "Magicien", "Pendule", "Plante", "Poisson", "Psychique", "Pyro", "Reptile", "Rituel", "Rocher", "Serpent De Mer",
+                "Synchro", "Synthoniseur", "Tonnerre", "Toon", "Union", "Wyrm", "Xyz", "Zombie"
         };
 
         var checkListItems = new CheckList.CheckListItem[listElements.length];
@@ -86,9 +94,27 @@ public class Exo5 {
             checkListItems[i] = new CheckList.CheckListItem(listElements[i]);
         }
         var list = new JList<>(checkListItems);
-
         list.setCellRenderer(new CheckList.CheckListRenderer());
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        secondPanel.add(nameField);
+        secondPanel.add(levelSpinner);
+        secondPanel.add(attributeComboBox);
+        secondPanel.add(new JScrollPane(list));
+        thirdPanel.add(referenceField);
+        thirdPanel.add(attackSpinner);
+        thirdPanel.add(defenseSpinner);
+        thirdPanel.add(descriptionArea);
+        buttonsPanel.add(createButton);
+        buttonsPanel.add(clearButton);
+
+        setComponentSize(secondPanel, itemsSize);
+        setComponentSize(thirdPanel, itemsSize);
+
+        for (var attribute : Attribute.values()) {
+            attributeComboBox.addItem(attribute.getDisplayName());
+        }
+
         list.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent event) {
@@ -99,17 +125,6 @@ public class Exo5 {
                 list.repaint(list.getCellBounds(index, index));
             }
         });
-
-        secondPanel.add(nameField);
-        secondPanel.add(levelSpinner);
-        secondPanel.add(attributeComboBox);
-        secondPanel.add(new JScrollPane(list));
-        secondPanel.add(referenceField);
-        secondPanel.add(attackSpinner);
-        secondPanel.add(defenseSpinner);
-        secondPanel.add(descriptionArea);
-        buttonsPanel.add(createButton);
-        buttonsPanel.add(clearButton);
 
         createButton.addActionListener(e -> {
             var name = nameField.getText();
@@ -128,39 +143,37 @@ public class Exo5 {
             }
 
             ICarteYuGiOh myCard = new MonsterCard(name, level, attribute, types.toString(), reference, attack, defense, description);
-            System.out.println(myCard);
 
             try {
                 saveCard(myCard, fileName);
                 System.out.println("Card successfully saved to " + fileName);
-            } catch (IOException f) {
-                f.printStackTrace();
-            }
-
-            try {
                 var card = readCard(fileName);
-                resultLabel.setText(card.getName());
-            } catch (IOException | ClassNotFoundException g) {
-                g.printStackTrace();
+                resultLabel.setText("<html><div><p>" + card.toString() + "<p></div></html>");
+            } catch (IOException | ClassNotFoundException ex) {
+                ex.printStackTrace();
             }
         });
 
         clearButton.addActionListener(e -> {
-            for (var component : secondPanel.getComponents()) {
-                if (component instanceof JSpinner) {
-                    ((JSpinner) component).setValue(0);
-                } else if (component instanceof JTextField) {
-                    ((JTextField) component).setText("");
-                }
-                if(component instanceof JScrollPane){
-                    var list1 = (JList) ((JScrollPane) component).getViewport().getView();
-                    for (var i = 0; i < list1.getModel().getSize(); i++) {
-                        var item = (CheckList.CheckListItem) list1.getModel().getElementAt(i);
-                        item.setSelected(false);
-                        list.repaint(list.getCellBounds(i, i));
+            for (var panel : new JPanel[]{secondPanel, thirdPanel}) {
+                for (var component : panel.getComponents()) {
+                    if (component instanceof JSpinner) {
+                        ((JSpinner) component).setValue(0);
+                    } else if (component instanceof JTextField) {
+                        ((JTextField) component).setText("");
+                    }
+                    if(component instanceof JScrollPane){
+                        var list1 = (JList) ((JScrollPane) component).getViewport().getView();
+                        for (var i = 0; i < list1.getModel().getSize(); i++) {
+                            var item = (CheckList.CheckListItem) list1.getModel().getElementAt(i);
+                            item.setSelected(false);
+                            list.repaint(list.getCellBounds(i, i));
+                        }
                     }
                 }
             }
+            attributeComboBox.setSelectedIndex(0);
+            resultLabel.setText("");
         });
 
         //to graphically create specialcard :
@@ -172,6 +185,13 @@ public class Exo5 {
 
         Utils.displayFrame(frame);
     }
+
+    private static void setComponentSize(JPanel panel, Dimension size) {
+        for (var component : panel.getComponents()) {
+            component.setPreferredSize(size);
+        }
+    }
+
 
     private static void fillTypes(JList<CheckList.CheckListItem> list, ArrayList<String> types) {
         for (var i = 0; i < list.getModel().getSize(); i++) {
