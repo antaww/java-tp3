@@ -6,7 +6,7 @@ import java.util.Map;
 public class Etudiant {
     final String nom;
     final String prenom;
-    private final Map<String, Map<String, Map<Integer, Double>>> notes;
+    final Map<String, Map<String, Map<Integer, Double>>> notes;
 
     public Etudiant(String nom, String prenom) {
         this.nom = nom;

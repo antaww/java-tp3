@@ -37,7 +37,7 @@ public class Menu {
         var creditsMenu = new JMenu("Crédits");
         menuBar.add(creditsMenu);
 
-        var exercise1Item = new JMenuItem("Exercice 1");
+        var exercise1Item = new JMenuItem("Exercice 1 - TP Classe & Étudiant");
         menuMenu.add(exercise1Item);
         var exercise2Item1 = new JMenuItem("Exercice 2.1 - JButton");
         menuMenu.add(exercise2Item1);
