@@ -20,8 +20,10 @@ public class Exo5 {
         var titleLabel = (JLabel) ((JPanel) ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).getComponent(0)).getComponent(0);
         titleLabel.setText("Exercice 5 - Yu-Gi-Oh!");
 
-        var secondPanel = new JPanel(new GridLayout(3, 5));
+        var secondPanel = new JPanel(new GridLayout(2, 6));
+        var buttonsPanel = new JPanel();
         bodyPanel.add(secondPanel);
+        bodyPanel.add(buttonsPanel);
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
 
         var resultLabel = new JLabel();
@@ -31,15 +33,6 @@ public class Exo5 {
         //todo: add a button to create a monstercard or a specialcard
         var fileName = "myCard.txt";
 
-        //to graphically create monstercard :
-        //name : text field
-        //level : spinner
-        //attribute : combo box
-        //types: checklist
-        //reference : text field
-        //attack : spinner
-        //defense : spinner
-        //description : text area
         var nameField = new JTextField();
         var levelSpinner = new JSpinner();
         var attributeComboBox = new JComboBox<String>();
@@ -69,17 +62,18 @@ public class Exo5 {
         defenseSpinner.setFont(new Font("Arial", Font.BOLD, 12));
         descriptionArea.setFont(new Font("Arial", Font.BOLD, 12));
 
-        checkNegativeSpinnerInt(levelSpinner);
-        checkNegativeSpinnerInt(attackSpinner);
-        checkNegativeSpinnerInt(defenseSpinner);
-        MoreIntToSpinner(attackSpinner);
-        MoreIntToSpinner(defenseSpinner);
+        var levelSpinnerModel = new SpinnerNumberModel(0, 0, 12, 1);
+        var attackSpinnerModel = new SpinnerNumberModel(0, 0, 5000, 100);
+        var defenseSpinnerModel = new SpinnerNumberModel(0, 0, 5000, 100);
+        levelSpinner.setModel(levelSpinnerModel);
+        attackSpinner.setModel(attackSpinnerModel);
+        defenseSpinner.setModel(defenseSpinnerModel);
 
         for (var attribute : Attribute.values()) {
             attributeComboBox.addItem(attribute.getDisplayName());
         }
 
-        //todo: convert listElements to checkBoxList
+
         var listElements = new String[]{
                 "Aqua", "Bête", "Bête-guerrier", "Créateur", "Cyberse", "Dinosaure", "Bête-divine",
                 "Dragon", "Elfe", "Démon", "Poisson", "Insecte", "Machine", "Plante", "Psychique", "Pyro", "Reptile", "Rocher",
@@ -87,46 +81,12 @@ public class Exo5 {
                 "Rituel", "Xyz", "Flip", "Gémeau", "Esprit", "Synchro", "Toon", "Synthoniseur", "Union", "Effet"
         };
 
-        var list = new JList<CheckList.CheckListItem>(new CheckList.CheckListItem[] {
-                new CheckList.CheckListItem("Aqua"),
-                new CheckList.CheckListItem("Bête"),
-                new CheckList.CheckListItem("Bête-guerrier"),
-                new CheckList.CheckListItem("Créateur"),
-                new CheckList.CheckListItem("Cyberse"),
-                new CheckList.CheckListItem("Dinosaure"),
-                new CheckList.CheckListItem("Bête-divine"),
-                new CheckList.CheckListItem("Dragon"),
-                new CheckList.CheckListItem("Elfe"),
-                new CheckList.CheckListItem("Démon"),
-                new CheckList.CheckListItem("Poisson"),
-                new CheckList.CheckListItem("Insecte"),
-                new CheckList.CheckListItem("Machine"),
-                new CheckList.CheckListItem("Plante"),
-                new CheckList.CheckListItem("Psychique"),
-                new CheckList.CheckListItem("Pyro"),
-                new CheckList.CheckListItem("Reptile"),
-                new CheckList.CheckListItem("Rocher"),
-                new CheckList.CheckListItem("Serpent De Mer"),
-                new CheckList.CheckListItem("Magicien"),
-                new CheckList.CheckListItem("Tonnerre"),
-                new CheckList.CheckListItem("Guerrier"),
-                new CheckList.CheckListItem("Bête-ailée"),
-                new CheckList.CheckListItem("Wyrm"),
-                new CheckList.CheckListItem("Zombie"),
-                new CheckList.CheckListItem("Fusion"),
-                new CheckList.CheckListItem("Lien"),
-                new CheckList.CheckListItem("Pendule"),
-                new CheckList.CheckListItem("Rituel"),
-                new CheckList.CheckListItem("Xyz"),
-                new CheckList.CheckListItem("Flip"),
-                new CheckList.CheckListItem("Gémeau"),
-                new CheckList.CheckListItem("Esprit"),
-                new CheckList.CheckListItem("Synchro"),
-                new CheckList.CheckListItem("Toon"),
-                new CheckList.CheckListItem("Synthoniseur"),
-                new CheckList.CheckListItem("Union"),
-                new CheckList.CheckListItem("Effet")
-        });
+        var checkListItems = new CheckList.CheckListItem[listElements.length];
+        for (var i = 0; i < listElements.length; i++) {
+            checkListItems[i] = new CheckList.CheckListItem(listElements[i]);
+        }
+        var list = new JList<>(checkListItems);
+
         list.setCellRenderer(new CheckList.CheckListRenderer());
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.addMouseListener(new MouseAdapter() {
@@ -148,8 +108,8 @@ public class Exo5 {
         secondPanel.add(attackSpinner);
         secondPanel.add(defenseSpinner);
         secondPanel.add(descriptionArea);
-        secondPanel.add(createButton);
-        secondPanel.add(clearButton);
+        buttonsPanel.add(createButton);
+        buttonsPanel.add(clearButton);
 
         createButton.addActionListener(e -> {
             var name = nameField.getText();
@@ -163,7 +123,7 @@ public class Exo5 {
             var description = descriptionArea.getText();
 
             if (name.isEmpty() || types.isEmpty() || reference.isEmpty() || description.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs", "Erreur", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs !", "Erreur", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -194,12 +154,10 @@ public class Exo5 {
                 }
                 if(component instanceof JScrollPane){
                     var list1 = (JList) ((JScrollPane) component).getViewport().getView();
-                    System.out.println(list1);
                     for (var i = 0; i < list1.getModel().getSize(); i++) {
                         var item = (CheckList.CheckListItem) list1.getModel().getElementAt(i);
                         item.setSelected(false);
                         list.repaint(list.getCellBounds(i, i));
-                        System.out.println(item);
                     }
                 }
             }
@@ -213,28 +171,6 @@ public class Exo5 {
         //description : text area
 
         Utils.displayFrame(frame);
-    }
-
-    private static void MoreIntToSpinner(JSpinner attackSpinner) {
-        attackSpinner.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                if (e.getButton() == MouseEvent.BUTTON1) {
-                    attackSpinner.setValue((int) attackSpinner.getValue() + 100);
-                } else if (e.getButton() == MouseEvent.BUTTON3) {
-                    attackSpinner.setValue((int) attackSpinner.getValue() - 100);
-                }
-            }
-        });
-    }
-
-    private static void checkNegativeSpinnerInt(JSpinner levelSpinner) {
-        levelSpinner.addChangeListener(e -> {
-            if ((int) levelSpinner.getValue() < 0) {
-                levelSpinner.setValue(0);
-            }
-        });
     }
 
     private static void fillTypes(JList<CheckList.CheckListItem> list, ArrayList<String> types) {
