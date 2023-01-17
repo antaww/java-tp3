@@ -52,7 +52,7 @@ public class Exo4 {
                     var specialCards1 = new SpecialCards(cardName, SpecialType.valueOf(cardType), SpecialIcon.valueOf(cardRace), cardReference, cardDescription);
 
                     Utils.displayCardImage(resultLabel, resultImagePanel, resultPanel, cardImage);
-                    resultLabel.setText(Utils.replaceUnderscore("<html>" +
+                    resultLabel.setText(Utils.convertUnderscoresToSpaces("<html>" +
                             "<div>" +
                             "<p><u>Nom</u> : " + specialCards1.getName() +
                             "<br><u>Type</u> : " + specialCards1.getType() +

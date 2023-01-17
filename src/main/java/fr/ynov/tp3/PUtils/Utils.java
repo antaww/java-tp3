@@ -187,7 +187,7 @@ public class Utils {
         return result;
     }
 
-    public static String replaceUnderscore(String str) {
+    public static String convertUnderscoresToSpaces(String str) {
         return str.replaceAll("_", " ");
     }
 
