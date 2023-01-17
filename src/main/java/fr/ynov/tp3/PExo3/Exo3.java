@@ -43,6 +43,7 @@ public class Exo3 {
                     var monsterCard1 = new MonsterCard(cardName, cardLevel, Attribute.valueOf(cardAttribute), cardTypes, cardReference, cardAtk, cardDef, cardDescription);
 
                     Utils.displayCardImage(resultLabel, resultImagePanel, resultPanel, cardImage);
+                    frame.revalidate();
                     resultLabel.setText(Utils.convertUnderscoresToSpaces("<html>" +
                             "<div>" +
                             "<p><u>Nom</u> : " + monsterCard1.getName() +
