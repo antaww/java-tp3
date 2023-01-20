@@ -17,12 +17,10 @@ public class Exo4 {
         switch (title) {
             case "Carte Magie" -> {
                 titleLabel.setText("Exercice 4.1 - Yu-Gi-Oh!");
-                System.out.println(titleLabel.getText());
                 titles.add("Spell");
             }
             case "Carte Piège" -> {
                 titleLabel.setText("Exercice 4.2 - Yu-Gi-Oh!");
-                System.out.println(titleLabel.getText());
                 titles.add("Trap");
             }
         }
