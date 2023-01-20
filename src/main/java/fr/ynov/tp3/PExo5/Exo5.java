@@ -12,6 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Exo5 {
     public static void main(JFrame frame) {
@@ -39,6 +40,7 @@ public class Exo5 {
         resultLabel.setPreferredSize(new Dimension(bodyPanel.getWidth()-100, 200));
         resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
         resultLabel.setVerticalAlignment(SwingConstants.TOP);
+        resultLabel.setFont(new Font("Arial", Font.BOLD, 15));
 
         //todo: add a button to create a monstercard or a specialcard
         var fileName = "myCard.txt";
@@ -142,13 +144,24 @@ public class Exo5 {
                 return;
             }
 
-            ICarteYuGiOh myCard = new MonsterCard(name, level, attribute, types.toString(), reference, attack, defense, description);
+            var myCard = new MonsterCard(name, level, attribute, types.toString(), reference, attack, defense, description);
 
             try {
                 saveCard(myCard, fileName);
                 System.out.println("Card successfully saved to " + fileName);
                 var card = readCard(fileName);
-                resultLabel.setText("<html><div><p>" + card.toString() + "<p></div></html>");
+                resultLabel.setText(Utils.convertUnderscoresToSpaces("<html>" +
+                        "<div>" +
+                        "<p><u>Nom</u> : " + card.getName() +
+                        "<br><u>Niveau</u> : " + (card.getLevel() != -1 ? card.getLevel() : "Aucun niveau disponible pour cette carte.") +
+                        "<br><u>Attribut</u> : " + card.getAttribute() +
+                        "<br><u>Types</u> : " + Utils.translateString(card.getTypes()) +
+                        "<br><u>Référence</u> : " + (!Objects.equals(card.getReference(), "N/A") ? card.getReference().toUpperCase() : "Aucune référence disponible pour cette carte.") +
+                        "<br><u>Statistiques</u> : " + card.getStats() +
+                        "<br><u>Description</u> : " + card.getDescription() +
+                        "</div>" +
+                        "</html>")
+                );
             } catch (IOException | ClassNotFoundException ex) {
                 ex.printStackTrace();
             }
