@@ -59,28 +59,44 @@ public class Exo6 {
             fieldCards.remove(randomIndexOpponent);
         }
 
+        //start game
         field.displayFieldCards();
-        field.displayLifePoints();
-        field.decreasePlayerLifePoints(field.getCardAttack(cardPrompt()));
-        field.displayLifePoints();
+        field.pickRandomBeginner();
+        while (!field.checkPlayerLost()) {
+            field.displayCurrentPlayer();
+            field.displayCurrentTurn();
+            field.displayLifePoints();
+            var cardIndex = cardPrompt(field);
+            field.decreasePlayerLifePoints(field.getCardAttack(cardIndex, field.getCurrentPlayer()), field.getCardName(cardIndex, field.getCurrentPlayer()));
+            field.changeCurrentPlayer();
+        }
+        field.displayWinner();
     }
 
-    private static int cardPrompt() {
+    private static int cardPrompt(YuGiOhField field) {
         var scanner = new java.util.Scanner(System.in);
-        while (true) {
-            System.out.print("Entrez le numéro de la carte avec laquelle vous voulez attaquer (1, 2, ou 3): ");
-            try {
-                var input = scanner.nextInt();
-                switch (input) {
-                    case 1, 2, 3 -> {
-                        return input - 1;
+        switch (field.getCurrentPlayer()) {
+            case "Joueur" -> {
+                while (true) {
+                    System.out.print("Entrez le numéro de la carte avec laquelle vous voulez attaquer (1, 2, ou 3): ");
+                    try {
+                        var input = scanner.nextInt();
+                        switch (input) {
+                            case 1, 2, 3 -> {
+                                return input - 1;
+                            }
+                            default -> System.out.println("Entrée invalide. Veuillez entrer une valeur de 1, 2 ou 3.");
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println("Entrée invalide. Veuillez entrer un nombre valide.");
+                        scanner.next();
                     }
-                    default -> System.out.println("Entrée invalide. Veuillez entrer une valeur de 1, 2 ou 3.");
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("Entrée invalide. Veuillez entrer un nombre valide.");
-                scanner.next();
+            }
+            case "Adversaire" -> {
+                return (int) (Math.random() * 3);
             }
         }
+        return 0;
     }
 }

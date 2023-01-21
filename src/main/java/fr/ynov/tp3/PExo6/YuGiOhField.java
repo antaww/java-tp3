@@ -10,6 +10,7 @@ public class YuGiOhField {
     private final ArrayList<MonsterCard> playerCards;
     private final ArrayList<MonsterCard> opponentCards;
     private String currentPlayer;
+    private int currentTurn;
     private int playerLifePoints;
     private int opponentLifePoints;
 
@@ -20,14 +21,41 @@ public class YuGiOhField {
         currentPlayer = "";
         playerLifePoints = 8000;
         opponentLifePoints = 8000;
-        var matchWinsPlayer = 0;
-        var matchWinsOpponent = 0;
-        var currentTurn = 1;
+        currentTurn = 1;
     }
 
     public void displayLifePoints() {
         System.out.println("Joueur : " + playerLifePoints + " PV");
         System.out.println("Adversaire : " + opponentLifePoints + " PV");
+    }
+
+    public void pickRandomBeginner() {
+        var random = (int) (Math.random() * 2);
+        if (random == 0) {
+            currentPlayer = "Joueur";
+            System.out.println("Vous commencez la partie !");
+        } else {
+            currentPlayer = "Adversaire";
+            System.out.println("L'adversaire commence la partie !");
+        }
+    }
+
+    public String getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void displayCurrentPlayer() {
+        if(currentTurn != 1) {
+            if (currentPlayer.equals("Joueur")) {
+                System.out.println("\nC'est à votre tour !");
+            } else {
+                System.out.println("\nC'est au tour de l'adversaire !");
+            }
+        }
+    }
+
+    public void displayCurrentTurn() {
+        System.out.println("Tour " + currentTurn);
     }
 
     public void addCardToField(MonsterCard card) {
@@ -50,7 +78,7 @@ public class YuGiOhField {
         System.out.println("Vos cartes :");
         getDeck(playerCards);
 
-        System.out.println("\nCartes de l'adversaire :");
+        System.out.println("Cartes de l'adversaire :");
         getDeck(opponentCards);
     }
 
@@ -62,23 +90,52 @@ public class YuGiOhField {
                     + playerCards.get(i).getAttribute() + " - ["
                     + Utils.translateString(playerCards.get(i).getTypes()) + "] - "
                     + playerCards.get(i).getStats());
+            if (i == playerCards.size() - 1) {
+                System.out.println();
+            }
         }
     }
 
-    public int getCardAttack(int index) {
-        var stats = fieldCards.get(index).getStats();
-        return Integer.parseInt(stats.split(" ")[0].split("/")[1]);
+    public int getCardAttack(int index, String player) {
+        switch (player) {
+            case "Joueur" -> {
+                return Integer.parseInt(playerCards.get(index).getStats().split(" ")[0].split("/")[1]);
+            }
+            case "Adversaire" -> {
+                return Integer.parseInt(opponentCards.get(index).getStats().split(" ")[0].split("/")[1]);
+            }
+            default -> {
+                return 0;
+            }
+        }
+    }
+
+    public String getCardName(int index, String player) {
+        switch (player) {
+            case "Joueur" -> {
+                return playerCards.get(index).getName();
+            }
+            case "Adversaire" -> {
+                return opponentCards.get(index).getName();
+            }
+            default -> {
+                return "";
+            }
+        }
     }
 
     public void changeCurrentPlayer() {
-        currentPlayer = (currentPlayer.equals("")) ? "Joueur" : "Adversaire";
+        currentPlayer = currentPlayer.equals("Joueur") ? "Adversaire" : "Joueur";
+        currentTurn++;
     }
 
-    public void decreasePlayerLifePoints(int points) {
+    public void decreasePlayerLifePoints(int attackPoints, String cardName) {
         if (currentPlayer.equals("Joueur")) {
-            playerLifePoints -= points;
+            opponentLifePoints -= attackPoints;
+            System.out.println("Vous utilisez " + cardName + " ! Cela inflige " + attackPoints + " points de dégâts à l'adversaire !");
         } else {
-            opponentLifePoints -= points;
+            playerLifePoints -= attackPoints;
+            System.out.println("L'adversaire utilise " + cardName + " ! Cela vous inflige " + attackPoints + " points de dégâts !");
         }
     }
 
@@ -87,10 +144,10 @@ public class YuGiOhField {
     }
 
     public void displayWinner() {
-        if (playerLifePoints <= 0) {
+        if (playerLifePoints > 0) {
             System.out.println("Joueur l'emporte !");
         } else {
-            System.out.println("Adversaire l'emporte !");
+            System.out.println("L'adversaire l'emporte !");
         }
     }
 }
