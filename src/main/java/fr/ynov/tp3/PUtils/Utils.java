@@ -105,7 +105,6 @@ public class Utils {
             }
         });
         monstersList.sort(String::compareToIgnoreCase);
-        //todo: add "Aucune carte" to the list and hide card when the user select it
         monstersList.forEach(comboBox::addItem);
         return jsonElement;
     }
