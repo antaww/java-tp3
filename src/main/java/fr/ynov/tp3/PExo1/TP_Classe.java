@@ -19,6 +19,9 @@ public class TP_Classe {
 
         var etudiant1 = new Etudiant("Crews", "Apollo");
         etudiant1.setNote("Maths", "Examen", 2, 10);
+        etudiant1.setNote("Français", "Partiels", 5, 2);
+        etudiant1.setNote("Français", "Dissertation", 1, 7);
+        etudiant1.setNote("EPS", "Badminton", 1, 19.5);
         var etudiant2 = new Etudiant("Buzz", "Léclair");
 
         var maClasse = new Classe("B2 - Linux/Réseaux");
@@ -124,7 +127,6 @@ public class TP_Classe {
 
             studentInfoNameLabel.setFont(new Font("Arial", Font.BOLD, 18));
             studentInfoActionPanel.setFont(new Font("Arial", Font.BOLD, 13));
-            studentInfoActionResultPanel.setFont(new Font("Arial", Font.BOLD, 13));
 
             studentInfoPanel.add(studentInfoNameLabel, BorderLayout.NORTH);
             studentInfoPanel.add(studentInfoActionPanel, BorderLayout.CENTER);
@@ -151,6 +153,34 @@ public class TP_Classe {
                 studentInfoActionResultLabel.setForeground(Color.WHITE);
                 studentInfoActionResultPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 300));
                 studentInfoActionResultPanel.add(studentInfoActionResultLabel);
+                frame.revalidate();
+                frame.repaint();
+            });
+
+            studentInfoActionButton2.addActionListener(e1 -> {
+                studentInfoActionResultPanel.removeAll();
+                var listModel = new DefaultListModel<String>();
+                listModel.addElement("Notes de " + student.nom + " " + student.prenom);
+                var studentInfoActionResultList = new JList<>(listModel);
+                var notes = student.afficherNote();
+                Arrays.sort(notes);
+
+                studentInfoActionResultList.setFont(new Font("Arial", Font.BOLD, 25));
+                studentInfoActionResultList.setForeground(Color.WHITE);
+                studentInfoActionResultList.setBackground(new Color(33, 33, 33));
+
+                if (notes.length == 0) {
+                    studentInfoActionResultList.setListData(new String[]{"L'étudiant n'a pas encore de notes"});
+                    studentInfoActionResultPanel.add(studentInfoActionResultList);
+
+                } else {
+                    studentInfoActionResultList.setListData(notes);
+                    JScrollPane scrollPane = new JScrollPane(studentInfoActionResultList);
+                    scrollPane.setPreferredSize(new Dimension(studentInfoActionResultPanel.getWidth(), 400));
+                    studentInfoActionResultPanel.add(scrollPane);
+                }
+                studentInfoActionResultPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 400));
+
                 frame.revalidate();
                 frame.repaint();
             });

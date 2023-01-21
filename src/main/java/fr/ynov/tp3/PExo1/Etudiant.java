@@ -2,6 +2,7 @@ package fr.ynov.tp3.PExo1;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Arrays;
 
 public class Etudiant {
     final String nom;
@@ -14,8 +15,25 @@ public class Etudiant {
         this.notes = new HashMap<>();
     }
 
-    public void afficherNote() {
-        System.out.println("Voici toutes les notes de l'étudiant " + prenom + " " + nom + " :");
+//    public void afficherNote() {
+//        System.out.println("Voici toutes les notes de l'étudiant " + prenom + " " + nom + " :");
+//        for (var entry : notes.entrySet()) {
+//            var matiere = entry.getKey();
+//            var notesMatiere = entry.getValue();
+//            for (var entry2 : notesMatiere.entrySet()) {
+//                var evaluation = entry2.getKey();
+//                var notesEvaluation = entry2.getValue();
+//                for (var entry3 : notesEvaluation.entrySet()) {
+//                    int coef = entry3.getKey();
+//                    double note = entry3.getValue();
+//                    System.out.println("  " + evaluation + " (" + matiere + ", coefficient " + coef + ") : " + note);
+//                }
+//            }
+//        }
+//    }
+
+    public String[] afficherNote() {
+        String[] notesArray = new String[0];
         for (var entry : notes.entrySet()) {
             var matiere = entry.getKey();
             var notesMatiere = entry.getValue();
@@ -25,10 +43,12 @@ public class Etudiant {
                 for (var entry3 : notesEvaluation.entrySet()) {
                     int coef = entry3.getKey();
                     double note = entry3.getValue();
-                    System.out.println("  " + evaluation + " (" + matiere + ", coefficient " + coef + ") : " + note);
+                    notesArray = Arrays.copyOf(notesArray, notesArray.length + 1);
+                    notesArray[notesArray.length - 1] = matiere + " : " + evaluation + " > " + note + " (" + "coefficient " + coef + ")";
                 }
             }
         }
+        return notesArray;
     }
 
     public void afficherNote(String matiere) {
