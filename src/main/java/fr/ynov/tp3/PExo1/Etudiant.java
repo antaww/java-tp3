@@ -51,6 +51,24 @@ public class Etudiant {
         return notesArray;
     }
 
+//    public void afficherNote (String matiere) {
+//        var notesMatiere = notes.get(matiere);
+//        if (notesMatiere == null) {
+//            System.out.println("L'étudiant " + prenom + " " + nom + " n'a pas de notes en " + matiere);
+//            return;
+//        }
+//        System.out.println("Notes de l'étudiant " + prenom + " " + nom + " en " + matiere + " :");
+//        for (var entry : notesMatiere.entrySet()) {
+//            var evaluation = entry.getKey();
+//            var notesEvaluation = entry.getValue();
+//            for (var entry2 : notesEvaluation.entrySet()) {
+//                int coef = entry2.getKey();
+//                double note = entry2.getValue();
+//                System.out.println("  " + evaluation + " (coefficient " + coef + ") : " + note);
+//            }
+//        }
+//    }
+
     public String[] afficherNote(String matiere) {
         var notesMatiere = notes.get(matiere);
         if (notesMatiere == null) {
