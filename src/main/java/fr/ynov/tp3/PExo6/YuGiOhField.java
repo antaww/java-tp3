@@ -1,15 +1,22 @@
 package fr.ynov.tp3.PExo6;
 
+import fr.ynov.tp3.PExo3.MonsterCard;
+import fr.ynov.tp3.PUtils.Utils;
+
 import java.util.ArrayList;
 
 public class YuGiOhField {
-    private final ArrayList<ArrayList<String>> fieldCards;
+    private final ArrayList<MonsterCard> fieldCards;
+    private final ArrayList<MonsterCard> playerCards;
+    private final ArrayList<MonsterCard> opponentCards;
     private String currentPlayer;
     private int playerLifePoints;
     private int opponentLifePoints;
 
     public YuGiOhField() {
         fieldCards = new ArrayList<>();
+        playerCards = new ArrayList<>();
+        opponentCards = new ArrayList<>();
         currentPlayer = "";
         playerLifePoints = 8000;
         opponentLifePoints = 8000;
@@ -19,46 +26,48 @@ public class YuGiOhField {
     }
 
     public void displayLifePoints() {
-        System.out.println("Jouer : " + playerLifePoints);
-        System.out.println("Adversaire : " + opponentLifePoints);
+        System.out.println("Joueur : " + playerLifePoints + " PV");
+        System.out.println("Adversaire : " + opponentLifePoints + " PV");
     }
 
-    public void addCardToField(ArrayList<String> card) {
+    public void addCardToField(MonsterCard card) {
         fieldCards.add(card);
     }
 
+    public ArrayList<MonsterCard> getFieldCards() {
+        return fieldCards;
+    }
+
+    public void addCardToPlayer(MonsterCard card) {
+        playerCards.add(card);
+    }
+
+    public void addCardToOpponent(MonsterCard card) {
+        opponentCards.add(card);
+    }
+
     public void displayFieldCards() {
-        for (var i = 0; i < fieldCards.size(); i++) {
-            System.out.println("Carte " + (i+1) + " : " + getCardName(i) + " - Niveau " + getCardLevel(i) + " - " + getCardAttribute(i) + " - " + getCardTypes(i) + " - [ATK/" + getCardAtk(i) + " DEF/" + getCardDef(i) + "]");
+        System.out.println("Vos cartes :");
+        getDeck(playerCards);
+
+        System.out.println("\nCartes de l'adversaire :");
+        getDeck(opponentCards);
+    }
+
+    private void getDeck(ArrayList<MonsterCard> playerCards) {
+        for (var i = 0; i < playerCards.size(); i++) {
+            System.out.println("Carte " + (i + 1) + " : "
+                    + playerCards.get(i).getName() + " - "
+                    + (playerCards.get(i).getLevel() != -1 ? "Niveau " + playerCards.get(i).getLevel() : "Aucun niveau") + " - "
+                    + playerCards.get(i).getAttribute() + " - ["
+                    + Utils.translateString(playerCards.get(i).getTypes()) + "] - "
+                    + playerCards.get(i).getStats());
         }
     }
 
-    public ArrayList<String> getCard(int index) {
-        return fieldCards.get(index);
-    }
-
-    public String getCardName(int index) {
-        return getCard(index).get(0);
-    }
-
-    public int getCardLevel(int index) {
-        return Integer.parseInt(getCard(index).get(1));
-    }
-
-    public String getCardAttribute(int index) {
-        return getCard(index).get(2);
-    }
-
-    public String getCardTypes(int index) {
-        return getCard(index).get(3);
-    }
-
-    public int getCardAtk(int index) {
-        return Integer.parseInt(getCard(index).get(4));
-    }
-
-    public int getCardDef(int index) {
-        return Integer.parseInt(getCard(index).get(5));
+    public int getCardAttack(int index) {
+        var stats = fieldCards.get(index).getStats();
+        return Integer.parseInt(stats.split(" ")[0].split("/")[1]);
     }
 
     public void changeCurrentPlayer() {
