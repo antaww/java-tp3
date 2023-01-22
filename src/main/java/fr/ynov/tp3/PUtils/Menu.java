@@ -7,6 +7,7 @@ import fr.ynov.tp3.PExo2.Exo2_3;
 import fr.ynov.tp3.PExo3.Exo3;
 import fr.ynov.tp3.PExo4.Exo4;
 import fr.ynov.tp3.PExo5.Exo5;
+import fr.ynov.tp3.PExo6.Exo6;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -53,6 +54,8 @@ public class Menu {
         menuMenu.add(exercise4Item2);
         var exercise5Item = new JMenuItem("Exercice 5 - Yu-Gi-Oh! Héritage");
         menuMenu.add(exercise5Item);
+        var exercise6Item = new JMenuItem("Exercice 6 - DU-DU-DU-DUEL !");
+        menuMenu.add(exercise6Item);
         var leaveItem = new JMenuItem("Quitter");
         menuMenu.add(leaveItem);
 
@@ -83,6 +86,7 @@ public class Menu {
         exercise4Item1.addActionListener(e -> Exo4.main(frame, "Carte Magie"));
         exercise4Item2.addActionListener(e -> Exo4.main(frame, "Carte Piège"));
         exercise5Item.addActionListener(e -> Exo5.main(frame));
+        exercise6Item.addActionListener(e -> Exo6.main(frame));
 
         leaveItem.addActionListener(e -> System.exit(0));
 

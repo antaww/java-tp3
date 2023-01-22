@@ -8,7 +8,9 @@ import java.util.ArrayList;
 public class YuGiOhField {
     private final ArrayList<MonsterCard> fieldCards;
     private final ArrayList<MonsterCard> playerCards;
+    private final ArrayList<String> playerCardsImages;
     private final ArrayList<MonsterCard> opponentCards;
+    private final ArrayList<String> opponentCardsImages;
     private String currentPlayer;
     private int currentTurn;
     private int playerLifePoints;
@@ -17,27 +19,59 @@ public class YuGiOhField {
     public YuGiOhField() {
         fieldCards = new ArrayList<>();
         playerCards = new ArrayList<>();
+        playerCardsImages = new ArrayList<>();
         opponentCards = new ArrayList<>();
+        opponentCardsImages = new ArrayList<>();
         currentPlayer = "";
         playerLifePoints = 8000;
         opponentLifePoints = 8000;
         currentTurn = 1;
     }
 
-    public void displayLifePoints() {
-        System.out.println("Joueur : " + playerLifePoints + " PV");
-        System.out.println("Adversaire : " + opponentLifePoints + " PV");
+    public void addCardToField(MonsterCard card) {
+        fieldCards.add(card);
     }
 
-    public void pickRandomBeginner() {
+    public ArrayList<MonsterCard> getFieldCards() {
+        return fieldCards;
+    }
+
+    public void addCardToPlayer(MonsterCard card) {
+        playerCards.add(card);
+    }
+
+    public void addCardImageToPlayer(String cardImage) {
+        playerCardsImages.add(cardImage);
+    }
+
+    public void addCardToOpponent(MonsterCard card) {
+        opponentCards.add(card);
+    }
+
+    public void addCardImageToOpponent(String cardImage) {
+        opponentCardsImages.add(cardImage);
+    }
+
+    public ArrayList<MonsterCard> getPlayerCards() {
+        return playerCards;
+    }
+
+    public String getPlayerHp() {
+        return "Vous : " + playerLifePoints + " PV";
+    }
+
+    public String getOpponentHp() {
+        return "Adversaire : " + opponentLifePoints + " PV";
+    }
+
+    public String pickRandomBeginner() {
         var random = (int) (Math.random() * 2);
         if (random == 0) {
             currentPlayer = "Joueur";
-            System.out.println("Vous commencez la partie !");
         } else {
             currentPlayer = "Adversaire";
-            System.out.println("L'adversaire commence la partie !");
         }
+        return currentPlayer;
     }
 
     public String getCurrentPlayer() {
@@ -56,30 +90,6 @@ public class YuGiOhField {
 
     public void displayCurrentTurn() {
         System.out.println("Tour " + currentTurn);
-    }
-
-    public void addCardToField(MonsterCard card) {
-        fieldCards.add(card);
-    }
-
-    public ArrayList<MonsterCard> getFieldCards() {
-        return fieldCards;
-    }
-
-    public void addCardToPlayer(MonsterCard card) {
-        playerCards.add(card);
-    }
-
-    public void addCardToOpponent(MonsterCard card) {
-        opponentCards.add(card);
-    }
-
-    public void displayFieldCards() {
-        System.out.println("Vos cartes :");
-        getDeck(playerCards);
-
-        System.out.println("Cartes de l'adversaire :");
-        getDeck(opponentCards);
     }
 
     private void getDeck(ArrayList<MonsterCard> playerCards) {
