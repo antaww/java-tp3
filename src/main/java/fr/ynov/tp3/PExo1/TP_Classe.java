@@ -1,6 +1,8 @@
 package fr.ynov.tp3.PExo1;
 
 
+import fr.ynov.tp3.PExo1.PClasse.Classe;
+import fr.ynov.tp3.PExo1.PEtudiant.Etudiant;
 import fr.ynov.tp3.PUtils.Utils;
 
 import javax.swing.*;
@@ -210,6 +212,11 @@ public class TP_Classe {
                     Double.parseDouble(grade);
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(frame, "La note doit être un nombre", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (Double.parseDouble(grade) < 0 || Double.parseDouble(grade) > 20) {
+                    JOptionPane.showMessageDialog(frame, "La note doit être comprise entre 0 et 20", "Erreur", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
