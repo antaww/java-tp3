@@ -8,9 +8,17 @@ import fr.ynov.tp3.PUtils.Utils;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class TP_Classe {
     public static void main(JFrame frame) {
@@ -158,38 +166,48 @@ public class TP_Classe {
     // add a grade with a subject, exam name, a grade and a coefficient (not obligatory)
     private static void addGrade(JFrame frame, JPanel bodyPanel, Etudiant student, JButton studentInfoActionButton4, JPanel studentInfoActionResultPanel) {
         studentInfoActionButton4.addActionListener(e1 -> {
-            System.out.println("addGrade");
             studentInfoActionResultPanel.removeAll();
-            var studentInfoActionResultTextField1 = new JTextField();
+            var studentInfoActionResultComboBox = new JComboBox<>();
             var studentInfoActionResultTextField2 = new JTextField();
             var studentInfoActionResultTextField3 = new JTextField();
             var studentInfoActionResultTextField4 = new JTextField();
             var studentInfoActionResultButton = new JButton("Ajouter la note");
             var topPanel = new JPanel();
             var bottomPanel = new JPanel();
+            var matieres = new ArrayList<String>();
+            try {
+                String filePath = "matieres.txt";
+                List<String> lines = Files.readAllLines(Paths.get(filePath));
+                matieres = new ArrayList<>(lines);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-            studentInfoActionResultTextField1.setBorder(BorderFactory.createTitledBorder(null, "Matière", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, Color.WHITE));
+
+            for (var matiere : matieres) {
+                studentInfoActionResultComboBox.addItem(matiere);
+            }
+
             studentInfoActionResultTextField2.setBorder(BorderFactory.createTitledBorder(null, "Examen", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, Color.WHITE));
             studentInfoActionResultTextField3.setBorder(BorderFactory.createTitledBorder(null, "Note", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, Color.WHITE));
             studentInfoActionResultTextField4.setBorder(BorderFactory.createTitledBorder(null, "Coefficient (optionnel)", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, Color.WHITE));
 
-            studentInfoActionResultTextField1.setPreferredSize(new Dimension(300, 75));
-            studentInfoActionResultTextField2.setPreferredSize(new Dimension(300, 75));
-            studentInfoActionResultTextField3.setPreferredSize(new Dimension(300, 75));
-            studentInfoActionResultTextField4.setPreferredSize(new Dimension(300, 75));
+            studentInfoActionResultComboBox.setPreferredSize(new Dimension(300, 25));
+            studentInfoActionResultTextField2.setPreferredSize(new Dimension(300, 50));
+            studentInfoActionResultTextField3.setPreferredSize(new Dimension(300, 50));
+            studentInfoActionResultTextField4.setPreferredSize(new Dimension(300, 50));
             studentInfoActionResultButton.setPreferredSize(new Dimension(200, 50));
             topPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 250));
             studentInfoActionResultPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 400));
 
 
-
-            studentInfoActionResultTextField1.setFont(new Font("Arial", Font.BOLD, 18));
+            studentInfoActionResultComboBox.setFont(new Font("Arial", Font.BOLD, 18));
             studentInfoActionResultTextField2.setFont(new Font("Arial", Font.BOLD, 18));
             studentInfoActionResultTextField3.setFont(new Font("Arial", Font.BOLD, 18));
             studentInfoActionResultTextField4.setFont(new Font("Arial", Font.BOLD, 18));
             studentInfoActionResultButton.setFont(new Font("Arial", Font.BOLD, 18));
 
-            topPanel.add(studentInfoActionResultTextField1);
+            topPanel.add(studentInfoActionResultComboBox);
             topPanel.add(studentInfoActionResultTextField2);
             topPanel.add(studentInfoActionResultTextField3);
             topPanel.add(studentInfoActionResultTextField4);
@@ -198,7 +216,7 @@ public class TP_Classe {
             studentInfoActionResultPanel.add(bottomPanel);
 
             studentInfoActionResultButton.addActionListener(e2 -> {
-                var subject = studentInfoActionResultTextField1.getText();
+                var subject = Objects.requireNonNull(studentInfoActionResultComboBox.getSelectedItem()).toString();
                 var exam = studentInfoActionResultTextField2.getText();
                 var grade = studentInfoActionResultTextField3.getText();
                 var coefficient = studentInfoActionResultTextField4.getText();
