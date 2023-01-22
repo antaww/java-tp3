@@ -1,10 +1,12 @@
-package fr.ynov.tp3.PExo1;
+package fr.ynov.tp3.PExo1.PClasse;
+
+import fr.ynov.tp3.PExo1.PEtudiant.Etudiant;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Classe {
-    final String nom;
+    public final String nom;
     private final Map<String, Etudiant> etudiants;
 
     public Classe(String nom) {
