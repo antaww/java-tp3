@@ -8,15 +8,11 @@ import fr.ynov.tp3.PUtils.Utils;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -151,7 +147,7 @@ public class TP_Classe {
 
             displayAverage(frame, bodyPanel, student, studentInfoActionButton1, studentInfoActionResultPanel);
 
-            displayAllNotes(frame, bodyPanel, student, studentInfoActionButton2, studentInfoActionResultPanel);
+            displayAllGrades(frame, bodyPanel, student, studentInfoActionButton2, studentInfoActionResultPanel);
 
             displaySpecificGrades(frame, bodyPanel, student, studentInfoActionButton3, studentInfoActionResultPanel);
 
@@ -182,8 +178,6 @@ public class TP_Classe {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
             for (var matiere : matieres) {
                 studentInfoActionResultComboBox.addItem(matiere);
             }
@@ -264,37 +258,66 @@ public class TP_Classe {
     private static void displaySpecificGrades(JFrame frame, JPanel bodyPanel, Etudiant student, JButton studentInfoActionButton3, JPanel studentInfoActionResultPanel) {
         studentInfoActionButton3.addActionListener(e1 -> {
             studentInfoActionResultPanel.removeAll();
+            var topPanel = new JPanel();
+            var bottomPanel = new JPanel();
+            var comboBoxPanel = new JPanel();
+            var studentInfoActionResultComboBox = new JComboBox<>();
+
             var listModel = new DefaultListModel<String>();
             var studentInfoActionResultList = new JList<>(listModel);
-            var notes = student.afficherNote();
+            var matieres = new ArrayList<String>();
+            try {
+                String filePath = "matieres.txt";
+                List<String> lines = Files.readAllLines(Paths.get(filePath));
+                matieres = new ArrayList<>(lines);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            for (var matiere : matieres) {
+                studentInfoActionResultComboBox.addItem(matiere);
+            }
 
             studentInfoActionResultList.setFont(new Font("Arial", Font.BOLD, 25));
+
             studentInfoActionResultList.setForeground(Color.WHITE);
             studentInfoActionResultList.setBackground(new Color(33, 33, 33));
 
+            studentInfoActionResultList.setPreferredSize(new Dimension(studentInfoActionResultPanel.getWidth(), 350));
+            topPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 50));
+            studentInfoActionResultPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 400));
+
+            studentInfoActionResultPanel.add(topPanel);
+            studentInfoActionResultPanel.add(bottomPanel);
+
+            var notes = student.afficherNote();
             if (notes.length == 0) {
                 studentInfoActionResultList.setListData(new String[]{"L'étudiant n'a pas encore de notes"});
                 studentInfoActionResultPanel.add(studentInfoActionResultList);
             } else {
-                var subject = JOptionPane.showInputDialog("Quelle matière voulez-vous afficher ?");
-                var notesBySubject = student.afficherNote(subject);
-                if (notesBySubject == null) {
-                    studentInfoActionResultList.setListData(new String[]{"L'étudiant n'a pas encore de notes pour cette matière"});
-                    studentInfoActionResultPanel.add(studentInfoActionResultList);
-                } else {
-                    studentInfoActionResultList.setListData(notesBySubject);
-                    JScrollPane scrollPane = new JScrollPane(studentInfoActionResultList);
-                    scrollPane.setPreferredSize(new Dimension(studentInfoActionResultPanel.getWidth(), 400));
-                    studentInfoActionResultPanel.add(scrollPane);
-                }
+                studentInfoActionResultComboBox.addActionListener(e2 -> {
+                    listModel.removeAllElements();
+                    var subject = Objects.requireNonNull(studentInfoActionResultComboBox.getSelectedItem()).toString();
+                    var notesOfSubject = student.afficherNote(subject);
+                    if (notesOfSubject == null) {
+                        listModel.addElement("L'étudiant n'a pas encore de notes dans cette matière");
+                    } else {
+                        for (var note : notesOfSubject) {
+                            listModel.addElement(note);
+                        }
+                    }
+                });
+                comboBoxPanel.add(studentInfoActionResultComboBox);
+                topPanel.add(comboBoxPanel);
+                bottomPanel.add(studentInfoActionResultList);
             }
-            studentInfoActionResultPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 400));
+
+            Utils.displayFrame(frame);
             frame.revalidate();
             frame.repaint();
         });
     }
 
-    private static void displayAllNotes(JFrame frame, JPanel bodyPanel, Etudiant student, JButton studentInfoActionButton2, JPanel studentInfoActionResultPanel) {
+    private static void displayAllGrades(JFrame frame, JPanel bodyPanel, Etudiant student, JButton studentInfoActionButton2, JPanel studentInfoActionResultPanel) {
         studentInfoActionButton2.addActionListener(e1 -> {
             studentInfoActionResultPanel.removeAll();
             var listModel = new DefaultListModel<String>();
