@@ -4,6 +4,7 @@ package fr.ynov.tp3.PExo1;
 import fr.ynov.tp3.PUtils.Utils;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -138,87 +139,181 @@ public class TP_Classe {
             studentInfoActionPanel.add(studentInfoActionButton4);
 
 
-            // Average
-            studentInfoActionButton1.addActionListener(e1 -> {
-                studentInfoActionResultPanel.removeAll();
-                var studentInfoActionResultLabel = new JLabel();
-                var moyenne = student.moyenne("");
+            displayAverage(frame, bodyPanel, student, studentInfoActionButton1, studentInfoActionResultPanel);
 
-                if (moyenne == -1) {
-                    studentInfoActionResultLabel.setText("L'étudiant n'a pas encore de notes");
-                } else {
-                    studentInfoActionResultLabel.setText("La moyenne de l'étudiant est de " + moyenne);
-                }
+            displayAllNotes(frame, bodyPanel, student, studentInfoActionButton2, studentInfoActionResultPanel);
 
-                studentInfoActionResultLabel.setFont(new Font("Arial", Font.BOLD, 35));
-                studentInfoActionResultLabel.setForeground(Color.WHITE);
-                studentInfoActionResultPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 300));
-                studentInfoActionResultPanel.add(studentInfoActionResultLabel);
-                frame.revalidate();
-                frame.repaint();
-            });
+            displaySpecificGrades(frame, bodyPanel, student, studentInfoActionButton3, studentInfoActionResultPanel);
 
-            // Display all notes
-            studentInfoActionButton2.addActionListener(e1 -> {
-                studentInfoActionResultPanel.removeAll();
-                var listModel = new DefaultListModel<String>();
-                var studentInfoActionResultList = new JList<>(listModel);
-                var notes = student.afficherNote();
-                Arrays.sort(notes);
-
-                studentInfoActionResultList.setFont(new Font("Arial", Font.BOLD, 25));
-                studentInfoActionResultList.setForeground(Color.WHITE);
-                studentInfoActionResultList.setBackground(new Color(33, 33, 33));
-
-                if (notes.length == 0) {
-                    studentInfoActionResultList.setListData(new String[]{"L'étudiant n'a pas encore de notes"});
-                    studentInfoActionResultPanel.add(studentInfoActionResultList);
-                } else {
-                    studentInfoActionResultList.setListData(notes);
-                    JScrollPane scrollPane = new JScrollPane(studentInfoActionResultList);
-                    scrollPane.setPreferredSize(new Dimension(studentInfoActionResultPanel.getWidth(), 400));
-                    studentInfoActionResultPanel.add(scrollPane);
-                }
-                studentInfoActionResultPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 400));
-                frame.revalidate();
-                frame.repaint();
-            });
-
-            // Display notes by subject
-            studentInfoActionButton3.addActionListener(e1 -> {
-                studentInfoActionResultPanel.removeAll();
-                var listModel = new DefaultListModel<String>();
-                var studentInfoActionResultList = new JList<>(listModel);
-                var notes = student.afficherNote();
-
-                studentInfoActionResultList.setFont(new Font("Arial", Font.BOLD, 25));
-                studentInfoActionResultList.setForeground(Color.WHITE);
-                studentInfoActionResultList.setBackground(new Color(33, 33, 33));
-
-                if (notes.length == 0) {
-                    studentInfoActionResultList.setListData(new String[]{"L'étudiant n'a pas encore de notes"});
-                    studentInfoActionResultPanel.add(studentInfoActionResultList);
-                } else {
-                    var subject = JOptionPane.showInputDialog("Quelle matière voulez-vous afficher ?");
-                    var notesBySubject = student.afficherNote(subject);
-                    if (notesBySubject == null) {
-                        studentInfoActionResultList.setListData(new String[]{"L'étudiant n'a pas encore de notes pour cette matière"});
-                        studentInfoActionResultPanel.add(studentInfoActionResultList);
-                    } else {
-                        studentInfoActionResultList.setListData(notesBySubject);
-                        JScrollPane scrollPane = new JScrollPane(studentInfoActionResultList);
-                        scrollPane.setPreferredSize(new Dimension(studentInfoActionResultPanel.getWidth(), 400));
-                        studentInfoActionResultPanel.add(scrollPane);
-                    }
-                }
-                studentInfoActionResultPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 400));
-                frame.revalidate();
-                frame.repaint();
-            });
+            addGrade(frame, bodyPanel, student, studentInfoActionButton4, studentInfoActionResultPanel);
 
 
             bodyPanel.add(studentInfoPanel);
             Utils.displayFrame(frame);
+        });
+    }
+
+    // add a grade with a subject, exam name, a grade and a coefficient (not obligatory)
+    private static void addGrade(JFrame frame, JPanel bodyPanel, Etudiant student, JButton studentInfoActionButton4, JPanel studentInfoActionResultPanel) {
+        studentInfoActionButton4.addActionListener(e1 -> {
+            System.out.println("addGrade");
+            studentInfoActionResultPanel.removeAll();
+            var studentInfoActionResultTextField1 = new JTextField();
+            var studentInfoActionResultTextField2 = new JTextField();
+            var studentInfoActionResultTextField3 = new JTextField();
+            var studentInfoActionResultTextField4 = new JTextField();
+            var studentInfoActionResultButton = new JButton("Ajouter la note");
+            var topPanel = new JPanel();
+            var bottomPanel = new JPanel();
+
+            studentInfoActionResultTextField1.setBorder(BorderFactory.createTitledBorder(null, "Matière", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, Color.WHITE));
+            studentInfoActionResultTextField2.setBorder(BorderFactory.createTitledBorder(null, "Examen", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, Color.WHITE));
+            studentInfoActionResultTextField3.setBorder(BorderFactory.createTitledBorder(null, "Note", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, Color.WHITE));
+            studentInfoActionResultTextField4.setBorder(BorderFactory.createTitledBorder(null, "Coefficient (optionnel)", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, Color.WHITE));
+
+            studentInfoActionResultTextField1.setPreferredSize(new Dimension(300, 75));
+            studentInfoActionResultTextField2.setPreferredSize(new Dimension(300, 75));
+            studentInfoActionResultTextField3.setPreferredSize(new Dimension(300, 75));
+            studentInfoActionResultTextField4.setPreferredSize(new Dimension(300, 75));
+            studentInfoActionResultButton.setPreferredSize(new Dimension(200, 50));
+            topPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 250));
+            studentInfoActionResultPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 400));
+
+
+
+            studentInfoActionResultTextField1.setFont(new Font("Arial", Font.BOLD, 18));
+            studentInfoActionResultTextField2.setFont(new Font("Arial", Font.BOLD, 18));
+            studentInfoActionResultTextField3.setFont(new Font("Arial", Font.BOLD, 18));
+            studentInfoActionResultTextField4.setFont(new Font("Arial", Font.BOLD, 18));
+            studentInfoActionResultButton.setFont(new Font("Arial", Font.BOLD, 18));
+
+            topPanel.add(studentInfoActionResultTextField1);
+            topPanel.add(studentInfoActionResultTextField2);
+            topPanel.add(studentInfoActionResultTextField3);
+            topPanel.add(studentInfoActionResultTextField4);
+            bottomPanel.add(studentInfoActionResultButton);
+            studentInfoActionResultPanel.add(topPanel);
+            studentInfoActionResultPanel.add(bottomPanel);
+
+            studentInfoActionResultButton.addActionListener(e2 -> {
+                var subject = studentInfoActionResultTextField1.getText();
+                var exam = studentInfoActionResultTextField2.getText();
+                var grade = studentInfoActionResultTextField3.getText();
+                var coefficient = studentInfoActionResultTextField4.getText();
+
+                if (subject.isEmpty() || exam.isEmpty() || grade.isEmpty()) {
+                    JOptionPane.showMessageDialog(frame, "Veuillez remplir tous les champs obligatoires", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                try {
+                    Double.parseDouble(grade);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(frame, "La note doit être un nombre", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (!coefficient.isEmpty()) {
+                    try {
+                        Integer.parseInt(coefficient);
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(frame, "Le coefficient doit être un nombre", "Erreur", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
+
+                if (coefficient.isEmpty()) {
+                    student.setNote(subject, exam, Double.parseDouble(grade));
+                } else {
+                    student.setNote(subject, exam, Integer.parseInt(coefficient), Double.parseDouble(grade));
+                }
+
+                JOptionPane.showMessageDialog(frame, "Note ajoutée avec succès", "Succès", JOptionPane.INFORMATION_MESSAGE);
+            });
+            Utils.displayFrame(frame);
+            frame.revalidate();
+            frame.repaint();
+        });
+    }
+
+    private static void displaySpecificGrades(JFrame frame, JPanel bodyPanel, Etudiant student, JButton studentInfoActionButton3, JPanel studentInfoActionResultPanel) {
+        studentInfoActionButton3.addActionListener(e1 -> {
+            studentInfoActionResultPanel.removeAll();
+            var listModel = new DefaultListModel<String>();
+            var studentInfoActionResultList = new JList<>(listModel);
+            var notes = student.afficherNote();
+
+            studentInfoActionResultList.setFont(new Font("Arial", Font.BOLD, 25));
+            studentInfoActionResultList.setForeground(Color.WHITE);
+            studentInfoActionResultList.setBackground(new Color(33, 33, 33));
+
+            if (notes.length == 0) {
+                studentInfoActionResultList.setListData(new String[]{"L'étudiant n'a pas encore de notes"});
+                studentInfoActionResultPanel.add(studentInfoActionResultList);
+            } else {
+                var subject = JOptionPane.showInputDialog("Quelle matière voulez-vous afficher ?");
+                var notesBySubject = student.afficherNote(subject);
+                if (notesBySubject == null) {
+                    studentInfoActionResultList.setListData(new String[]{"L'étudiant n'a pas encore de notes pour cette matière"});
+                    studentInfoActionResultPanel.add(studentInfoActionResultList);
+                } else {
+                    studentInfoActionResultList.setListData(notesBySubject);
+                    JScrollPane scrollPane = new JScrollPane(studentInfoActionResultList);
+                    scrollPane.setPreferredSize(new Dimension(studentInfoActionResultPanel.getWidth(), 400));
+                    studentInfoActionResultPanel.add(scrollPane);
+                }
+            }
+            studentInfoActionResultPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 400));
+            frame.revalidate();
+            frame.repaint();
+        });
+    }
+
+    private static void displayAllNotes(JFrame frame, JPanel bodyPanel, Etudiant student, JButton studentInfoActionButton2, JPanel studentInfoActionResultPanel) {
+        studentInfoActionButton2.addActionListener(e1 -> {
+            studentInfoActionResultPanel.removeAll();
+            var listModel = new DefaultListModel<String>();
+            var studentInfoActionResultList = new JList<>(listModel);
+            var notes = student.afficherNote();
+            Arrays.sort(notes);
+
+            studentInfoActionResultList.setFont(new Font("Arial", Font.BOLD, 25));
+            studentInfoActionResultList.setForeground(Color.WHITE);
+            studentInfoActionResultList.setBackground(new Color(33, 33, 33));
+
+            if (notes.length == 0) {
+                studentInfoActionResultList.setListData(new String[]{"L'étudiant n'a pas encore de notes"});
+                studentInfoActionResultPanel.add(studentInfoActionResultList);
+            } else {
+                studentInfoActionResultList.setListData(notes);
+                JScrollPane scrollPane = new JScrollPane(studentInfoActionResultList);
+                scrollPane.setPreferredSize(new Dimension(studentInfoActionResultPanel.getWidth(), 400));
+                studentInfoActionResultPanel.add(scrollPane);
+            }
+            studentInfoActionResultPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 400));
+            frame.revalidate();
+            frame.repaint();
+        });
+    }
+
+    private static void displayAverage(JFrame frame, JPanel bodyPanel, Etudiant student, JButton studentInfoActionButton1, JPanel studentInfoActionResultPanel) {
+        studentInfoActionButton1.addActionListener(e1 -> {
+            studentInfoActionResultPanel.removeAll();
+            var studentInfoActionResultLabel = new JLabel();
+            var moyenne = student.moyenne("");
+
+            if (moyenne == -1) {
+                studentInfoActionResultLabel.setText("L'étudiant n'a pas encore de notes");
+            } else {
+                studentInfoActionResultLabel.setText("La moyenne de l'étudiant est de " + moyenne);
+            }
+
+            studentInfoActionResultLabel.setFont(new Font("Arial", Font.BOLD, 35));
+            studentInfoActionResultLabel.setForeground(Color.WHITE);
+            studentInfoActionResultPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 300));
+            studentInfoActionResultPanel.add(studentInfoActionResultLabel);
+            frame.revalidate();
+            frame.repaint();
         });
     }
 }

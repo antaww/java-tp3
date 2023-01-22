@@ -54,8 +54,6 @@ public class Classe {
         etudiants.put(cle, etudiant);
     }
 
-
-
     public String[] getEtudiants() {
         String[] etudiants = new String[this.etudiants.size()];
         int i = 0;
