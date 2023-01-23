@@ -25,7 +25,7 @@ public class TP_Classe {
 
 
         var etudiant1 = new Etudiant("Crews", "Apollo");
-        etudiant1.setNote("Maths", "Examen", 2, 10);
+        etudiant1.setNote("Mathématiques", "Examen", 2, 10);
         etudiant1.setNote("Français", "Partiels", 5, 2);
         etudiant1.setNote("Français", "Dissertation", 1, 7);
         etudiant1.setNote("EPS", "Badminton", 1, 19.5);
@@ -257,13 +257,13 @@ public class TP_Classe {
         });
     }
 
-    private static void displaySpecificGrades(JFrame frame, JPanel bodyPanel, Etudiant student, JButton studentInfoActionButton3, JPanel studentInfoActionResultPanel) {
+    private static void displaySpecificGrades(JFrame frame, JPanel bodyPanel, Etudiant student, JButton studentInfoActionButton3, JPanel infoPanel) {
         studentInfoActionButton3.addActionListener(e1 -> {
-            studentInfoActionResultPanel.removeAll();
+            infoPanel.removeAll();
             var topPanel = new JPanel();
             var bottomPanel = new JPanel();
             var comboBoxPanel = new JPanel();
-            var studentInfoActionResultComboBox = new JComboBox<>();
+            var comboBox = new JComboBox<>();
 
             var listModel = new DefaultListModel<String>();
             var studentInfoActionResultList = new JList<>(listModel);
@@ -276,29 +276,28 @@ public class TP_Classe {
                 e.printStackTrace();
             }
             for (var matiere : matieres) {
-                studentInfoActionResultComboBox.addItem(matiere);
+                comboBox.addItem(matiere);
             }
 
             studentInfoActionResultList.setFont(new Font("Arial", Font.BOLD, 25));
-
             studentInfoActionResultList.setForeground(Color.WHITE);
             studentInfoActionResultList.setBackground(new Color(33, 33, 33));
+            studentInfoActionResultList.setPreferredSize(new Dimension(infoPanel.getWidth(), 350));
 
-            studentInfoActionResultList.setPreferredSize(new Dimension(studentInfoActionResultPanel.getWidth(), 350));
             topPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 50));
-            studentInfoActionResultPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 400));
+            infoPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 400));
 
-            studentInfoActionResultPanel.add(topPanel);
-            studentInfoActionResultPanel.add(bottomPanel);
+            infoPanel.add(topPanel);
+            infoPanel.add(bottomPanel);
 
             var notes = student.afficherNote();
             if (notes.length == 0) {
                 studentInfoActionResultList.setListData(new String[]{"L'étudiant n'a pas encore de notes"});
-                studentInfoActionResultPanel.add(studentInfoActionResultList);
+                infoPanel.add(studentInfoActionResultList);
             } else {
-                studentInfoActionResultComboBox.addActionListener(e2 -> {
+                comboBox.addActionListener(e2 -> {
                     listModel.removeAllElements();
-                    var subject = Objects.requireNonNull(studentInfoActionResultComboBox.getSelectedItem()).toString();
+                    var subject = Objects.requireNonNull(comboBox.getSelectedItem()).toString();
                     var notesOfSubject = student.afficherNote(subject);
                     if (notesOfSubject == null) {
                         listModel.addElement("L'étudiant n'a pas encore de notes dans cette matière");
@@ -308,7 +307,7 @@ public class TP_Classe {
                         }
                     }
                 });
-                comboBoxPanel.add(studentInfoActionResultComboBox);
+                comboBoxPanel.add(comboBox);
                 topPanel.add(comboBoxPanel);
                 bottomPanel.add(studentInfoActionResultList);
             }
@@ -406,7 +405,7 @@ public class TP_Classe {
 
             displayClassAverage(frame, bodyPanel, maClasse, classInfoActionButton2, classInfoActionResultPanel);
 //
-//            displaySubjectsAverage(frame, bodyPanel, maClasse, classInfoActionButton3, classInfoActionResultPanel);
+            displaySubjectsAverage(frame, bodyPanel, maClasse, classInfoActionButton3, classInfoActionResultPanel);
 //
 //            addStudent(frame, bodyPanel, maClasse, classInfoActionButton4, classInfoActionResultPanel);
 
@@ -462,6 +461,60 @@ public class TP_Classe {
             classInfoResultLabel.setForeground(Color.WHITE);
             infoPanel.add(classInfoResultLabel);
             infoPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 400));
+            frame.revalidate();
+            frame.repaint();
+        });
+    }
+
+    private static void displaySubjectsAverage(JFrame frame, JPanel bodyPanel, Classe maClasse, JButton button1, JPanel infoPanel) {
+        button1.addActionListener(e1 -> {
+            infoPanel.removeAll();
+            var topPanel = new JPanel();
+            var bottomPanel = new JPanel();
+            var comboBoxPanel = new JPanel();
+            var comboBox = new JComboBox<String>();
+
+            var listModel = new DefaultListModel<String>();
+            var classInfoActionResultList = new JList<>(listModel);
+            var matieres = new ArrayList<String>();
+            try {
+                String filePath = "matieres.txt";
+                List<String> lines = Files.readAllLines(Paths.get(filePath));
+                matieres = new ArrayList<>(lines);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            for (var matiere : matieres) {
+                comboBox.addItem(matiere);
+            }
+
+            classInfoActionResultList.setFont(new Font("Arial", Font.BOLD, 25));
+            classInfoActionResultList.setForeground(Color.WHITE);
+            classInfoActionResultList.setBackground(new Color(33, 33, 33));
+            classInfoActionResultList.setPreferredSize(new Dimension(infoPanel.getWidth(), 400));
+
+            topPanel.setPreferredSize(new Dimension(infoPanel.getWidth(), 100));
+            bottomPanel.setPreferredSize(new Dimension(infoPanel.getWidth(), 400));
+            infoPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 400));
+
+            comboBoxPanel.add(comboBox);
+            topPanel.add(comboBoxPanel);
+
+
+            comboBox.addActionListener(e -> {
+                var subjectAverage = maClasse.moyenneClasse(Objects.requireNonNull(comboBox.getSelectedItem()).toString());
+                System.out.println(subjectAverage);
+                if (subjectAverage == -1) {
+                    classInfoActionResultList.setListData(new String[]{"La classe n'a pas encore de notes en " + comboBox.getSelectedItem().toString() + "."});
+                    bottomPanel.add(classInfoActionResultList);
+                } else {
+                    classInfoActionResultList.setListData(new String[]{"La moyenne de la classe en " + comboBox.getSelectedItem().toString() + " est de " + subjectAverage});
+                    bottomPanel.add(classInfoActionResultList);
+                }
+            });
+            infoPanel.add(topPanel);
+            infoPanel.add(bottomPanel);
+            Utils.displayFrame(frame);
             frame.revalidate();
             frame.repaint();
         });

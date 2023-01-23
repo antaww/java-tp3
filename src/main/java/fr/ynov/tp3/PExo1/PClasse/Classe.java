@@ -39,21 +39,26 @@ public class Classe {
     public float moyenneClasse(String matiere) {
         double somme = 0;
         var nbEtudiants = 0;
-        if (matiere == null || matiere.isEmpty()) {
+        if (matiere == null) {
             for (var entry : etudiants.entrySet()) {
                 var etudiant = entry.getValue();
-                if (etudiant.moyenne(matiere) != -1) {
-                    somme += etudiant.moyenne(matiere);
+                if (etudiant.moyenne("") != -1) {
+                    somme += etudiant.moyenne("");
                     nbEtudiants++;
                 }
             }
         } else {
+            var hasNote = false;
             for (var entry : etudiants.entrySet()) {
                 var etudiant = entry.getValue();
                 if (etudiant.moyenne(matiere) != -1) {
                     somme += etudiant.moyenne(matiere);
                     nbEtudiants++;
+                    hasNote = true;
                 }
+            }
+            if (!hasNote) {
+                return -1;
             }
         }
         return (float) (somme / nbEtudiants);

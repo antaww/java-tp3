@@ -92,11 +92,10 @@ public class Etudiant {
         var hasNote = false;
         double somme = 0;
         var coefTotal = 0;
-        if (matiere == null || matiere.isEmpty()) {
+        if (matiere == null) {
             for (var entry : notes.entrySet()) {
                 var notesMatiere = entry.getValue();
                 for (var entry2 : notesMatiere.entrySet()) {
-                    var evaluation = entry2.getKey();
                     var notesEvaluation = entry2.getValue();
                     for (var entry3 : notesEvaluation.entrySet()) {
                         int coef = entry3.getKey();
@@ -109,10 +108,9 @@ public class Etudiant {
                     }
                 }
             }
-        } else {
+        } else if (notes.containsKey(matiere)){
             var notesMatiere = notes.get(matiere);
             for (var entry : notesMatiere.entrySet()) {
-                var evaluation = entry.getKey();
                 var notesEvaluation = entry.getValue();
                 for (var entry2 : notesEvaluation.entrySet()) {
                     int coef = entry2.getKey();
