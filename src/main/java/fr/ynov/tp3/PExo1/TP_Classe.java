@@ -8,6 +8,8 @@ import fr.ynov.tp3.PUtils.Utils;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -407,9 +409,9 @@ public class TP_Classe {
 
             displaySubjectsAverage(frame, bodyPanel, maClasse, classInfoActionButton3, classInfoActionResultPanel);
 
-            addStudent(frame, bodyPanel, maClasse, classInfoActionButton4, listScrollPane, classInfoActionResultPanel);
+            addStudent(frame, maClasse, classInfoActionButton4, listScrollPane, classInfoActionResultPanel);
 
-//            addSubject(frame, bodyPanel, maClasse, classInfoActionButton5, classInfoActionResultPanel);
+            addSubject(frame, classInfoActionButton5, classInfoActionResultPanel);
 
 //            renameClass(frame, bodyPanel, maClasse, classInfoActionButton6, classInfoActionResultPanel);
 
@@ -520,7 +522,7 @@ public class TP_Classe {
         });
     }
 
-    private static void addStudent(JFrame frame, JPanel bodyPanel, Classe maClasse, JButton button1, JComboBox<String> listScrollPane, JPanel infoPanel) {
+    private static void addStudent(JFrame frame, Classe maClasse, JButton button1, JComboBox<String> listScrollPane, JPanel infoPanel) {
         button1.addActionListener(e -> {
             infoPanel.removeAll();
             var topPanel = new JPanel();
@@ -562,6 +564,62 @@ public class TP_Classe {
                     maClasse.setEtudiant(newStudent);
                     JOptionPane.showMessageDialog(frame, "L'étudiant a bien été ajouté");
                     listScrollPane.addItem(newStudent.nom + " " + newStudent.prenom);
+                }
+            });
+
+            infoPanel.add(topPanel);
+            infoPanel.add(bottomPanel);
+            Utils.displayFrame(frame);
+            frame.revalidate();
+            frame.repaint();
+        });
+    }
+
+    private static void addSubject(JFrame frame, JButton button1, JPanel infoPanel) {
+        button1.addActionListener(e -> {
+            infoPanel.removeAll();
+            var topPanel = new JPanel();
+            var bottomPanel = new JPanel();
+            var subjectNamePanel = new JPanel();
+            var subjectNameLabel = new JLabel("Nom de la matière : ");
+            var subjectNameTextField = new JTextField();
+            var addSubjectButton = new JButton("Ajouter la matière");
+
+            subjectNameLabel.setFont(new Font("Arial", Font.BOLD, 25));
+            subjectNameLabel.setForeground(Color.WHITE);
+            subjectNameTextField.setPreferredSize(new Dimension(200, 30));
+            subjectNamePanel.add(subjectNameLabel);
+            subjectNamePanel.add(subjectNameTextField);
+
+            topPanel.setPreferredSize(new Dimension(infoPanel.getWidth(), 200));
+            bottomPanel.setPreferredSize(new Dimension(infoPanel.getWidth(), 300));
+
+            topPanel.add(subjectNamePanel);
+            bottomPanel.add(addSubjectButton);
+
+            addSubjectButton.addActionListener(e1 -> {
+                var subjectName = subjectNameTextField.getText();
+                if (subjectName.equals("")) {
+                    JOptionPane.showMessageDialog(frame, "Veuillez remplir tous les champs");
+                } else {
+
+                    try {
+                        var file = new File("matieres.txt");
+                        // check if the subject already exists
+                        String filePath = "matieres.txt";
+                        List<String> lines = Files.readAllLines(Paths.get(filePath));
+                        var matieres = new ArrayList<>(lines);
+                        if (matieres.contains(subjectName)) {
+                            JOptionPane.showMessageDialog(frame, "La matière existe déjà");
+                            return;
+                        }
+                        var fileWriter = new FileWriter(file, true);
+                        fileWriter.write(subjectName + "\n");
+                        fileWriter.close();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                    JOptionPane.showMessageDialog(frame, "La matière a bien été ajoutée");
                 }
             });
 
