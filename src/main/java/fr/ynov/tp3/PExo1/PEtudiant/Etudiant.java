@@ -92,7 +92,7 @@ public class Etudiant {
         var hasNote = false;
         double somme = 0;
         var coefTotal = 0;
-        if (matiere == null) {
+        if (matiere == null || matiere.equals("")) {
             for (var entry : notes.entrySet()) {
                 var notesMatiere = entry.getValue();
                 for (var entry2 : notesMatiere.entrySet()) {
