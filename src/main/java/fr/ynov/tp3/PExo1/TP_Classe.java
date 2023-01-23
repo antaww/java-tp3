@@ -89,12 +89,14 @@ public class TP_Classe {
 
         bodyPanel.add(buttonsPanel);
 
-        var studentInfoPanel = new JPanel();
-        studentInfoPanel.setPreferredSize(new Dimension(200, 500));
+        var infoPanel = new JPanel();
+        infoPanel.setPreferredSize(new Dimension(200, 500));
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
 
 
-        displayStudentInfo(frame, bodyPanel, maClasse, listScrollPanel, studentInfoPanel);
+        displayStudentInfo(frame, bodyPanel, maClasse, listScrollPanel, infoPanel);
+
+        displayClassInfo(frame, bodyPanel, maClasse, button1, infoPanel);
 
         Utils.displayFrame(frame);
 
@@ -110,9 +112,10 @@ public class TP_Classe {
         }
     }
 
-    private static void displayStudentInfo(JFrame frame, JPanel bodyPanel, Classe maClasse, JComboBox<String> listScrollPane, JPanel studentInfoPanel) {
+
+    private static void displayStudentInfo(JFrame frame, JPanel bodyPanel, Classe maClasse, JComboBox<String> listScrollPane, JPanel infoPanel) {
         listScrollPane.addActionListener(e -> {
-            studentInfoPanel.removeAll();
+            infoPanel.removeAll();
             var selectedStudent = Objects.requireNonNull(listScrollPane.getSelectedItem()).toString();
             var student = maClasse.getEtudiant(selectedStudent);
 
@@ -124,7 +127,7 @@ public class TP_Classe {
             var studentInfoActionButton4 = new JButton("Ajouter une note");
             var studentInfoActionResultPanel = new JPanel();
 
-            studentInfoPanel.setLayout(new BorderLayout());
+            infoPanel.setLayout(new BorderLayout());
 
             studentInfoNameLabel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 50));
             studentInfoNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -135,9 +138,9 @@ public class TP_Classe {
             studentInfoNameLabel.setFont(new Font("Arial", Font.BOLD, 18));
             studentInfoActionPanel.setFont(new Font("Arial", Font.BOLD, 13));
 
-            studentInfoPanel.add(studentInfoNameLabel, BorderLayout.NORTH);
-            studentInfoPanel.add(studentInfoActionPanel, BorderLayout.CENTER);
-            studentInfoPanel.add(studentInfoActionResultPanel, BorderLayout.SOUTH);
+            infoPanel.add(studentInfoNameLabel, BorderLayout.NORTH);
+            infoPanel.add(studentInfoActionPanel, BorderLayout.CENTER);
+            infoPanel.add(studentInfoActionResultPanel, BorderLayout.SOUTH);
 
             studentInfoActionPanel.add(studentInfoActionButton1);
             studentInfoActionPanel.add(studentInfoActionButton2);
@@ -154,12 +157,11 @@ public class TP_Classe {
             addGrade(frame, bodyPanel, student, studentInfoActionButton4, studentInfoActionResultPanel);
 
 
-            bodyPanel.add(studentInfoPanel);
+            bodyPanel.add(infoPanel);
             Utils.displayFrame(frame);
         });
     }
 
-    // add a grade with a subject, exam name, a grade and a coefficient (not obligatory)
     private static void addGrade(JFrame frame, JPanel bodyPanel, Etudiant student, JButton studentInfoActionButton4, JPanel studentInfoActionResultPanel) {
         studentInfoActionButton4.addActionListener(e1 -> {
             studentInfoActionResultPanel.removeAll();
@@ -360,6 +362,84 @@ public class TP_Classe {
             studentInfoActionResultLabel.setForeground(Color.WHITE);
             studentInfoActionResultPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 300));
             studentInfoActionResultPanel.add(studentInfoActionResultLabel);
+            frame.revalidate();
+            frame.repaint();
+        });
+    }
+
+    private static void displayClassInfo(JFrame frame, JPanel bodyPanel, Classe maClasse, JButton button1, JPanel infoPanel) {
+        button1.addActionListener(e -> {
+            infoPanel.removeAll();
+            var classInfoNameLabel = new JLabel(maClasse.nom);
+            var classInfoActionPanel = new JPanel();
+            var classInfoActionResultPanel = new JPanel();
+            var classInfoActionButton1 = new JButton("Afficher les étudiants");
+            var classInfoActionButton2 = new JButton("Afficher les moyennes des étudiants");
+            var classInfoActionButton3 = new JButton("Afficher les moyennes des matières");
+            var classInfoActionButton4 = new JButton("Ajouter un étudiant");
+            var classInfoActionButton5 = new JButton("Ajouter une matière");
+            var classInfoActionButton6 = new JButton("Renommer la classe");
+
+            infoPanel.setLayout(new BorderLayout());
+
+            classInfoNameLabel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 50));
+            classInfoNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+            classInfoNameLabel.setBorder(BorderFactory.createLineBorder(Color.RED));
+            classInfoActionPanel.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+            classInfoActionResultPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+
+            classInfoNameLabel.setFont(new Font("Arial", Font.BOLD, 18));
+            classInfoActionPanel.setFont(new Font("Arial", Font.BOLD, 13));
+
+            infoPanel.add(classInfoNameLabel, BorderLayout.NORTH);
+            infoPanel.add(classInfoActionPanel, BorderLayout.CENTER);
+            infoPanel.add(classInfoActionResultPanel, BorderLayout.SOUTH);
+
+            classInfoActionPanel.add(classInfoActionButton1);
+            classInfoActionPanel.add(classInfoActionButton2);
+            classInfoActionPanel.add(classInfoActionButton3);
+            classInfoActionPanel.add(classInfoActionButton4);
+            classInfoActionPanel.add(classInfoActionButton5);
+            classInfoActionPanel.add(classInfoActionButton6);
+
+            displayClass(frame, bodyPanel, maClasse, classInfoActionButton1, classInfoActionResultPanel);
+//
+//            displayClassAverage(frame, bodyPanel, maClasse, classInfoActionButton2, classInfoActionResultPanel);
+//
+//            displaySubjectsAverage(frame, bodyPanel, maClasse, classInfoActionButton3, classInfoActionResultPanel);
+//
+//            addStudent(frame, bodyPanel, maClasse, classInfoActionButton4, classInfoActionResultPanel);
+
+//            addSubject(frame, bodyPanel, maClasse, classInfoActionButton5, classInfoActionResultPanel);
+//
+//            renameClass(frame, bodyPanel, maClasse, classInfoActionButton6, classInfoActionResultPanel);
+
+            bodyPanel.add(infoPanel);
+            Utils.displayFrame(frame);
+        });
+    }
+
+    private static void displayClass(JFrame frame, JPanel bodyPanel, Classe maClasse, JButton button1, JPanel infoPanel) {
+        button1.addActionListener(e -> {
+            infoPanel.removeAll();
+            var listModel = new DefaultListModel<String>();
+            var classInfoActionResultList = new JList<>(listModel);
+            var students = maClasse.afficher();
+
+            classInfoActionResultList.setFont(new Font("Arial", Font.BOLD, 25));
+            classInfoActionResultList.setForeground(Color.WHITE);
+            classInfoActionResultList.setBackground(new Color(33, 33, 33));
+
+            if (students.length == 0) {
+                classInfoActionResultList.setListData(new String[]{"La classe n'a pas encore d'étudiants"});
+                infoPanel.add(classInfoActionResultList);
+            } else {
+                classInfoActionResultList.setListData(students);
+                JScrollPane scrollPane = new JScrollPane(classInfoActionResultList);
+                scrollPane.setPreferredSize(new Dimension(infoPanel.getWidth(), 400));
+                infoPanel.add(scrollPane);
+            }
+            infoPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 400));
             frame.revalidate();
             frame.repaint();
         });

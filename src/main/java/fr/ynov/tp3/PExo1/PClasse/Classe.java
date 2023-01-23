@@ -14,12 +14,22 @@ public class Classe {
         this.etudiants = new HashMap<>();
     }
 
-    public void afficher() {
-        System.out.println("Voici la liste des étudiants de la classe " + nom + " :");
-        for (var entry : etudiants.entrySet()) {
-            var nomEtudiant = entry.getKey();
-            System.out.println(" - " + nomEtudiant);
+//    public void afficher() {
+//        System.out.println("Voici la liste des étudiants de la classe " + nom + " :");
+//        for (var entry : etudiants.entrySet()) {
+//            var nomEtudiant = entry.getKey();
+//            System.out.println(" - " + nomEtudiant);
+//        }
+//    }
+
+    public String[] afficher() {
+        String[] etudiants = new String[this.etudiants.size()];
+        int i = 0;
+        for (var entry : this.etudiants.entrySet()) {
+            etudiants[i] = entry.getKey();
+            i++;
         }
+        return etudiants;
     }
 
     public Etudiant getEtudiant(String nomEtudiant) {
