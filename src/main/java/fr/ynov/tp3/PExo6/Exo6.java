@@ -32,6 +32,7 @@ public class Exo6 {
         var playerHpLabel = new JLabel();
         var opponentHpLabel = new JLabel();
         var textLabel = new JLabel();
+        var attackLabel = new JLabel();
         var controlButton = new JButton("Commencer le duel !");
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
         opponentCards.setLayout(new BoxLayout(opponentCards, BoxLayout.X_AXIS));
@@ -49,6 +50,8 @@ public class Exo6 {
         textPanel.add(hpPanel);
         textPanel.add(Box.createRigidArea(new Dimension(15, 0)));
         textPanel.add(textLabel);
+        textPanel.add(Box.createRigidArea(new Dimension(15, 0)));
+        textPanel.add(attackLabel);
         textPanel.add(Box.createRigidArea(new Dimension(15, 0)));
         textPanel.add(controlButton);
         bodyPanel.add(opponentCards);
@@ -87,6 +90,7 @@ public class Exo6 {
         });
 
         var field = new YuGiOhField();
+        //todo: convert monsterImages to field.getCardImages()
         var randomMonsters = new ArrayList<MonsterCard>();
         var randomMonstersImages = new ArrayList<String>();
         for (var i = 0; i < 6; i++) {
@@ -97,46 +101,32 @@ public class Exo6 {
             monstersImages.remove(randomIndex);
             field.addCardToField(randomMonsters.get(i));
         }
-
         var fieldCards = field.getFieldCards();
         displayFieldCards(opponentCards, playerCards, field, randomMonstersImages, fieldCards);
         playerHpLabel.setText(field.getPlayerHp());
         opponentHpLabel.setText(field.getOpponentHp());
 
         controlButton.addActionListener(e -> {
+            //todo: fix button once game is over
             field.changeGameStatus();
             controlButton.setText(field.getGameStatus() ? "Arrêter le duel." : "Commencer le duel !");
-            //start game
             if (field.getGameStatus()) {
                 var firstPlayer = field.pickRandomBeginner();
+                //todo: fix labeled rule's code block is redundant
                 switch (firstPlayer) {
                     case "Joueur" -> {
-                        textLabel.setText("Vous commencez le duel !");
+                        textLabel.setText("<html>Vous commencez le duel !<br>Cliquez sur une carte pour l'utiliser</html>");
                     }
                     case "Adversaire" -> {
                         textLabel.setText("L'adversaire commence le duel !");
                     }
                 }
             } else {
-                textLabel.setText("Appuyez sur le bouton pour commencer le duel !");
+                Exo6.main(frame);
             }
 
-            //todo: fix while loop
-            while (field.getGameStatus()) {
-                System.out.println("test 1");
-                if (!field.checkPlayerLost()) {
-                    System.out.println("test 2");
-                    if (field.getCurrentPlayer().equals("Adversaire")) {
-                        System.out.println("Adversaire joue");
-                        var randomIndex = (int) (Math.random() * field.getOpponentCards().size());
-                        field.decreasePlayerLifePoints(field.getCardAttack(randomIndex, field.getCurrentPlayer()), field.getCardName(randomIndex, field.getCurrentPlayer()));
-                        playerHpLabel.setText(field.getPlayerHp());
-                        opponentHpLabel.setText(field.getOpponentHp());
-                        //todo: wait 2s so player can see the result
-                        field.changeCurrentPlayer();
-                        textLabel.setText(field.displayCurrentPlayer());
-                    }
-                }
+            if (field.getCurrentPlayer().equals("Adversaire") & field.getGameStatus()) {
+                playOpponent(playerHpLabel, opponentHpLabel, textLabel, field, attackLabel, textPanel, controlButton);
             }
         });
 
@@ -150,11 +140,13 @@ public class Exo6 {
                         if (field.getCurrentPlayer().equals("Adversaire") || !field.getGameStatus())
                             return;
                         super.mouseClicked(e);
-                        field.decreasePlayerLifePoints(field.getCardAttack(index, field.getCurrentPlayer()), field.getCardName(index, field.getCurrentPlayer()));
+                        attackLabel.setText(field.decreasePlayerLifePoints(field.getCardAttack(index, field.getCurrentPlayer()), field.getCardName(index, field.getCurrentPlayer())));
                         playerHpLabel.setText(field.getPlayerHp());
                         opponentHpLabel.setText(field.getOpponentHp());
                         field.changeCurrentPlayer();
                         textLabel.setText(field.displayCurrentPlayer());
+                        if (isGameFinished(field, textPanel, controlButton, textLabel)) return;
+                        playOpponent(playerHpLabel, opponentHpLabel, textLabel, field, attackLabel, textPanel, controlButton);
                     }
                 });
                 labelIndex++;
@@ -165,6 +157,36 @@ public class Exo6 {
 //        field.displayWinner();
 
         Utils.displayFrame(frame);
+    }
+
+    private static boolean isGameFinished(YuGiOhField field, JPanel textPanel, JButton controlButton, JLabel textLabel) {
+        if (field.checkPlayerLost()) {
+            //todo: fix for loop, so that it hides all the labels except the last one & set the text of the last one to the winner
+            for (var i = 0; i < textPanel.getComponentCount() - 1; i++) {
+                if (textPanel.getComponent(i) instanceof JLabel) {
+                    textPanel.getComponent(i).setVisible(false);
+                }
+            }
+            field.changeGameStatus();
+            controlButton.setText(field.getGameStatus() ? "Arrêter le duel." : "Commencer le duel !");
+            textLabel.setText(field.displayWinner());
+            return true;
+        }
+        return false;
+    }
+
+    private static void playOpponent(JLabel playerHpLabel, JLabel opponentHpLabel, JLabel textLabel, YuGiOhField field, JLabel attackLabel, JPanel textPanel, JButton controlButton) {
+        System.out.println("test");
+        if (field.getCurrentPlayer().equals("Adversaire")) {
+            System.out.println("Adversaire joue");
+            var randomIndex = (int) (Math.random() * field.getOpponentCards().size());
+            attackLabel.setText(field.decreasePlayerLifePoints(field.getCardAttack(randomIndex, field.getCurrentPlayer()), field.getCardName(randomIndex, field.getCurrentPlayer())));
+            playerHpLabel.setText(field.getPlayerHp());
+            opponentHpLabel.setText(field.getOpponentHp());
+            if (isGameFinished(field, textPanel, controlButton, textLabel)) return;
+            field.changeCurrentPlayer();
+            textLabel.setText(field.displayCurrentPlayer());
+        }
     }
 
     private static void displayFieldCards(JPanel opponentCards, JPanel playerCards, YuGiOhField field, ArrayList<String> randomMonstersImages, ArrayList<MonsterCard> fieldCards) {
