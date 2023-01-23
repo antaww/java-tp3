@@ -78,14 +78,15 @@ public class YuGiOhField {
         return currentPlayer;
     }
 
-    public void displayCurrentPlayer() {
+    public String displayCurrentPlayer() {
         if(currentTurn != 1) {
             if (currentPlayer.equals("Joueur")) {
-                System.out.println("\nC'est à votre tour !");
+                return "C'est à votre tour !";
             } else {
-                System.out.println("\nC'est au tour de l'adversaire !");
+                return "C'est au tour de l'adversaire !";
             }
         }
+        return "";
     }
 
     public void displayCurrentTurn() {

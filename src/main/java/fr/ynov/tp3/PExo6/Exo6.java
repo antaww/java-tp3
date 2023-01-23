@@ -33,10 +33,11 @@ public class Exo6 {
         var playerHpLabel = new JLabel();
         var opponentHpLabel = new JLabel();
         var textLabel = new JLabel();
+        var rigidArea = Box.createRigidArea(new Dimension(15, 0));
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
         opponentCards.setLayout(new BoxLayout(opponentCards, BoxLayout.X_AXIS));
         playerCards.setLayout(new BoxLayout(playerCards, BoxLayout.X_AXIS));
-        textPanel.setLayout(new BorderLayout()); //todo: change borderLayout to add rigidArea
+        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.X_AXIS));
         hpPanel.setLayout(new BoxLayout(hpPanel, BoxLayout.Y_AXIS));
         opponentCards.setBorder(BorderFactory.createTitledBorder(null, "Cartes de l'adversaire", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, Color.WHITE));
         playerCards.setBorder(BorderFactory.createTitledBorder(null, "Vos cartes", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, Color.WHITE));
@@ -46,11 +47,9 @@ public class Exo6 {
         textLabel.setFont(new Font("Arial", Font.BOLD, 12));
         hpPanel.add(playerHpLabel);
         hpPanel.add(opponentHpLabel);
-        hpPanel.setPreferredSize(new Dimension(130, 0));
-        hpPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.WHITE));
-        textPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.WHITE));
-        textPanel.add(hpPanel, BorderLayout.WEST);
-        textPanel.add(textLabel, BorderLayout.CENTER);
+        textPanel.add(hpPanel);
+        textPanel.add(rigidArea);
+        textPanel.add(textLabel);
         bodyPanel.add(opponentCards);
         bodyPanel.add(playerCards);
         bodyPanel.add(textPanel);
@@ -114,21 +113,38 @@ public class Exo6 {
             }
         }
 
-        field.getPlayerCards().forEach(card -> {
-            var cardImage = playerCards.getComponent(field.getPlayerCards().indexOf(card) + 1);
-            cardImage.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    super.mouseClicked(e);
-//                    if (field.getCurrentPlayer().equals("Joueur")) {}
-                    field.decreasePlayerLifePoints(field.getCardAttack(field.getPlayerCards().indexOf(card), field.getCurrentPlayer()), field.getCardName(field.getPlayerCards().indexOf(card), field.getCurrentPlayer()));
-                    playerHpLabel.setText(field.getPlayerHp());
-                    opponentHpLabel.setText(field.getOpponentHp());
-                    field.changeCurrentPlayer();
-                    textLabel.setText("C'est au tour de l'adversaire !");
-                }
-            });
-        });
+        var labelIndex = 0;
+        for (var i = 0; i < playerCards.getComponentCount(); i++) {
+            if (playerCards.getComponent(i) instanceof JLabel) {
+                final var index = labelIndex;
+                playerCards.getComponent(i).addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        if (field.getCurrentPlayer().equals("Adversaire"))
+                            return;
+                        super.mouseClicked(e);
+                        field.decreasePlayerLifePoints(field.getCardAttack(index, field.getCurrentPlayer()), field.getCardName(index, field.getCurrentPlayer()));
+                        playerHpLabel.setText(field.getPlayerHp());
+                        opponentHpLabel.setText(field.getOpponentHp());
+                        field.changeCurrentPlayer();
+                        textLabel.setText(field.displayCurrentPlayer());
+                    }
+                });
+                labelIndex++;
+            }
+        }
+
+//        while (!field.checkPlayerLost()) {
+//            //todo: find a way to break the loop
+//            if (field.getCurrentPlayer().equals("Adversaire")) {
+//                var randomIndex = (int) (Math.random() * fieldCards.size());
+//                field.decreasePlayerLifePoints(field.getCardAttack(randomIndex, field.getCurrentPlayer()), field.getCardName(randomIndex, field.getCurrentPlayer()));
+//                playerHpLabel.setText(field.getPlayerHp());
+//                opponentHpLabel.setText(field.getOpponentHp());
+//                field.changeCurrentPlayer();
+//                textLabel.setText(field.displayCurrentPlayer());
+//            }
+//        }
 
 
 
