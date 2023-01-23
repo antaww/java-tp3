@@ -403,8 +403,8 @@ public class TP_Classe {
             classInfoActionPanel.add(classInfoActionButton6);
 
             displayClass(frame, bodyPanel, maClasse, classInfoActionButton1, classInfoActionResultPanel);
-//
-//            displayClassAverage(frame, bodyPanel, maClasse, classInfoActionButton2, classInfoActionResultPanel);
+
+            displayClassAverage(frame, bodyPanel, maClasse, classInfoActionButton2, classInfoActionResultPanel);
 //
 //            displaySubjectsAverage(frame, bodyPanel, maClasse, classInfoActionButton3, classInfoActionResultPanel);
 //
@@ -439,6 +439,28 @@ public class TP_Classe {
                 scrollPane.setPreferredSize(new Dimension(infoPanel.getWidth(), 400));
                 infoPanel.add(scrollPane);
             }
+            infoPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 400));
+            frame.revalidate();
+            frame.repaint();
+        });
+    }
+
+    private static void displayClassAverage(JFrame frame, JPanel bodyPanel, Classe maClasse, JButton button1, JPanel infoPanel) {
+        button1.addActionListener(e -> {
+            infoPanel.removeAll();
+            var classInfoResultLabel = new JLabel();
+            var studentsAverage = maClasse.moyenneClasse("");
+
+
+            if (studentsAverage == -1) {
+                classInfoResultLabel.setText("La classe n'a pas encore d'étudiants");
+            } else {
+                classInfoResultLabel.setText("La moyenne de la classe est de " + studentsAverage);
+            }
+
+            classInfoResultLabel.setFont(new Font("Arial", Font.BOLD, 35));
+            classInfoResultLabel.setForeground(Color.WHITE);
+            infoPanel.add(classInfoResultLabel);
             infoPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 400));
             frame.revalidate();
             frame.repaint();
