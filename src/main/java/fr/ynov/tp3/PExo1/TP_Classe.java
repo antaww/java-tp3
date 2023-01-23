@@ -49,14 +49,14 @@ public class TP_Classe {
         }
 
         var buttonsPanel = new JPanel();
-        var button1 = new JButton(maClasse.nom);
+        var classButton = new JButton(maClasse.nom);
         var studentLabel = new JLabel("Sélectionnez un étudiant pour afficher ses informations");
         var classLabel = new JLabel("Cliquez sur la classe pour afficher ses informations");
 
         listScrollPanel.setPreferredSize(new Dimension(200, 30));
         listScrollPanel.setFont(new Font("Arial", Font.BOLD, 15));
-        button1.setPreferredSize(new Dimension(200, 50));
-        button1.setFont(new Font("Arial", Font.BOLD, 16));
+        classButton.setPreferredSize(new Dimension(200, 50));
+        classButton.setFont(new Font("Arial", Font.BOLD, 16));
         studentLabel.setFont(new Font("Arial", Font.BOLD, 13));
         classLabel.setFont(new Font("Arial", Font.BOLD, 13));
 
@@ -87,7 +87,7 @@ public class TP_Classe {
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
-        buttonsPanel.add(button1, gbc);
+        buttonsPanel.add(classButton, gbc);
 
         bodyPanel.add(buttonsPanel);
 
@@ -98,7 +98,7 @@ public class TP_Classe {
 
         displayStudentInfo(frame, bodyPanel, maClasse, listScrollPanel, infoPanel);
 
-        displayClassInfo(frame, bodyPanel, maClasse, button1, listScrollPanel, infoPanel);
+        displayClassInfo(frame, bodyPanel, maClasse, classButton, listScrollPanel, infoPanel);
 
         Utils.displayFrame(frame);
 
@@ -368,8 +368,8 @@ public class TP_Classe {
         });
     }
 
-    private static void displayClassInfo(JFrame frame, JPanel bodyPanel, Classe maClasse, JButton button1, JComboBox<String> listScrollPane, JPanel infoPanel) {
-        button1.addActionListener(e -> {
+    private static void displayClassInfo(JFrame frame, JPanel bodyPanel, Classe maClasse, JButton button, JComboBox<String> listScrollPane, JPanel infoPanel) {
+        button.addActionListener(e -> {
             infoPanel.removeAll();
             var classInfoNameLabel = new JLabel(maClasse.nom);
             var classInfoActionPanel = new JPanel();
@@ -413,15 +413,15 @@ public class TP_Classe {
 
             addSubject(frame, classInfoActionButton5, classInfoActionResultPanel);
 
-//            renameClass(frame, bodyPanel, maClasse, classInfoActionButton6, classInfoActionResultPanel);
+            renameClass(frame, maClasse, classInfoActionButton6, button, classInfoNameLabel, classInfoActionResultPanel);
 
             bodyPanel.add(infoPanel);
             Utils.displayFrame(frame);
         });
     }
 
-    private static void displayClass(JFrame frame, JPanel bodyPanel, Classe maClasse, JButton button1, JPanel infoPanel) {
-        button1.addActionListener(e -> {
+    private static void displayClass(JFrame frame, JPanel bodyPanel, Classe maClasse, JButton button, JPanel infoPanel) {
+        button.addActionListener(e -> {
             infoPanel.removeAll();
             var listModel = new DefaultListModel<String>();
             var classInfoActionResultList = new JList<>(listModel);
@@ -446,8 +446,8 @@ public class TP_Classe {
         });
     }
 
-    private static void displayClassAverage(JFrame frame, JPanel bodyPanel, Classe maClasse, JButton button1, JPanel infoPanel) {
-        button1.addActionListener(e -> {
+    private static void displayClassAverage(JFrame frame, JPanel bodyPanel, Classe maClasse, JButton button, JPanel infoPanel) {
+        button.addActionListener(e -> {
             infoPanel.removeAll();
             var classInfoResultLabel = new JLabel();
             var studentsAverage = maClasse.moyenneClasse("");
@@ -468,8 +468,8 @@ public class TP_Classe {
         });
     }
 
-    private static void displaySubjectsAverage(JFrame frame, JPanel bodyPanel, Classe maClasse, JButton button1, JPanel infoPanel) {
-        button1.addActionListener(e1 -> {
+    private static void displaySubjectsAverage(JFrame frame, JPanel bodyPanel, Classe maClasse, JButton button, JPanel infoPanel) {
+        button.addActionListener(e1 -> {
             infoPanel.removeAll();
             var topPanel = new JPanel();
             var bottomPanel = new JPanel();
@@ -522,8 +522,8 @@ public class TP_Classe {
         });
     }
 
-    private static void addStudent(JFrame frame, Classe maClasse, JButton button1, JComboBox<String> listScrollPane, JPanel infoPanel) {
-        button1.addActionListener(e -> {
+    private static void addStudent(JFrame frame, Classe maClasse, JButton button, JComboBox<String> listScrollPane, JPanel infoPanel) {
+        button.addActionListener(e -> {
             infoPanel.removeAll();
             var topPanel = new JPanel();
             var bottomPanel = new JPanel();
@@ -575,8 +575,8 @@ public class TP_Classe {
         });
     }
 
-    private static void addSubject(JFrame frame, JButton button1, JPanel infoPanel) {
-        button1.addActionListener(e -> {
+    private static void addSubject(JFrame frame, JButton button, JPanel infoPanel) {
+        button.addActionListener(e -> {
             infoPanel.removeAll();
             var topPanel = new JPanel();
             var bottomPanel = new JPanel();
@@ -629,5 +629,48 @@ public class TP_Classe {
             frame.revalidate();
             frame.repaint();
         });
+    }
+
+    private static void renameClass(JFrame frame, Classe maClasse, JButton button, JButton classButton, JLabel classInfoNameLabel, JPanel infoPanel) {
+        button.addActionListener(e -> {
+            infoPanel.removeAll();
+            var topPanel = new JPanel();
+            var bottomPanel = new JPanel();
+            var classNamePanel = new JPanel();
+            var classNameLabel = new JLabel("Nom de la classe : ");
+            var classNameTextField = new JTextField();
+            var renameClassButton = new JButton("Renommer la classe");
+
+            classNameLabel.setFont(new Font("Arial", Font.BOLD, 25));
+            classNameLabel.setForeground(Color.WHITE);
+            classNameTextField.setPreferredSize(new Dimension(200, 30));
+            classNamePanel.add(classNameLabel);
+            classNamePanel.add(classNameTextField);
+
+            topPanel.setPreferredSize(new Dimension(infoPanel.getWidth(), 200));
+            bottomPanel.setPreferredSize(new Dimension(infoPanel.getWidth(), 300));
+
+            topPanel.add(classNamePanel);
+            bottomPanel.add(renameClassButton);
+
+            renameClassButton.addActionListener(e1 -> {
+                var className = classNameTextField.getText();
+                if (className.equals("")) {
+                    JOptionPane.showMessageDialog(frame, "Veuillez remplir tous les champs");
+                } else {
+                    maClasse.nom = className;
+                    classInfoNameLabel.setText(maClasse.nom);
+                    classButton.setText(maClasse.nom);
+                    JOptionPane.showMessageDialog(frame, "La classe a bien été renommée");
+                }
+            });
+
+            infoPanel.add(topPanel);
+            infoPanel.add(bottomPanel);
+            Utils.displayFrame(frame);
+            frame.revalidate();
+            frame.repaint();
+        });
+
     }
 }

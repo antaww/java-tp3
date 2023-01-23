@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Classe {
-    public final String nom;
+    public String nom;
     private final Map<String, Etudiant> etudiants;
 
     public Classe(String nom) {
