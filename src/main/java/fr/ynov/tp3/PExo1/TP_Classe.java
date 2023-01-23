@@ -96,7 +96,7 @@ public class TP_Classe {
 
         displayStudentInfo(frame, bodyPanel, maClasse, listScrollPanel, infoPanel);
 
-        displayClassInfo(frame, bodyPanel, maClasse, button1, infoPanel);
+        displayClassInfo(frame, bodyPanel, maClasse, button1, listScrollPanel, infoPanel);
 
         Utils.displayFrame(frame);
 
@@ -366,7 +366,7 @@ public class TP_Classe {
         });
     }
 
-    private static void displayClassInfo(JFrame frame, JPanel bodyPanel, Classe maClasse, JButton button1, JPanel infoPanel) {
+    private static void displayClassInfo(JFrame frame, JPanel bodyPanel, Classe maClasse, JButton button1, JComboBox<String> listScrollPane, JPanel infoPanel) {
         button1.addActionListener(e -> {
             infoPanel.removeAll();
             var classInfoNameLabel = new JLabel(maClasse.nom);
@@ -404,13 +404,13 @@ public class TP_Classe {
             displayClass(frame, bodyPanel, maClasse, classInfoActionButton1, classInfoActionResultPanel);
 
             displayClassAverage(frame, bodyPanel, maClasse, classInfoActionButton2, classInfoActionResultPanel);
-//
+
             displaySubjectsAverage(frame, bodyPanel, maClasse, classInfoActionButton3, classInfoActionResultPanel);
-//
-//            addStudent(frame, bodyPanel, maClasse, classInfoActionButton4, classInfoActionResultPanel);
+
+            addStudent(frame, bodyPanel, maClasse, classInfoActionButton4, listScrollPane, classInfoActionResultPanel);
 
 //            addSubject(frame, bodyPanel, maClasse, classInfoActionButton5, classInfoActionResultPanel);
-//
+
 //            renameClass(frame, bodyPanel, maClasse, classInfoActionButton6, classInfoActionResultPanel);
 
             bodyPanel.add(infoPanel);
@@ -452,7 +452,7 @@ public class TP_Classe {
 
 
             if (studentsAverage == -1) {
-                classInfoResultLabel.setText("La classe n'a pas encore d'étudiants");
+                classInfoResultLabel.setText("La classe n'a pas encore de notes");
             } else {
                 classInfoResultLabel.setText("La moyenne de la classe est de " + studentsAverage);
             }
@@ -512,6 +512,59 @@ public class TP_Classe {
                     bottomPanel.add(classInfoActionResultList);
                 }
             });
+            infoPanel.add(topPanel);
+            infoPanel.add(bottomPanel);
+            Utils.displayFrame(frame);
+            frame.revalidate();
+            frame.repaint();
+        });
+    }
+
+    private static void addStudent(JFrame frame, JPanel bodyPanel, Classe maClasse, JButton button1, JComboBox<String> listScrollPane, JPanel infoPanel) {
+        button1.addActionListener(e -> {
+            infoPanel.removeAll();
+            var topPanel = new JPanel();
+            var bottomPanel = new JPanel();
+            var studentFirstNamePanel = new JPanel();
+            var studentFirstNameLabel = new JLabel("Nom de l'étudiant : ");
+            var studentFirstNameTextField = new JTextField();
+            var studentLastNamePanel = new JPanel();
+            var studentLastNameLabel = new JLabel("Prénom de l'étudiant : ");
+            var studentLastNameTextField = new JTextField();
+            var addStudentButton = new JButton("Ajouter l'étudiant");
+
+            studentFirstNameLabel.setFont(new Font("Arial", Font.BOLD, 25));
+            studentFirstNameLabel.setForeground(Color.WHITE);
+            studentFirstNameTextField.setPreferredSize(new Dimension(200, 30));
+            studentFirstNamePanel.add(studentFirstNameLabel);
+            studentFirstNamePanel.add(studentFirstNameTextField);
+
+            studentLastNameLabel.setFont(new Font("Arial", Font.BOLD, 25));
+            studentLastNameLabel.setForeground(Color.WHITE);
+            studentLastNameTextField.setPreferredSize(new Dimension(200, 30));
+            studentLastNamePanel.add(studentLastNameLabel);
+            studentLastNamePanel.add(studentLastNameTextField);
+
+            topPanel.setPreferredSize(new Dimension(infoPanel.getWidth(), 200));
+            bottomPanel.setPreferredSize(new Dimension(infoPanel.getWidth(), 300));
+
+            topPanel.add(studentFirstNamePanel);
+            topPanel.add(studentLastNamePanel);
+            bottomPanel.add(addStudentButton);
+
+            addStudentButton.addActionListener(e1 -> {
+                var studentFirstName = studentFirstNameTextField.getText();
+                var studentLastName = studentLastNameTextField.getText();
+                if (studentFirstName.equals("") || studentLastName.equals("")) {
+                    JOptionPane.showMessageDialog(frame, "Veuillez remplir tous les champs");
+                } else {
+                    var newStudent = new Etudiant(studentFirstName, studentLastName);
+                    maClasse.setEtudiant(newStudent);
+                    JOptionPane.showMessageDialog(frame, "L'étudiant a bien été ajouté");
+                    listScrollPane.addItem(newStudent.nom + " " + newStudent.prenom);
+                }
+            });
+
             infoPanel.add(topPanel);
             infoPanel.add(bottomPanel);
             Utils.displayFrame(frame);
