@@ -15,6 +15,7 @@ public class YuGiOhField {
     private int currentTurn;
     private int playerLifePoints;
     private int opponentLifePoints;
+    private boolean isGameRunning;
 
     public YuGiOhField() {
         fieldCards = new ArrayList<>();
@@ -26,6 +27,16 @@ public class YuGiOhField {
         playerLifePoints = 8000;
         opponentLifePoints = 8000;
         currentTurn = 1;
+        isGameRunning = false;
+    }
+
+    public boolean getGameStatus() {
+        return isGameRunning;
+    }
+
+    public void changeGameStatus() {
+        isGameRunning = !isGameRunning;
+        System.out.println("Game status changed to " + isGameRunning);
     }
 
     public void addCardToField(MonsterCard card) {
@@ -56,6 +67,10 @@ public class YuGiOhField {
         return playerCards;
     }
 
+    public ArrayList<MonsterCard> getOpponentCards() {
+        return opponentCards;
+    }
+
     public String getPlayerHp() {
         return "Vous : " + playerLifePoints + " PV";
     }
@@ -79,7 +94,7 @@ public class YuGiOhField {
     }
 
     public String displayCurrentPlayer() {
-        if(currentTurn != 1) {
+        if (currentTurn != 1) {
             if (currentPlayer.equals("Joueur")) {
                 return "C'est à votre tour !";
             } else {

@@ -17,7 +17,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 
 public class Exo6 {
     public static void main(JFrame frame) {
@@ -33,7 +32,7 @@ public class Exo6 {
         var playerHpLabel = new JLabel();
         var opponentHpLabel = new JLabel();
         var textLabel = new JLabel();
-        var rigidArea = Box.createRigidArea(new Dimension(15, 0));
+        var controlButton = new JButton("Commencer le duel !");
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
         opponentCards.setLayout(new BoxLayout(opponentCards, BoxLayout.X_AXIS));
         playerCards.setLayout(new BoxLayout(playerCards, BoxLayout.X_AXIS));
@@ -48,8 +47,10 @@ public class Exo6 {
         hpPanel.add(playerHpLabel);
         hpPanel.add(opponentHpLabel);
         textPanel.add(hpPanel);
-        textPanel.add(rigidArea);
+        textPanel.add(Box.createRigidArea(new Dimension(15, 0)));
         textPanel.add(textLabel);
+        textPanel.add(Box.createRigidArea(new Dimension(15, 0)));
+        textPanel.add(controlButton);
         bodyPanel.add(opponentCards);
         bodyPanel.add(playerCards);
         bodyPanel.add(textPanel);
@@ -102,16 +103,42 @@ public class Exo6 {
         playerHpLabel.setText(field.getPlayerHp());
         opponentHpLabel.setText(field.getOpponentHp());
 
-        //start game
-        var firstPlayer = field.pickRandomBeginner();
-        switch (firstPlayer) {
-            case "Joueur" -> {
-                textLabel.setText("Vous commencez la partie !");
+        controlButton.addActionListener(e -> {
+            field.changeGameStatus();
+            controlButton.setText(field.getGameStatus() ? "Arrêter le duel." : "Commencer le duel !");
+            //start game
+            if (field.getGameStatus()) {
+                var firstPlayer = field.pickRandomBeginner();
+                switch (firstPlayer) {
+                    case "Joueur" -> {
+                        textLabel.setText("Vous commencez le duel !");
+                    }
+                    case "Adversaire" -> {
+                        textLabel.setText("L'adversaire commence le duel !");
+                    }
+                }
+            } else {
+                textLabel.setText("Appuyez sur le bouton pour commencer le duel !");
             }
-            case "Adversaire" -> {
-                textLabel.setText("L'adversaire commence la partie !");
+
+            //todo: fix while loop
+            while (field.getGameStatus()) {
+                System.out.println("test 1");
+                if (!field.checkPlayerLost()) {
+                    System.out.println("test 2");
+                    if (field.getCurrentPlayer().equals("Adversaire")) {
+                        System.out.println("Adversaire joue");
+                        var randomIndex = (int) (Math.random() * field.getOpponentCards().size());
+                        field.decreasePlayerLifePoints(field.getCardAttack(randomIndex, field.getCurrentPlayer()), field.getCardName(randomIndex, field.getCurrentPlayer()));
+                        playerHpLabel.setText(field.getPlayerHp());
+                        opponentHpLabel.setText(field.getOpponentHp());
+                        //todo: wait 2s so player can see the result
+                        field.changeCurrentPlayer();
+                        textLabel.setText(field.displayCurrentPlayer());
+                    }
+                }
             }
-        }
+        });
 
         var labelIndex = 0;
         for (var i = 0; i < playerCards.getComponentCount(); i++) {
@@ -120,7 +147,7 @@ public class Exo6 {
                 playerCards.getComponent(i).addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        if (field.getCurrentPlayer().equals("Adversaire"))
+                        if (field.getCurrentPlayer().equals("Adversaire") || !field.getGameStatus())
                             return;
                         super.mouseClicked(e);
                         field.decreasePlayerLifePoints(field.getCardAttack(index, field.getCurrentPlayer()), field.getCardName(index, field.getCurrentPlayer()));
@@ -134,29 +161,7 @@ public class Exo6 {
             }
         }
 
-//        while (!field.checkPlayerLost()) {
-//            //todo: find a way to break the loop
-//            if (field.getCurrentPlayer().equals("Adversaire")) {
-//                var randomIndex = (int) (Math.random() * fieldCards.size());
-//                field.decreasePlayerLifePoints(field.getCardAttack(randomIndex, field.getCurrentPlayer()), field.getCardName(randomIndex, field.getCurrentPlayer()));
-//                playerHpLabel.setText(field.getPlayerHp());
-//                opponentHpLabel.setText(field.getOpponentHp());
-//                field.changeCurrentPlayer();
-//                textLabel.setText(field.displayCurrentPlayer());
-//            }
-//        }
-
-
-
-        //todo: replace comments with GUI adaptation
-//        while (!field.checkPlayerLost()) {
-//            field.displayCurrentPlayer();
-//            field.displayCurrentTurn();
-//            field.displayLifePoints();
-//            var cardIndex = cardPrompt(field);
-//            field.decreasePlayerLifePoints(field.getCardAttack(cardIndex, field.getCurrentPlayer()), field.getCardName(cardIndex, field.getCurrentPlayer()));
-//            field.changeCurrentPlayer();
-//        }
+        //todo: if button duel stop : reset the game
 //        field.displayWinner();
 
         Utils.displayFrame(frame);
@@ -191,32 +196,5 @@ public class Exo6 {
             var errorLabel = new JLabel("Image error 404");
             opponentCards.add(errorLabel);
         }
-    }
-
-    private static int cardPrompt(YuGiOhField field) {
-        var scanner = new java.util.Scanner(System.in);
-        switch (field.getCurrentPlayer()) {
-            case "Joueur" -> {
-                while (true) {
-                    System.out.print("Entrez le numéro de la carte avec laquelle vous voulez attaquer (1, 2, ou 3): ");
-                    try {
-                        var input = scanner.nextInt();
-                        switch (input) {
-                            case 1, 2, 3 -> {
-                                return input - 1;
-                            }
-                            default -> System.out.println("Entrée invalide. Veuillez entrer une valeur de 1, 2 ou 3.");
-                        }
-                    } catch (InputMismatchException e) {
-                        System.out.println("Entrée invalide. Veuillez entrer un nombre valide.");
-                        scanner.next();
-                    }
-                }
-            }
-            case "Adversaire" -> {
-                return (int) (Math.random() * 3);
-            }
-        }
-        return 0;
     }
 }
