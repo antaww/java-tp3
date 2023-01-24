@@ -19,6 +19,32 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Classe Exo6 : création d'une interface pour simuler un duel de Yu-Gi-Oh!
+ * Cette classe permet de créer une interface graphique pour simuler un duel de Yu-Gi-Oh! en affichant les cartes de l'adversaire et les cartes du joueur, ainsi que les points de vie de chacun.
+ * Elle utilise également des composants tels que JPanel, JLabel et JButton pour afficher les informations et les boutons de contrôle.
+ * Elle utilise les layout BoxLayout pour organiser les différents éléments de l'interface.
+ * Elle utilise également des méthodes de la classe Utils pour nettoyer le contenu de la fenêtre.
+ * Elle utilise également la librairie Gson pour lire les informations des cartes à partir d'un fichier json.
+ *
+ * @see com.google.gson.JsonElement
+ * @see com.google.gson.JsonParser
+ * @see fr.ynov.tp3.PExo3.Attribute
+ * @see fr.ynov.tp3.PExo3.MonsterCard
+ * @see fr.ynov.tp3.PUtils.Utils
+ * @see javax.imageio.ImageIO
+ * @see javax.swing
+ * @see javax.swing.border.TitledBorder
+ * @see java.awt
+ * @see java.awt.event.MouseAdapter
+ * @see java.awt.event.MouseEvent
+ * @see java.io.FileNotFoundException
+ * @see java.io.FileReader
+ * @see java.io.IOException
+ * @see java.net.URL
+ * @see java.util.ArrayList
+ * @see java.util.Objects
+ */
 public class Exo6 {
     public static void main(final JFrame frame) {
         final var bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
@@ -143,6 +169,15 @@ public class Exo6 {
         Utils.displayFrame(frame);
     }
 
+    /**
+     * Méthode isGameFinished : vérifie si le jeu est terminé
+     *
+     * @param field         le champ de jeu
+     * @param textPanel     le panel contenant les textes
+     * @param controlButton le bouton de contrôle
+     * @param attackLabel   le label d'attaque
+     * @return true si le jeu est terminé, false sinon
+     */
     private static boolean isGameFinished(final YuGiOhField field, final JPanel textPanel, final JButton controlButton, final JLabel attackLabel) {
         if (field.checkPlayerLost()) {
             for (var i = 0; i <= 3; i++) {
@@ -155,6 +190,17 @@ public class Exo6 {
         return false;
     }
 
+    /**
+     * Méthode playOpponent : fait jouer l'adversaire
+     *
+     * @param playerHpLabel   le label de points de vie du joueur
+     * @param opponentHpLabel le label de points de vie de l'adversaire
+     * @param textLabel       le label de texte
+     * @param field           le champ de jeu
+     * @param attackLabel     le label d'attaque
+     * @param textPanel       le panel contenant les textes
+     * @param controlButton   le bouton de contrôle
+     */
     private static void playOpponent(final JLabel playerHpLabel, final JLabel opponentHpLabel, final JLabel textLabel, final YuGiOhField field, final JLabel attackLabel, final JPanel textPanel, final JButton controlButton) {
         if (field.getCurrentPlayer().equals("Adversaire")) {
             final var randomIndex = (int) (Math.random() * field.getOpponentCards().size());
@@ -167,6 +213,15 @@ public class Exo6 {
         }
     }
 
+    /**
+     * Méthode displayFieldCards : affiche les cartes du champ de jeu
+     *
+     * @param opponentCards        le panel contenant les cartes de l'adversaire
+     * @param playerCards          le panel contenant les cartes du joueur
+     * @param field                le champ de jeu
+     * @param randomMonstersImages les images des cartes
+     * @param fieldCards           les cartes du champ de jeu
+     */
     private static void displayFieldCards(final JPanel opponentCards, final JPanel playerCards, final YuGiOhField field, final ArrayList<String> randomMonstersImages, final ArrayList<MonsterCard> fieldCards) {
         for (var i = 0; i < 3; i++) {
             final var randomIndexPlayer = (int) (Math.random() * fieldCards.size());
@@ -184,6 +239,13 @@ public class Exo6 {
         }
     }
 
+    /**
+     * Méthode addCardsToField : ajoute les cartes au champ de jeu
+     *
+     * @param opponentCards        le panel contenant les cartes de l'adversaire
+     * @param randomMonstersImages les images des cartes
+     * @param randomIndexOpponent  l'index de l'image de la carte
+     */
     private static void addCardsToField(final JPanel opponentCards, final ArrayList<String> randomMonstersImages, final int randomIndexOpponent) {
         try {
             final var url = new URL(randomMonstersImages.get(randomIndexOpponent));
