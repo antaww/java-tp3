@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class Etudiant {
     public final String nom;
     public final String prenom;
-    final Map<String, Map<String, Map<Integer, Double>>> notes;
+    public final Map<String, Map<String, Map<Integer, Double>>> notes;
 
     public Etudiant(String nom, String prenom) {
         this.nom = nom;

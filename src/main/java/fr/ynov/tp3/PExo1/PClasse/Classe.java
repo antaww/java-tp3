@@ -2,6 +2,9 @@ package fr.ynov.tp3.PExo1.PClasse;
 
 import fr.ynov.tp3.PExo1.PEtudiant.Etudiant;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +16,7 @@ public class Classe {
         this.nom = nom;
         this.etudiants = new HashMap<>();
     }
+
 
 //    public void afficher() {
 //        System.out.println("Voici la liste des étudiants de la classe " + nom + " :");
@@ -79,5 +83,78 @@ public class Classe {
             i++;
         }
         return etudiants;
+    }
+
+    public String saveClasse() {
+        String filePath = "maClasse.txt";
+        try {
+            FileWriter fileWriter = new FileWriter(filePath);
+            fileWriter.write("");
+
+            fileWriter.write(this.nom);
+            fileWriter.write("\r \n");
+            for (var entry : etudiants.entrySet()) {
+                var nomEtudiant = entry.getKey();
+                fileWriter.write(nomEtudiant);
+                fileWriter.write("\n");
+                for (var entry2 : entry.getValue().notes.entrySet()) {
+                    var matiere = entry2.getKey();
+                    for (var entry3 : entry2.getValue().entrySet()) {
+                        var evaluation = entry3.getKey();
+                        fileWriter.write(matiere + " : " + evaluation + " : ");
+                        for (var entry4 : entry3.getValue().entrySet()) {
+                            int coef = entry4.getKey();
+                            double note = entry4.getValue();
+                            fileWriter.write(String.valueOf(note));
+                            fileWriter.write(" (x" + coef + ")");
+                            fileWriter.write("\n");
+                        }
+                    }
+                }
+                fileWriter.write("\r \n");
+            }
+            fileWriter.close();
+        } catch (Exception e) {
+            return "Erreur lors de la sauvegarde de la classe";
+        }
+        return "Classe sauvegardée";
+    }
+
+    public void loadClasse(String filePath) {
+        try {
+            FileReader fileReader = new FileReader(filePath);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line = bufferedReader.readLine();
+            this.nom = line;
+            System.out.println("TEST 1");
+
+            while ((line = bufferedReader.readLine()) != null && !line.equals("\r \n")) {
+                System.out.println("TEST 2");
+                String[] etudiant = line.split(" ");
+                if (etudiant.length == 2) {
+                    String nomEtudiant = etudiant[0];
+                    System.out.println("TEST 4");
+                    String prenomEtudiant = etudiant[1];
+                    System.out.println("TEST 5");
+                    System.out.println(nomEtudiant);
+                    System.out.println(prenomEtudiant);
+                    Etudiant etudiant1 = new Etudiant(nomEtudiant, prenomEtudiant);
+                    while ((line = bufferedReader.readLine()) != null && !line.equals("")) {
+                        String[] note = line.split(" : ");
+                        String matiere = note[0];
+                        String evaluation = note[1];
+                        String[] note2 = note[2].split(" ");
+                        double noteEtudiant = Double.parseDouble(note2[0]);
+                        int coef = Integer.parseInt(note2[2].substring(1));
+                        etudiant1.setNote(matiere, evaluation, coef, noteEtudiant);
+                    }
+                    this.setEtudiant(etudiant1);
+                }
+
+            }
+            bufferedReader.close();
+        } catch (Exception e) {
+            System.out.println("Erreur lors du chargement de la classe");
+        }
     }
 }

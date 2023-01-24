@@ -19,6 +19,9 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class TP_Classe {
+
+    static Classe maClasse;
+
     public static void main(JFrame frame) {
         var bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
         Utils.cleanBodyPanel(bodyPanel);
@@ -33,7 +36,7 @@ public class TP_Classe {
         etudiant1.setNote("EPS", "Badminton", 1, 19.5);
         var etudiant2 = new Etudiant("Buzz", "Léclair");
 
-        var maClasse = new Classe("B2 - Linux/Réseaux");
+        maClasse = new Classe("B2 - Linux/Réseaux");
         maClasse.setEtudiant(etudiant1);
         maClasse.setEtudiant(etudiant2);
 
@@ -96,9 +99,9 @@ public class TP_Classe {
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
 
 
-        displayStudentInfo(frame, bodyPanel, maClasse, listScrollPanel, infoPanel);
+        displayStudentInfo(frame, bodyPanel, listScrollPanel, infoPanel);
 
-        displayClassInfo(frame, bodyPanel, maClasse, classButton, listScrollPanel, infoPanel);
+        displayClassInfo(frame, bodyPanel, classButton, listScrollPanel, infoPanel);
 
         Utils.displayFrame(frame);
 
@@ -115,7 +118,7 @@ public class TP_Classe {
     }
 
 
-    private static void displayStudentInfo(JFrame frame, JPanel bodyPanel, Classe maClasse, JComboBox<String> listScrollPane, JPanel infoPanel) {
+    private static void displayStudentInfo(JFrame frame, JPanel bodyPanel, JComboBox<String> listScrollPane, JPanel infoPanel) {
         listScrollPane.addActionListener(e -> {
             infoPanel.removeAll();
             var selectedStudent = Objects.requireNonNull(listScrollPane.getSelectedItem()).toString();
@@ -368,7 +371,7 @@ public class TP_Classe {
         });
     }
 
-    private static void displayClassInfo(JFrame frame, JPanel bodyPanel, Classe maClasse, JButton button, JComboBox<String> listScrollPane, JPanel infoPanel) {
+    private static void displayClassInfo(JFrame frame, JPanel bodyPanel, JButton button, JComboBox<String> listScrollPane, JPanel infoPanel) {
         button.addActionListener(e -> {
             infoPanel.removeAll();
             var classInfoNameLabel = new JLabel(maClasse.nom);
@@ -380,6 +383,8 @@ public class TP_Classe {
             var classInfoActionButton4 = new JButton("Ajouter un étudiant");
             var classInfoActionButton5 = new JButton("Ajouter une matière");
             var classInfoActionButton6 = new JButton("Renommer la classe");
+            var classInfoActionButton7 = new JButton("Sauvegarder la classe");
+            var classInfoActionButton8 = new JButton("Charger une classe");
 
             infoPanel.setLayout(new BorderLayout());
 
@@ -390,11 +395,16 @@ public class TP_Classe {
             classInfoActionResultPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 
             classInfoNameLabel.setFont(new Font("Arial", Font.BOLD, 18));
-            classInfoActionPanel.setFont(new Font("Arial", Font.BOLD, 13));
 
             infoPanel.add(classInfoNameLabel, BorderLayout.NORTH);
             infoPanel.add(classInfoActionPanel, BorderLayout.CENTER);
             infoPanel.add(classInfoActionResultPanel, BorderLayout.SOUTH);
+
+            classInfoActionButton7.setPreferredSize(new Dimension(300, 30));
+            classInfoActionButton7.setFont(new Font("Arial", Font.BOLD, 15));
+            classInfoActionButton8.setPreferredSize(new Dimension(300, 30));
+            classInfoActionButton8.setFont(new Font("Arial", Font.BOLD, 15));
+
 
             classInfoActionPanel.add(classInfoActionButton1);
             classInfoActionPanel.add(classInfoActionButton2);
@@ -402,25 +412,31 @@ public class TP_Classe {
             classInfoActionPanel.add(classInfoActionButton4);
             classInfoActionPanel.add(classInfoActionButton5);
             classInfoActionPanel.add(classInfoActionButton6);
+            classInfoActionPanel.add(classInfoActionButton7);
+            classInfoActionPanel.add(classInfoActionButton8);
 
-            displayClass(frame, bodyPanel, maClasse, classInfoActionButton1, classInfoActionResultPanel);
+            displayClass(frame, bodyPanel,  classInfoActionButton1, classInfoActionResultPanel);
 
-            displayClassAverage(frame, bodyPanel, maClasse, classInfoActionButton2, classInfoActionResultPanel);
+            displayClassAverage(frame, bodyPanel,  classInfoActionButton2, classInfoActionResultPanel);
 
-            displaySubjectsAverage(frame, bodyPanel, maClasse, classInfoActionButton3, classInfoActionResultPanel);
+            displaySubjectsAverage(frame, bodyPanel,  classInfoActionButton3, classInfoActionResultPanel);
 
-            addStudent(frame, maClasse, classInfoActionButton4, listScrollPane, classInfoActionResultPanel);
+            addStudent(frame,  classInfoActionButton4, listScrollPane, classInfoActionResultPanel);
 
             addSubject(frame, classInfoActionButton5, classInfoActionResultPanel);
 
-            renameClass(frame, maClasse, classInfoActionButton6, button, classInfoNameLabel, classInfoActionResultPanel);
+            renameClass(frame,  classInfoActionButton6, button, classInfoNameLabel, classInfoActionResultPanel);
+
+            saveClass(frame,  classInfoActionButton7);
+
+            loadClass(frame,  classInfoActionButton8);
 
             bodyPanel.add(infoPanel);
             Utils.displayFrame(frame);
         });
     }
 
-    private static void displayClass(JFrame frame, JPanel bodyPanel, Classe maClasse, JButton button, JPanel infoPanel) {
+    private static void displayClass(JFrame frame, JPanel bodyPanel, JButton button, JPanel infoPanel) {
         button.addActionListener(e -> {
             infoPanel.removeAll();
             var listModel = new DefaultListModel<String>();
@@ -446,7 +462,7 @@ public class TP_Classe {
         });
     }
 
-    private static void displayClassAverage(JFrame frame, JPanel bodyPanel, Classe maClasse, JButton button, JPanel infoPanel) {
+    private static void displayClassAverage(JFrame frame, JPanel bodyPanel, JButton button, JPanel infoPanel) {
         button.addActionListener(e -> {
             infoPanel.removeAll();
             var classInfoResultLabel = new JLabel();
@@ -468,7 +484,7 @@ public class TP_Classe {
         });
     }
 
-    private static void displaySubjectsAverage(JFrame frame, JPanel bodyPanel, Classe maClasse, JButton button, JPanel infoPanel) {
+    private static void displaySubjectsAverage(JFrame frame, JPanel bodyPanel, JButton button, JPanel infoPanel) {
         button.addActionListener(e1 -> {
             infoPanel.removeAll();
             var topPanel = new JPanel();
@@ -522,7 +538,7 @@ public class TP_Classe {
         });
     }
 
-    private static void addStudent(JFrame frame, Classe maClasse, JButton button, JComboBox<String> listScrollPane, JPanel infoPanel) {
+    private static void addStudent(JFrame frame, JButton button, JComboBox<String> listScrollPane, JPanel infoPanel) {
         button.addActionListener(e -> {
             infoPanel.removeAll();
             var topPanel = new JPanel();
@@ -605,7 +621,6 @@ public class TP_Classe {
 
                     try {
                         var file = new File("matieres.txt");
-                        // check if the subject already exists
                         String filePath = "matieres.txt";
                         List<String> lines = Files.readAllLines(Paths.get(filePath));
                         var matieres = new ArrayList<>(lines);
@@ -631,8 +646,9 @@ public class TP_Classe {
         });
     }
 
-    private static void renameClass(JFrame frame, Classe maClasse, JButton button, JButton classButton, JLabel classInfoNameLabel, JPanel infoPanel) {
+    private static void renameClass(JFrame frame, JButton button, JButton classButton, JLabel classInfoNameLabel, JPanel infoPanel) {
         button.addActionListener(e -> {
+            System.out.println(maClasse.nom);
             infoPanel.removeAll();
             var topPanel = new JPanel();
             var bottomPanel = new JPanel();
@@ -672,5 +688,25 @@ public class TP_Classe {
             frame.repaint();
         });
 
+    }
+
+    private static void saveClass(JFrame frame, JButton button) {
+        button.addActionListener(e -> {
+            var message = maClasse.saveClasse();
+            JOptionPane.showMessageDialog(frame, message);
+        });
+    }
+
+    private static void loadClass(JFrame frame,  JButton button) {
+        button.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+            int result = fileChooser.showOpenDialog(frame);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                maClasse.loadClasse(selectedFile.getName());
+                System.out.println(maClasse.nom);
+            }
+        });
     }
 }
