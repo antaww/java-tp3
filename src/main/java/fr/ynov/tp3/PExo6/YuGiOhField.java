@@ -10,6 +10,7 @@ public class YuGiOhField {
     private final ArrayList<String> playerCardsImages = new ArrayList<>();
     private final ArrayList<MonsterCard> opponentCards = new ArrayList<>();
     private final ArrayList<String> opponentCardsImages = new ArrayList<>();
+    private final ArrayList<MonsterCard> graveyardCards = new ArrayList<>();
     private String currentPlayer = "";
     private int currentTurn = 1;
     private int playerLifePoints = 8000;
