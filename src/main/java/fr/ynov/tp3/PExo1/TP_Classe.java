@@ -542,6 +542,14 @@ public class TP_Classe {
         });
     }
 
+    /**
+     * Méthode displayClassAverageBySubject : affiche la moyenne de la classe par matière.
+     *
+     * @param frame     la fenêtre principale
+     * @param bodyPanel le panel principal
+     * @param button    le bouton cliqué
+     * @param infoPanel le panel d'information
+     */
     private static void displayClassAverageBySubject(final JFrame frame, final JPanel bodyPanel, final JButton button, final JPanel infoPanel) {
         button.addActionListener(e1 -> {
             infoPanel.removeAll();
@@ -599,6 +607,14 @@ public class TP_Classe {
         });
     }
 
+    /**
+     * Méthode addStudent : permet d'ajouter un étudiant à la classe.
+     *
+     * @param frame          la fenêtre principale
+     * @param button         le bouton qui permet d'ajouter un étudiant
+     * @param listScrollPane la liste des étudiants de la classe
+     * @param infoPanel      le panel d'information
+     */
     private static void addStudent(final JFrame frame, final JButton button, final JComboBox<String> listScrollPane, final JPanel infoPanel) {
         button.addActionListener(e -> {
             infoPanel.removeAll();
@@ -652,6 +668,14 @@ public class TP_Classe {
         });
     }
 
+    /**
+     * Méthode addSubject : permet d'ajouter une matière.
+     * Sauvegarde la matière dans un fichier texte.
+     *
+     * @param frame     la fenêtre
+     * @param button    le bouton d'ajout de matière
+     * @param infoPanel le panel d'information
+     */
     private static void addSubject(final JFrame frame, final JButton button, final JPanel infoPanel) {
         button.addActionListener(e -> {
             infoPanel.removeAll();
@@ -707,6 +731,14 @@ public class TP_Classe {
         });
     }
 
+    /**
+     * Méthode renameClass : renomme la classe.
+     *
+     * @param frame       la fenêtre
+     * @param button      le bouton qui permet de renommer la classe
+     * @param classButton le bouton qui affiche le nom de la classe
+     * @param infoPanel   le panel d'information
+     */
     private static void renameClass(final JFrame frame, final JButton button, final JButton classButton, final JPanel infoPanel) {
         button.addActionListener(e -> {
             infoPanel.removeAll();
@@ -748,6 +780,13 @@ public class TP_Classe {
 
     }
 
+    /**
+     * Méthode saveClass : permet de sauvegarder une classe.
+     * Sauvegarde les étudiants et le nom de la classe dans un fichier.
+     *
+     * @param frame  Frame sur laquelle on va sauvegarder la classe
+     * @param button Bouton qui permet de sauvegarder la classe
+     */
     private static void saveClass(final JFrame frame, final JButton button) {
         button.addActionListener(e -> {
             final var message = maClasse.saveClasse();
@@ -755,6 +794,15 @@ public class TP_Classe {
         });
     }
 
+    /**
+     * Méthode loadClass : permet de charger une classe.
+     * Charge les étudiants et le nom de la classe depuis un fichier.
+     *
+     * @param frame           Frame sur laquelle on va charger la classe
+     * @param button          Bouton qui permet de charger la classe
+     * @param classButton     Bouton qui affiche le nom de la classe
+     * @param listScrollPanel Panel qui affiche la liste des étudiants
+     */
     private static void loadClass(final JFrame frame, final JButton button, final JButton classButton, final JComboBox<String> listScrollPanel) {
         button.addActionListener(e -> {
             final var fileChooser = new JFileChooser();
