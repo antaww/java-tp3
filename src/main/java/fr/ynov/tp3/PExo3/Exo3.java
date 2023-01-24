@@ -6,7 +6,27 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
+/**
+ * Classe Exo3 : création d'une interface pour afficher des informations sur des cartes Monstres de Yu-Gi-Oh!
+ * Cette classe permet de créer une interface graphique pour sélectionner une carte Monstre dans une liste déroulante,
+ * puis d'afficher des informations sur la carte sélectionnée telles que le nom, le niveau, l'attribut, le type, la référence, les points d'attaque et de défense, et la description.
+ * Elle utilise les layout GridLayout pour organiser les différents éléments de l'interface.
+ * Elle utilise également des méthodes de la classe Utils pour nettoyer le contenu de la fenêtre, afficher les informations de la carte et afficher l'image de la carte.
+ * Elle utilise également l'enum Attribute pour stocker les différents attributs des cartes.
+ */
 public class Exo3 {
+    /**
+     * Méthode main : point d'entrée de l'application.
+     * Cette méthode permet d'initialiser l'affichage de l'application et de créer l'interface pour la sélection et l'affichage des cartes Yu-Gi-Oh!
+     * Elle prend en paramètre un objet de type JFrame qui représente la fenêtre principale de l'application.
+     * Elle utilise également des méthodes de la classe Utils pour nettoyer le contenu de la fenêtre, créer l'interface pour la sélection et l'affichage des cartes et récupérer les informations des cartes depuis un fichier json.
+     *
+     * @param frame objet JFrame représentant la fenêtre principale de l'application
+     * @see fr.ynov.tp3.PUtils.Utils
+     * @see javax.swing
+     * @see java.awt
+     * @see fr.ynov.tp3.PExo3.Attribute
+     */
     public static void main(final JFrame frame) {
         final var bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
         Utils.cleanBodyPanel(bodyPanel);
