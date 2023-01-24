@@ -8,6 +8,7 @@ import fr.ynov.tp3.PExo3.Exo3;
 import fr.ynov.tp3.PExo4.Exo4;
 import fr.ynov.tp3.PExo5.Exo5;
 import fr.ynov.tp3.PExo6.Exo6;
+import fr.ynov.tp3.PExo7.Exo7;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -56,6 +57,8 @@ public class Menu {
         menuMenu.add(exercise5Item);
         var exercise6Item = new JMenuItem("Exercice 6 - DU-DU-DU-DUEL !");
         menuMenu.add(exercise6Item);
+        var exercise7Item = new JMenuItem("Exercice 7 - Deck");
+        menuMenu.add(exercise7Item);
         var leaveItem = new JMenuItem("Quitter");
         menuMenu.add(leaveItem);
 
@@ -87,6 +90,7 @@ public class Menu {
         exercise4Item2.addActionListener(e -> Exo4.main(frame, "Carte Piège"));
         exercise5Item.addActionListener(e -> Exo5.main(frame));
         exercise6Item.addActionListener(e -> Exo6.main(frame));
+        exercise7Item.addActionListener(e -> Exo7.main(frame));
 
         leaveItem.addActionListener(e -> System.exit(0));
 
