@@ -124,7 +124,7 @@ public class TP_Classe {
 
             displayAllGrades(frame, bodyPanel, student, studentInfoActionButton2, studentInfoActionResultPanel);
 
-            displaySpecificGrades(frame, bodyPanel, student, studentInfoActionButton3, studentInfoActionResultPanel);
+            displayGradesBySubjects(frame, bodyPanel, student, studentInfoActionButton3, studentInfoActionResultPanel);
 
             addGrade(frame, bodyPanel, student, studentInfoActionButton4, studentInfoActionResultPanel);
 
@@ -229,7 +229,7 @@ public class TP_Classe {
         });
     }
 
-    private static void displaySpecificGrades(final JFrame frame, final JPanel bodyPanel, final Etudiant student, final JButton studentInfoActionButton3, final JPanel infoPanel) {
+    private static void displayGradesBySubjects(final JFrame frame, final JPanel bodyPanel, final Etudiant student, final JButton studentInfoActionButton3, final JPanel infoPanel) {
         studentInfoActionButton3.addActionListener(e1 -> {
             infoPanel.removeAll();
             final var topPanel = new JPanel();
@@ -272,7 +272,7 @@ public class TP_Classe {
                 final var subject = Objects.requireNonNull(comboBox.getSelectedItem()).toString();
                 final var notesOfSubject = student.afficherNote(subject);
                 if (notesOfSubject == null) {
-                    listModel.addElement("L'étudiant n'a pas encore de notes dans cette matière");
+                    listModel.addElement(student.prenom + " " + student.nom + " n'a pas de note pour la matière " + subject);
                 } else {
                     for (final var note : notesOfSubject) {
                         listModel.addElement(note);
@@ -303,7 +303,7 @@ public class TP_Classe {
             studentInfoActionResultList.setBackground(new Color(33, 33, 33));
 
             if (notes.length == 0) {
-                studentInfoActionResultList.setListData(new String[]{"L'étudiant n'a pas encore de notes"});
+                studentInfoActionResultList.setListData(new String[]{student.prenom + " " + student.nom + " n'a pas encore de note"});
                 studentInfoActionResultPanel.add(studentInfoActionResultList);
             } else {
                 studentInfoActionResultList.setListData(notes);
@@ -352,16 +352,16 @@ public class TP_Classe {
             final var classInfoActionButton6 = new JButton("Renommer la classe");
             final var classInfoActionButton7 = new JButton("Sauvegarder la classe");
             final var classInfoActionButton8 = new JButton("Charger une classe");
+            var bottomButtonPanel = new JPanel();
 
             infoPanel.setLayout(new BorderLayout());
 
             infoPanel.add(classInfoActionPanel, BorderLayout.CENTER);
             infoPanel.add(classInfoActionResultPanel, BorderLayout.SOUTH);
 
-            classInfoActionButton7.setPreferredSize(new Dimension(300, 30));
-            classInfoActionButton7.setFont(new Font("Arial", Font.BOLD, 15));
-            classInfoActionButton8.setPreferredSize(new Dimension(300, 30));
-            classInfoActionButton8.setFont(new Font("Arial", Font.BOLD, 15));
+            bottomButtonPanel.add(classInfoActionButton7);
+            bottomButtonPanel.add(classInfoActionButton8);
+            bottomButtonPanel.setPreferredSize(new Dimension(600, 50));
 
 
             classInfoActionPanel.add(classInfoActionButton1);
@@ -370,15 +370,14 @@ public class TP_Classe {
             classInfoActionPanel.add(classInfoActionButton4);
             classInfoActionPanel.add(classInfoActionButton5);
             classInfoActionPanel.add(classInfoActionButton6);
-            classInfoActionPanel.add(classInfoActionButton7);
-            classInfoActionPanel.add(classInfoActionButton8);
+            classInfoActionPanel.add(bottomButtonPanel);
 
 
             displayClassStudents(frame, bodyPanel, classInfoActionButton1, classInfoActionResultPanel);
 
             displayClassAverage(frame, bodyPanel, classInfoActionButton2, classInfoActionResultPanel);
 
-            displaySubjectsAverage(frame, bodyPanel, classInfoActionButton3, classInfoActionResultPanel);
+            displayClassAverageBySubject(frame, bodyPanel, classInfoActionButton3, classInfoActionResultPanel);
 
             addStudent(frame, classInfoActionButton4, listScrollPane, classInfoActionResultPanel);
 
@@ -444,7 +443,7 @@ public class TP_Classe {
         });
     }
 
-    private static void displaySubjectsAverage(final JFrame frame, final JPanel bodyPanel, final JButton button, final JPanel infoPanel) {
+    private static void displayClassAverageBySubject(final JFrame frame, final JPanel bodyPanel, final JButton button, final JPanel infoPanel) {
         button.addActionListener(e1 -> {
             infoPanel.removeAll();
             final var topPanel = new JPanel();
@@ -469,14 +468,15 @@ public class TP_Classe {
             classInfoActionResultList.setFont(new Font("Arial", Font.BOLD, 25));
             classInfoActionResultList.setForeground(Color.WHITE);
             classInfoActionResultList.setBackground(new Color(33, 33, 33));
-            classInfoActionResultList.setPreferredSize(new Dimension(infoPanel.getWidth(), 400));
+            classInfoActionResultList.setPreferredSize(new Dimension(infoPanel.getWidth(), 350));
+
+            comboBox.setPreferredSize(new Dimension(200, 35));
+            comboBox.setFont(new Font("Arial", Font.BOLD, 20));
+
 
             topPanel.setPreferredSize(new Dimension(infoPanel.getWidth(), 100));
             bottomPanel.setPreferredSize(new Dimension(infoPanel.getWidth(), 400));
             infoPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 400));
-
-            comboBoxPanel.add(comboBox);
-            topPanel.add(comboBoxPanel);
 
 
             comboBox.addActionListener(e -> {
@@ -484,12 +484,14 @@ public class TP_Classe {
 
                 if (subjectAverage == -1) {
                     classInfoActionResultList.setListData(new String[]{"La classe n'a pas encore de notes en " + comboBox.getSelectedItem().toString() + "."});
-                    bottomPanel.add(classInfoActionResultList);
                 } else {
                     classInfoActionResultList.setListData(new String[]{"La moyenne de la classe en " + comboBox.getSelectedItem().toString() + " est de " + subjectAverage});
-                    bottomPanel.add(classInfoActionResultList);
                 }
             });
+            comboBoxPanel.add(comboBox);
+            topPanel.add(comboBoxPanel);
+            bottomPanel.add(classInfoActionResultList);
+
             infoPanel.add(topPanel);
             infoPanel.add(bottomPanel);
             Utils.displayFrame(frame);
