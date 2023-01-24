@@ -99,10 +99,6 @@ public class Menu {
         Utils.setBackgroundColorForMenuBar(menuBar, new Color(33, 33, 33));
         Utils.removeMenuBarBorders(menuBar);
 
-        //todo: listen to menuMenu items hover and set the background color to 28, 28, 28
-        //todo: remove blue background on click (buttons & menu items)
-        //todo: cursor pointer on clickable elements
-
         menuMenu.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, new Color(33, 33, 33)));
         creditsMenu.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, new Color(33, 33, 33)));
 

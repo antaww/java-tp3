@@ -43,7 +43,6 @@ public class Utils {
                 c.setBackground(new Color(28, 28, 28));
                 ((JComboBox<?>) c).setBorder(null);
                 ((JComboBox<?>) c).setBorder(BorderFactory.createEmptyBorder());
-                //todo: remove inside borders from items
             }
         }
     }

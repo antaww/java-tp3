@@ -120,7 +120,6 @@ public class YuGiOhField {
     }
 
     public String decreasePlayerLifePoints(final int attackPoints, final String cardName) {
-        //todo: take defense points into account (if the card has any)
         if (currentPlayer.equals("Joueur")) {
             opponentLifePoints -= attackPoints;
             return "<html>Vous utilisez " + cardName + " !<br>Cela inflige " + attackPoints + " points de dégâts à l'adversaire !</html>";
