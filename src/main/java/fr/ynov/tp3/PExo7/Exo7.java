@@ -20,6 +20,30 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Classe Exo7 : création d'une interface pour afficher les cartes d'un deck de Yu-Gi-Oh! à partir d'un fichier JSON
+ * Cette classe permet de créer une interface graphique pour afficher les cartes d'un deck de Yu-Gi-Oh! à partir d'un fichier JSON qui contient les informations sur les cartes telles que le nom, le niveau, l'attribut, les types, la référence, l'attaque et la défense.
+ * Elle utilise également des composants tels que JPanel, JLabel, JButton pour afficher les informations et les images des cartes.
+ * Elle utilise également les librairies Gson et Java IO pour lire et parser les informations du fichier JSON.
+ * Elle utilise également les layout FlowLayout et BoxLayout pour organiser les différents éléments de l'interface.
+ * Elle utilise également des méthodes de la classe Utils pour nettoyer le contenu de la fenêtre et des méthodes de la classe ImageIO pour charger les images des cartes.
+ * Elle utilise également les classes MonsterCard, SpecialCards, SpecialIcon et SpecialType pour stocker les informations des cartes Monstre, Spéciales et leurs icônes.
+ *
+ * @see com.google.gson.JsonElement
+ * @see com.google.gson.JsonParser
+ * @see fr.ynov.tp3.PExo3.MonsterCard
+ * @see fr.ynov.tp3.PExo4.SpecialCards
+ * @see fr.ynov.tp3.PExo4.SpecialIcon
+ * @see fr.ynov.tp3.PExo4.SpecialType
+ * @see fr.ynov.tp3.PUtils.Utils
+ * @see javax.imageio.ImageIO
+ * @see javax.swing
+ * @see java.awt
+ * @see java.io
+ * @see java.net.URL
+ * @see java.util.ArrayList
+ * @see java.util.Random
+ */
 public class Exo7 {
     public static void main(final JFrame frame) {
         final var bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
