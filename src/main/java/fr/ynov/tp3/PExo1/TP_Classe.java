@@ -16,10 +16,46 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * Classe TP_Classe : classe principale de l'exercice 1 du TP3.
+ * Cette classe permet de créer une classe et d'ajouter des étudiants à cette classe. Elle contient également des méthodes pour afficher les étudiants de la classe, calculer la moyenne de la classe pour une matière donnée, récupérer un étudiant en particulier, ajouter un étudiant à la classe et sauvegarder les informations sur la classe dans un fichier.
+ * Elle utilise les classes Classe, Etudiant, FileWriter, File, JFrame, JPanel, JLabel, JComboBox, ArrayList, Arrays, Utils et Files pour gérer les informations sur les étudiants et les matières.
+ *
+ * @see fr.ynov.tp3.PExo1.PClasse.Classe
+ * @see fr.ynov.tp3.PExo1.PEtudiant.Etudiant
+ * @see java.io.FileWriter
+ * @see java.io.File
+ * @see javax.swing.JFrame
+ * @see javax.swing.JPanel
+ * @see javax.swing.JLabel
+ * @see javax.swing.JComboBox
+ * @see java.util.ArrayList
+ * @see java.util.Arrays
+ * @see fr.ynov.tp3.PUtils.Utils
+ * @see java.nio.file.Files
+ */
 public class TP_Classe {
-
     static Classe maClasse;
 
+    /**
+     * Méthode main : méthode principale de la classe TP_Classe.
+     * Cette méthode permet de créer une classe et d'ajouter des étudiants à cette classe. Elle contient également des méthodes pour afficher les étudiants de la classe, calculer la moyenne de la classe pour une matière donnée, récupérer un étudiant en particulier, ajouter un étudiant à la classe et sauvegarder les informations sur la classe dans un fichier.
+     * Elle utilise les classes Classe, Etudiant, FileWriter, File, JFrame, JPanel, JLabel, JComboBox, ArrayList, Arrays, Utils et Files pour gérer les informations sur les étudiants et les matières.
+     *
+     * @param frame fenêtre principale de l'application
+     * @see fr.ynov.tp3.PExo1.PClasse.Classe
+     * @see fr.ynov.tp3.PExo1.PEtudiant.Etudiant
+     * @see java.io.FileWriter
+     * @see java.io.File
+     * @see javax.swing.JFrame
+     * @see javax.swing.JPanel
+     * @see javax.swing.JLabel
+     * @see javax.swing.JComboBox
+     * @see java.util.ArrayList
+     * @see java.util.Arrays
+     * @see fr.ynov.tp3.PUtils.Utils
+     * @see java.nio.file.Files
+     */
     public static void main(final JFrame frame) {
         final var bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
         Utils.cleanBodyPanel(bodyPanel);
@@ -28,7 +64,6 @@ public class TP_Classe {
 
         maClasse = new Classe("");
         maClasse.loadClasse("maClasse.txt");
-
 
         final var listScrollPanel = new JComboBox<String>();
         final var studentList = new ArrayList<>(Arrays.asList(maClasse.getEtudiants()));
@@ -48,7 +83,6 @@ public class TP_Classe {
         classButton.setFont(new Font("Arial", Font.BOLD, 16));
         studentLabel.setFont(new Font("Arial", Font.BOLD, 13));
         classLabel.setFont(new Font("Arial", Font.BOLD, 13));
-
 
         buttonsPanel.setLayout(new GridBagLayout());
         final var gbc = new GridBagConstraints();
@@ -77,22 +111,34 @@ public class TP_Classe {
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
         buttonsPanel.add(classButton, gbc);
-
         bodyPanel.add(buttonsPanel);
 
         final var infoPanel = new JPanel();
         infoPanel.setPreferredSize(new Dimension(200, 500));
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
 
-
         displayStudentInfo(frame, bodyPanel, listScrollPanel, infoPanel);
-
         displayClassInfo(frame, bodyPanel, classButton, listScrollPanel, infoPanel);
-
         Utils.displayFrame(frame);
     }
 
-
+    /**
+     * Méthode displayStudentInfo : méthode qui permet d'afficher les informations sur un étudiant.
+     * Cette méthode permet d'afficher les informations sur un étudiant sélectionné dans la liste déroulante. Elle contient également des méthodes pour afficher la moyenne de l'étudiant, afficher toutes les notes de l'étudiant, afficher les notes d'une matière de l'étudiant et ajouter une note à l'étudiant.
+     * Elle utilise les classes JFrame, JPanel, JComboBox, ArrayList, Arrays, Utils et Files pour gérer les informations sur les étudiants et les matières.
+     *
+     * @param frame Fenêtre de l'application.
+     * @param bodyPanel Panneau principal de l'application.
+     * @param listScrollPane Liste déroulante des étudiants.
+     * @param infoPanel Panneau d'affichage des informations sur l'étudiant.
+     * @see javax.swing.JFrame
+     * @see javax.swing.JPanel
+     * @see javax.swing.JComboBox
+     * @see java.util.ArrayList
+     * @see java.util.Arrays
+     * @see fr.ynov.tp3.PUtils.Utils
+     * @see java.nio.file.Files
+     */
     private static void displayStudentInfo(final JFrame frame, final JPanel bodyPanel, final JComboBox<String> listScrollPane, final JPanel infoPanel) {
         listScrollPane.addActionListener(e -> {
             infoPanel.removeAll();
@@ -107,10 +153,7 @@ public class TP_Classe {
             final var studentInfoActionResultPanel = new JPanel();
 
             infoPanel.setLayout(new BorderLayout());
-
-
             studentInfoActionPanel.setFont(new Font("Arial", Font.BOLD, 20));
-
             infoPanel.add(studentInfoActionPanel, BorderLayout.CENTER);
             infoPanel.add(studentInfoActionResultPanel, BorderLayout.SOUTH);
 
@@ -119,21 +162,34 @@ public class TP_Classe {
             studentInfoActionPanel.add(studentInfoActionButton3);
             studentInfoActionPanel.add(studentInfoActionButton4);
 
-
             displayAverage(frame, bodyPanel, student, studentInfoActionButton1, studentInfoActionResultPanel);
-
             displayAllGrades(frame, bodyPanel, student, studentInfoActionButton2, studentInfoActionResultPanel);
-
             displayGradesBySubjects(frame, bodyPanel, student, studentInfoActionButton3, studentInfoActionResultPanel);
-
             addGrade(frame, bodyPanel, student, studentInfoActionButton4, studentInfoActionResultPanel);
-
-
             bodyPanel.add(infoPanel);
             Utils.displayFrame(frame);
         });
     }
 
+    /**
+     * Méthode addGrade : méthode qui permet d'ajouter une note à un étudiant.
+     * Cette méthode permet d'ajouter une note à un étudiant sélectionné dans la liste déroulante. Elle utilise les classes JFrame, JPanel, JComboBox, JTextField, JButton, ArrayList, Arrays, Utils et Files pour gérer les informations sur les étudiants et les matières.
+     *
+     * @param frame Fenêtre de l'application.
+     * @param bodyPanel Panneau principal de l'application.
+     * @param student Etudiant sélectionné dans la liste déroulante.
+     * @param studentInfoActionButton4 Bouton "Ajouter une note".
+     * @param studentInfoActionResultPanel Panneau d'affichage des résultats de l'action.
+     * @see javax.swing.JFrame
+     * @see javax.swing.JPanel
+     * @see javax.swing.JComboBox
+     * @see javax.swing.JTextField
+     * @see javax.swing.JButton
+     * @see java.util.ArrayList
+     * @see java.util.Arrays
+     * @see fr.ynov.tp3.PUtils.Utils
+     * @see java.nio.file.Files
+     */
     private static void addGrade(final JFrame frame, final JPanel bodyPanel, final Etudiant student, final JButton studentInfoActionButton4, final JPanel studentInfoActionResultPanel) {
         studentInfoActionButton4.addActionListener(e1 -> {
             studentInfoActionResultPanel.removeAll();
@@ -159,7 +215,6 @@ public class TP_Classe {
             studentInfoActionResultTextField2.setBorder(BorderFactory.createTitledBorder(null, "Examen", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, Color.WHITE));
             studentInfoActionResultTextField3.setBorder(BorderFactory.createTitledBorder(null, "Note", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, Color.WHITE));
             studentInfoActionResultTextField4.setBorder(BorderFactory.createTitledBorder(null, "Coefficient (optionnel)", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, Color.WHITE));
-
             studentInfoActionResultComboBox.setPreferredSize(new Dimension(300, 35));
             studentInfoActionResultTextField2.setPreferredSize(new Dimension(300, 50));
             studentInfoActionResultTextField3.setPreferredSize(new Dimension(300, 50));
@@ -167,7 +222,6 @@ public class TP_Classe {
             studentInfoActionResultButton.setPreferredSize(new Dimension(250, 50));
             topPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 250));
             studentInfoActionResultPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 400));
-
 
             studentInfoActionResultComboBox.setFont(new Font("Arial", Font.BOLD, 20));
             studentInfoActionResultTextField2.setFont(new Font("Arial", Font.BOLD, 20));
@@ -229,6 +283,16 @@ public class TP_Classe {
         });
     }
 
+    /**
+     * Méthode displayGradesBySubjects : Affiche les notes d'un étudiant par matière
+     * Cette méthode affiche les notes d'un étudiant par matière
+     *
+     * @param frame Fenêtre principale
+     * @param bodyPanel Panel principal
+     * @param student Etudiant
+     * @param studentInfoActionButton3 Bouton d'affichage des notes par matière
+     * @param infoPanel Panel d'affichage des informations
+     */
     private static void displayGradesBySubjects(final JFrame frame, final JPanel bodyPanel, final Etudiant student, final JButton studentInfoActionButton3, final JPanel infoPanel) {
         studentInfoActionButton3.addActionListener(e1 -> {
             infoPanel.removeAll();
@@ -259,13 +323,11 @@ public class TP_Classe {
             comboBox.setPreferredSize(new Dimension(300, 35));
             comboBox.setFont(new Font("Arial", Font.BOLD, 20));
 
-
             topPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 50));
             infoPanel.setPreferredSize(new Dimension(bodyPanel.getWidth(), 400));
 
             infoPanel.add(topPanel);
             infoPanel.add(bottomPanel);
-
 
             comboBox.addActionListener(e2 -> {
                 listModel.removeAllElements();
@@ -283,13 +345,22 @@ public class TP_Classe {
             topPanel.add(comboBoxPanel);
             bottomPanel.add(studentInfoActionResultList);
 
-
             Utils.displayFrame(frame);
             frame.revalidate();
             frame.repaint();
         });
     }
 
+    /**
+     * Méthode displayAllGrades : Affiche toutes les notes d'un étudiant
+     * Cette méthode affiche toutes les notes d'un étudiant
+     *
+     * @param frame Fenêtre principale
+     * @param bodyPanel Panel principal
+     * @param student Etudiant
+     * @param studentInfoActionButton2 Bouton d'affichage de toutes les notes
+     * @param studentInfoActionResultPanel Panel d'affichage des informations
+     */
     private static void displayAllGrades(final JFrame frame, final JPanel bodyPanel, final Etudiant student, final JButton studentInfoActionButton2, final JPanel studentInfoActionResultPanel) {
         studentInfoActionButton2.addActionListener(e1 -> {
             studentInfoActionResultPanel.removeAll();
@@ -318,6 +389,16 @@ public class TP_Classe {
         });
     }
 
+    /**
+     * Méthode displayAverage : Affiche la moyenne d'un étudiant
+     * Cette méthode affiche la moyenne d'un étudiant
+     *
+     * @param frame Fenêtre principale
+     * @param bodyPanel Panel principal
+     * @param student Etudiant
+     * @param studentInfoActionButton1 Bouton d'affichage de la moyenne
+     * @param studentInfoActionResultPanel Panel d'affichage des informations
+     */
     private static void displayAverage(final JFrame frame, final JPanel bodyPanel, final Etudiant student, final JButton studentInfoActionButton1, final JPanel studentInfoActionResultPanel) {
         studentInfoActionButton1.addActionListener(e1 -> {
             studentInfoActionResultPanel.removeAll();
@@ -339,6 +420,16 @@ public class TP_Classe {
         });
     }
 
+    /**
+     * Méthode displayClassInfo : Affiche les informations d'une classe
+     * Cette méthode affiche les informations d'une classe
+     *
+     * @param frame Fenêtre principale
+     * @param bodyPanel Panel principal
+     * @param button Bouton d'affichage des informations
+     * @param listScrollPane Liste déroulante des classes
+     * @param infoPanel Panel d'affichage des informations
+     */
     private static void displayClassInfo(final JFrame frame, final JPanel bodyPanel, final JButton button, final JComboBox<String> listScrollPane, final JPanel infoPanel) {
         button.addActionListener(e -> {
             infoPanel.removeAll();
@@ -352,7 +443,7 @@ public class TP_Classe {
             final var classInfoActionButton6 = new JButton("Renommer la classe");
             final var classInfoActionButton7 = new JButton("Sauvegarder la classe");
             final var classInfoActionButton8 = new JButton("Charger une classe");
-            var bottomButtonPanel = new JPanel();
+            final var bottomButtonPanel = new JPanel();
 
             infoPanel.setLayout(new BorderLayout());
 
@@ -363,7 +454,6 @@ public class TP_Classe {
             bottomButtonPanel.add(classInfoActionButton8);
             bottomButtonPanel.setPreferredSize(new Dimension(600, 50));
 
-
             classInfoActionPanel.add(classInfoActionButton1);
             classInfoActionPanel.add(classInfoActionButton2);
             classInfoActionPanel.add(classInfoActionButton3);
@@ -372,21 +462,13 @@ public class TP_Classe {
             classInfoActionPanel.add(classInfoActionButton6);
             classInfoActionPanel.add(bottomButtonPanel);
 
-
             displayClassStudents(frame, bodyPanel, classInfoActionButton1, classInfoActionResultPanel);
-
             displayClassAverage(frame, bodyPanel, classInfoActionButton2, classInfoActionResultPanel);
-
             displayClassAverageBySubject(frame, bodyPanel, classInfoActionButton3, classInfoActionResultPanel);
-
             addStudent(frame, classInfoActionButton4, listScrollPane, classInfoActionResultPanel);
-
             addSubject(frame, classInfoActionButton5, classInfoActionResultPanel);
-
             renameClass(frame, classInfoActionButton6, button, classInfoActionResultPanel);
-
             saveClass(frame, classInfoActionButton7);
-
             loadClass(frame, classInfoActionButton8, button, listScrollPane);
 
             bodyPanel.add(infoPanel);
@@ -394,6 +476,15 @@ public class TP_Classe {
         });
     }
 
+    /**
+     * Méthode displayClassStudents : Affiche les étudiants d'une classe
+     * Cette méthode affiche les étudiants d'une classe
+     *
+     * @param frame Fenêtre principale
+     * @param bodyPanel Panel principal
+     * @param button Bouton d'affichage des étudiants
+     * @param infoPanel Panel d'affichage des informations
+     */
     private static void displayClassStudents(final JFrame frame, final JPanel bodyPanel, final JButton button, final JPanel infoPanel) {
         button.addActionListener(e -> {
             infoPanel.removeAll();
@@ -421,12 +512,20 @@ public class TP_Classe {
         });
     }
 
+    /**
+     * Méthode displayClassAverage : Affiche la moyenne des étudiants d'une classe
+     * Cette méthode affiche la moyenne des étudiants d'une classe
+     *
+     * @param frame Fenêtre principale
+     * @param bodyPanel Panel principal
+     * @param button Bouton d'affichage des moyennes
+     * @param infoPanel Panel d'affichage des informations
+     */
     private static void displayClassAverage(final JFrame frame, final JPanel bodyPanel, final JButton button, final JPanel infoPanel) {
         button.addActionListener(e -> {
             infoPanel.removeAll();
             final var classInfoResultLabel = new JLabel();
             final var studentsAverage = maClasse.moyenneClasse("");
-
 
             if (studentsAverage == -1) {
                 classInfoResultLabel.setText("La classe n'a pas encore de notes");
