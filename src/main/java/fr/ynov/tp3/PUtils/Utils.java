@@ -14,7 +14,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Classe Utils : création d'une classe pour définir des méthodes utilitaires.
+ * Cette classe permet de définir des méthodes utilitaires comme par exemple nettoyer un JPanel, définir la couleur de fond d'un JPanel, etc.
+ */
 public class Utils {
+    /**
+     * Méthode cleanBodyPanel : méthode pour nettoyer un JPanel.
+     * Elle permet de supprimer tous les composants d'un JPanel sauf le premier (qui est le titre du JPanel).
+     * Elle est utilisée pour nettoyer le JPanel à chaque fois qu'un nouvel onglet est sélectionné.
+     *
+     * @param bodyPanel JPanel à nettoyer
+     */
     public static void cleanBodyPanel(final JPanel bodyPanel) {
         final var bodyPanelComponents = bodyPanel.getComponents();
 
@@ -28,6 +39,13 @@ public class Utils {
         }
     }
 
+    /**
+     * Méthode setPanelsBackgroundColor : méthode pour définir la couleur de fond d'un JPanel.
+     * Elle permet de définir la couleur de fond d'un JPanel et de tous ses composants.
+     * Elle est utilisée pour définir la couleur de fond de tous les JPanel de l'application.
+     *
+     * @param container JPanel dont on veut définir la couleur de fond
+     */
     public static void setPanelsBackgroundColor(final Container container) {
         container.setBackground(new Color(33, 33, 33));
         for (final var c : container.getComponents()) {
@@ -47,6 +65,13 @@ public class Utils {
         }
     }
 
+    /**
+     * Méthode setFontColor : méthode pour définir la couleur de la police d'un JPanel.
+     * Elle permet de définir la couleur de la police d'un JPanel et de tous ses composants.
+     * Elle est utilisée pour définir la couleur de la police de tous les JPanel de l'application.
+     *
+     * @param container JPanel dont on veut définir la couleur de la police
+     */
     public static void setFontColor(final Container container) {
         container.setForeground(new Color(255, 255, 255));
         for (final var c : container.getComponents()) {
@@ -56,6 +81,13 @@ public class Utils {
         }
     }
 
+    /**
+     * Méthode setBackgroundColorForMenuBar : méthode pour définir la couleur de fond de la barre de menu.
+     * Elle permet de définir la couleur de fond de la barre de menu et de tous ses composants.
+     *
+     * @param menuBar barre de menu dont on veut définir la couleur de fond
+     * @param color   couleur de fond à définir
+     */
     public static void setBackgroundColorForMenuBar(final JMenuBar menuBar, final Color color) {
         for (final var c : menuBar.getComponents()) {
             c.setBackground(color);
@@ -70,6 +102,11 @@ public class Utils {
         }
     }
 
+    /**
+     * Méthode removeMenuBarBorders : méthode pour supprimer les bordures de la barre de menu.
+     *
+     * @param menuBar barre de menu dont on veut supprimer les bordures
+     */
     public static void removeMenuBarBorders(final JMenuBar menuBar) {
         for (final var component : menuBar.getComponents()) {
             if (component instanceof JMenu) {
@@ -82,12 +119,27 @@ public class Utils {
         }
     }
 
+    /**
+     * Méthode displayFrame : méthode pour afficher une JFrame.
+     * Elle permet d'afficher une JFrame et de définir sa couleur de fond et sa couleur de police.
+     *
+     * @param frame JFrame à afficher
+     */
     public static void displayFrame(final JFrame frame) {
         setPanelsBackgroundColor(frame);
         setFontColor(frame);
         frame.setVisible(true);
     }
 
+    /**
+     * Méthode getJsonElement : méthode pour récupérer un JsonElement à partir d'un fichier JSON.
+     * Elle permet de récupérer un JsonElement à partir d'un fichier JSON et de remplir une JComboBox avec les éléments du fichier JSON.
+     * Elle est utilisée pour remplir les JComboBox de l'application avec les cartes du jeu.
+     *
+     * @param comboBox JComboBox à remplir
+     * @param cardType type de carte à récupérer
+     * @return JsonElement récupéré
+     */
     public static JsonElement getJsonElement(final JComboBox<String> comboBox, final String cardType) {
         final JsonElement jsonElement;
         try {
@@ -108,6 +160,13 @@ public class Utils {
         return jsonElement;
     }
 
+    /**
+     * Méthode translateString : méthode pour traduire une chaîne de caractères en français.
+     * Elle permet de traduire les types des cartes monstres en français.
+     *
+     * @param stringToTranslate chaîne de caractères à traduire
+     * @return chaîne de caractères traduite
+     */
     public static String translateString(String stringToTranslate) {
         final Map<String, String> translations = new HashMap<>();
         //PrimaryType
@@ -185,14 +244,33 @@ public class Utils {
         return result;
     }
 
+    /**
+     * Méthode convertUnderscoresToSpaces : méthode pour convertir les underscores en espaces.
+     *
+     * @param str chaîne de caractères à convertir
+     * @return chaîne de caractères convertie
+     */
     public static String convertUnderscoresToSpaces(final String str) {
         return str.replaceAll("_", " ");
     }
 
+    /**
+     * Méthode replaceByUnderscore : méthode pour remplacer les espaces et les tirets par des underscores.
+     *
+     * @param str chaîne de caractères à convertir
+     * @return chaîne de caractères convertie
+     */
     public static String replaceByUnderscore(final String str) {
         return str.replaceAll("[ -]", "_");
     }
 
+    /**
+     * Méthode createCardPanel : méthode pour créer le panel de la carte.
+     *
+     * @param bodyPanel panel principal
+     * @param subtitle  sous-titre
+     * @return map contenant le panel de la carte et le comboBox
+     */
     public static Map<String, JComponent> createCardPanel(final JPanel bodyPanel, final String subtitle) {
         final var secondPanel = new JPanel();
         final var subtitleLabel = new JLabel(subtitle);
@@ -229,6 +307,14 @@ public class Utils {
         return Map.of("comboBox", comboBox, "resultLabel", resultLabel, "resultImagePanel", resultImagePanel, "resultPanel", resultPanel);
     }
 
+    /**
+     * Méthode displayCardImage : méthode pour afficher l'image de la carte.
+     *
+     * @param resultLabel      label de la carte
+     * @param resultImagePanel panel de l'image de la carte
+     * @param resultPanel      panel de la carte
+     * @param cardImage        lien de l'image de la carte
+     */
     public static void displayCardImage(final JLabel resultLabel, final JPanel resultImagePanel, final JPanel resultPanel, final String cardImage) {
         try {
             final var url = new URL(cardImage);

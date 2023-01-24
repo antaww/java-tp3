@@ -14,7 +14,16 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
+/**
+ * Classe Menu : création d'une classe pour définir le menu de l'application.
+ * Cette classe permet de lancer les différents exercices.
+ */
 public class Menu {
+    /**
+     * Méthode main : méthode pour lancer l'application.
+     *
+     * @param args arguments de la méthode main
+     */
     public static void main(final String[] args) {
         final var frame = new JFrame("JAVA - TP3");
         frame.setSize(800, 800);
