@@ -14,6 +14,29 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Classe Exo5 : création d'une interface pour créer et sauvegarder des cartes Monstre de Yu-Gi-Oh!
+ * Cette classe permet de créer une interface graphique pour créer des cartes Monstre de Yu-Gi-Oh! en renseignant les informations telles que le nom, le niveau, l'attribut, les types, la référence, l'attaque et la défense.
+ * Elle utilise également des composants tels que JTextField, JSpinner, JComboBox, JList, JTextArea pour saisir et afficher les informations.
+ * Elle utilise également les enums Attribute et Type pour stocker les différents attributs et types des cartes Monstre.
+ * Elle utilise les layout BoxLayout pour organiser les différents éléments de l'interface.
+ * Elle utilise également des méthodes de la classe Utils pour nettoyer le contenu de la fenêtre et des méthodes de la classe CheckList pour vérifier la saisie des informations.
+ * Elle utilise également la classe MonsterCard pour stocker les informations de la carte Monstre créée.
+ * Elle sauvegarde les informations de la carte créée dans un fichier texte.
+ *
+ * @see fr.ynov.tp3.PExo3.Attribute
+ * @see fr.ynov.tp3.PExo3.MonsterCard
+ * @see fr.ynov.tp3.PUtils.CheckList
+ * @see fr.ynov.tp3.PUtils.Utils
+ * @see javax.swing
+ * @see javax.swing.border.TitledBorder
+ * @see java.awt
+ * @see java.awt.event.MouseAdapter
+ * @see java.awt.event.MouseEvent
+ * @see java.io
+ * @see java.util.ArrayList
+ * @see java.util.Objects
+ */
 public class Exo5 {
     public static void main(final JFrame frame) {
         final var bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
@@ -42,7 +65,6 @@ public class Exo5 {
         resultLabel.setVerticalAlignment(SwingConstants.TOP);
         resultLabel.setFont(new Font("Arial", Font.BOLD, 15));
 
-        //todo: add a button to create a monstercard or a specialcard
         final var fileName = "myCard.txt";
 
         final var nameField = new JTextField();
@@ -142,9 +164,9 @@ public class Exo5 {
             final var myCard = new MonsterCard(name, level, attribute, types.toString(), reference, attack, defense, description);
 
             try {
-                saveCard(myCard, fileName);
+                saveCard(myCard);
                 System.out.println("Card successfully saved to " + fileName);
-                final var card = readCard(fileName);
+                final var card = readCard();
                 resultLabel.setText(Utils.convertUnderscoresToSpaces("<html>" + "<div>" + "<p><u>Nom</u> : " + card.getName() + "<br><u>Niveau</u> : " + (card.getLevel() != -1 ? card.getLevel() : "Aucun niveau disponible pour cette carte.") + "<br><u>Attribut</u> : " + card.getAttribute() + "<br><u>Types</u> : " + Utils.translateString(card.getTypes()) + "<br><u>Référence</u> : " + (!Objects.equals(card.getReference(), "N/A") ? card.getReference().toUpperCase() : "Aucune référence disponible pour cette carte.") + "<br><u>Statistiques</u> : " + card.getStats() + "<br><u>Description</u> : " + card.getDescription() + "</div>" + "</html>"));
             } catch (final IOException | ClassNotFoundException ex) {
                 ex.printStackTrace();
@@ -173,23 +195,27 @@ public class Exo5 {
             resultLabel.setText("");
         });
 
-        //to graphically create specialcard :
-        //name : text field
-        //type : combo box
-        //icon : combo box
-        //reference : text field
-        //description : text area
-
         Utils.displayFrame(frame);
     }
 
+    /**
+     * Méthode setComponentSize : permet de définir la taille des composants d'un panel.
+     *
+     * @param panel le panel dont on veut définir la taille des composants.
+     * @param size  la taille à donner aux composants du panel.
+     */
     private static void setComponentSize(final JPanel panel, final Dimension size) {
         for (final var component : panel.getComponents()) {
             component.setPreferredSize(size);
         }
     }
 
-
+    /**
+     * Méthode fillTypes : permet de remplir la liste des types d'une carte.
+     *
+     * @param list  la liste des types de la carte.
+     * @param types la liste des types de la carte.
+     */
     private static void fillTypes(final JList<CheckList.CheckListItem> list, final ArrayList<String> types) {
         for (var i = 0; i < list.getModel().getSize(); i++) {
             final var item = (CheckList.CheckListItem) list.getModel().getElementAt(i);
@@ -199,16 +225,29 @@ public class Exo5 {
         }
     }
 
-    private static void saveCard(final ICarteYuGiOh card, final String fileName) throws IOException {
-        final var fos = new FileOutputStream(fileName);
+    /**
+     * Méthode saveCard : permet de sauvegarder une carte dans un fichier.
+     *
+     * @param card la carte à sauvegarder.
+     * @throws IOException si une erreur d'entrée/sortie survient.
+     */
+    private static void saveCard(final ICarteYuGiOh card) throws IOException {
+        final var fos = new FileOutputStream("myCard.txt");
         final var oos = new ObjectOutputStream(fos);
         oos.writeObject(card);
         oos.close();
         fos.close();
     }
 
-    private static ICarteYuGiOh readCard(final String fileName) throws IOException, ClassNotFoundException {
-        final var fis = new FileInputStream(fileName);
+    /**
+     * Méthode readCard : permet de lire une carte à partir d'un fichier.
+     *
+     * @return la carte lue.
+     * @throws IOException            si une erreur d'entrée/sortie survient.
+     * @throws ClassNotFoundException si la classe de la carte n'est pas trouvée.
+     */
+    private static ICarteYuGiOh readCard() throws IOException, ClassNotFoundException {
+        final var fis = new FileInputStream("myCard.txt");
         final var ois = new ObjectInputStream(fis);
         final var card = (ICarteYuGiOh) ois.readObject();
         ois.close();
@@ -216,6 +255,13 @@ public class Exo5 {
         return card;
     }
 
+    /**
+     * Méthode fromDisplayName : permet de récupérer une constante d'attribut à partir de son nom affiché.
+     *
+     * @param displayName le nom affiché de l'attribut.
+     * @return l'attribut correspondant au nom affiché.
+     * @throws IllegalArgumentException si aucun attribut ne correspond au nom affiché.
+     */
     private static Attribute fromDisplayName(final String displayName) {
         for (final var a : Attribute.values()) {
             if (a.getDisplayName().equalsIgnoreCase(displayName)) {
