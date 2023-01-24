@@ -17,6 +17,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Exo6 {
     public static void main(final JFrame frame) {
@@ -108,14 +109,7 @@ public class Exo6 {
             controlButton.setText(field.getGameStatus() ? "Arrêter le duel." : "Commencer le duel !");
             if (field.getGameStatus()) {
                 final var firstPlayer = field.pickRandomBeginner();
-                switch (firstPlayer) {
-                    case "Joueur" -> {
-                        textLabel.setText("<html>Vous commencez le duel !<br>Cliquez sur une carte pour l'utiliser</html>");
-                    }
-                    case "Adversaire" -> {
-                        textLabel.setText("L'adversaire commence le duel !");
-                    }
-                }
+                textLabel.setText(Objects.equals(firstPlayer, "Joueur") ? "Vous jouez en premier !" : "L'adversaire joue en premier !");
             } else {
                 Exo6.main(frame);
             }
