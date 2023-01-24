@@ -137,7 +137,6 @@ public class Classe {
                         String[] note = line.split(" : ");
                         String matiere = note[0];
                         String evaluation = note[1];
-                        System.out.println(note.length);
                         String[] note2 = note[2].split(" ");
                         double noteEtudiant = Double.parseDouble(note2[0]);
                         int coef = Integer.parseInt(note2[1].substring(2, 3));
