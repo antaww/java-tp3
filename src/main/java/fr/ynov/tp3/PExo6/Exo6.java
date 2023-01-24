@@ -109,7 +109,7 @@ public class Exo6 {
             controlButton.setText(field.getGameStatus() ? "Arrêter le duel." : "Commencer le duel !");
             if (field.getGameStatus()) {
                 final var firstPlayer = field.pickRandomBeginner();
-                textLabel.setText(Objects.equals(firstPlayer, "Joueur") ? "Vous jouez en premier !" : "L'adversaire joue en premier !");
+                textLabel.setText(Objects.equals(firstPlayer, "Joueur") ? "<html>Vous jouez en premier !<br>Cliquez sur une carte pour l'utiliser</html>" : "L'adversaire joue en premier !");
             } else {
                 Exo6.main(frame);
             }
