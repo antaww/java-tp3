@@ -15,8 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Utils {
-    public static void cleanBodyPanel(JPanel bodyPanel) {
-        var bodyPanelComponents = bodyPanel.getComponents();
+    public static void cleanBodyPanel(final JPanel bodyPanel) {
+        final var bodyPanelComponents = bodyPanel.getComponents();
 
         if (bodyPanelComponents.length > 1) {
             for (var i = 1; i < bodyPanelComponents.length; i++) {
@@ -28,18 +28,18 @@ public class Utils {
         }
     }
 
-    public static void setPanelsBackgroundColor(Container container) {
+    public static void setPanelsBackgroundColor(final Container container) {
         container.setBackground(new Color(33, 33, 33));
-        for (var c : container.getComponents()) {
+        for (final var c : container.getComponents()) {
             if (c instanceof Container) {
                 setPanelsBackgroundColor((Container) c);
             }
-            if(c instanceof JButton){
+            if (c instanceof JButton) {
                 c.setBackground(new Color(28, 28, 28));
                 ((JButton) c).setBorderPainted(false);
                 ((JButton) c).setFocusPainted(false);
             }
-            if(c instanceof JComboBox<?>){
+            if (c instanceof JComboBox<?>) {
                 c.setBackground(new Color(28, 28, 28));
                 ((JComboBox<?>) c).setBorder(null);
                 ((JComboBox<?>) c).setBorder(BorderFactory.createEmptyBorder());
@@ -48,21 +48,21 @@ public class Utils {
         }
     }
 
-    public static void setFontColor(Container container) {
+    public static void setFontColor(final Container container) {
         container.setForeground(new Color(255, 255, 255));
-        for (var c : container.getComponents()) {
+        for (final var c : container.getComponents()) {
             if (c instanceof Container) {
                 setFontColor((Container) c);
             }
         }
     }
 
-    public static void setBackgroundColorForMenuBar(JMenuBar menuBar, Color color) {
-        for (var c : menuBar.getComponents()) {
+    public static void setBackgroundColorForMenuBar(final JMenuBar menuBar, final Color color) {
+        for (final var c : menuBar.getComponents()) {
             c.setBackground(color);
             c.setFont(new Font("Arial", Font.BOLD, 14));
             if (c instanceof JMenu) {
-                for (var c2 : ((JMenu) c).getMenuComponents()) {
+                for (final var c2 : ((JMenu) c).getMenuComponents()) {
                     c2.setBackground(color);
                     c2.setForeground(new Color(255, 255, 255));
                     c2.setFont(new Font("Arial", Font.BOLD, 14));
@@ -71,10 +71,10 @@ public class Utils {
         }
     }
 
-    public static void removeMenuBarBorders(JMenuBar menuBar) {
-        for (var component : menuBar.getComponents()) {
+    public static void removeMenuBarBorders(final JMenuBar menuBar) {
+        for (final var component : menuBar.getComponents()) {
             if (component instanceof JMenu) {
-                for (var component1 : ((JMenu) component).getMenuComponents()) {
+                for (final var component1 : ((JMenu) component).getMenuComponents()) {
                     if (component1 instanceof JMenuItem) {
                         ((JMenuItem) component1).setBorder(null);
                     }
@@ -83,23 +83,23 @@ public class Utils {
         }
     }
 
-    public static void displayFrame(JFrame frame) {
+    public static void displayFrame(final JFrame frame) {
         setPanelsBackgroundColor(frame);
         setFontColor(frame);
         frame.setVisible(true);
     }
 
-    public static JsonElement getJsonElement(JComboBox<String> comboBox, String cardType) {
-        JsonElement jsonElement;
+    public static JsonElement getJsonElement(final JComboBox<String> comboBox, final String cardType) {
+        final JsonElement jsonElement;
         try {
             jsonElement = JsonParser.parseReader(new FileReader("src/main/resources/cards.json"));
-        } catch (FileNotFoundException ex) {
+        } catch (final FileNotFoundException ex) {
             throw new RuntimeException(ex);
         }
 
-        var monstersList = new ArrayList<String>();
+        final var monstersList = new ArrayList<String>();
         jsonElement.getAsJsonArray().forEach(jsonElement1 -> {
-            var type = jsonElement1.getAsJsonObject().get("type").getAsString();
+            final var type = jsonElement1.getAsJsonObject().get("type").getAsString();
             if (type.contains(cardType)) {
                 monstersList.add(jsonElement1.getAsJsonObject().get("name").getAsString());
             }
@@ -110,7 +110,7 @@ public class Utils {
     }
 
     public static String translateString(String stringToTranslate) {
-        Map<String, String> translations = new HashMap<>();
+        final Map<String, String> translations = new HashMap<>();
         //PrimaryType
         translations.put("Aqua", "Aqua");
         translations.put("Beast", "Bête /");
@@ -159,19 +159,19 @@ public class Utils {
         translations.put("Normal", ""); // Do not display "Normal" in the card
         translations.put("Monster", ""); // Do not display "Monster" in the card
 
-        StringBuilder output;
+        final StringBuilder output;
         if (stringToTranslate.contains(" ")) { //If the string to translate is a combination of words
-            for (var entry : translations.entrySet()) {
+            for (final var entry : translations.entrySet()) {
                 if (stringToTranslate.contains(entry.getKey())) {
                     stringToTranslate = stringToTranslate.replace(entry.getKey(), entry.getValue());
                 }
             }
         }
 
-        var words = stringToTranslate.split(" ");
+        final var words = stringToTranslate.split(" ");
         output = new StringBuilder();
-        for (var word : words) {
-            var translatedWord = translations.get(word);
+        for (final var word : words) {
+            final var translatedWord = translations.get(word);
             if (translatedWord != null) {
                 output.append(translatedWord).append(" / ");
             } else {
@@ -186,41 +186,41 @@ public class Utils {
         return result;
     }
 
-    public static String convertUnderscoresToSpaces(String str) {
+    public static String convertUnderscoresToSpaces(final String str) {
         return str.replaceAll("_", " ");
     }
 
-    public static String replaceByUnderscore(String str) {
+    public static String replaceByUnderscore(final String str) {
         return str.replaceAll("[ -]", "_");
     }
 
-    public static Map<String, JComponent> createCardPanel(JPanel bodyPanel, String subtitle) {
-        var secondPanel = new JPanel();
-        var subtitleLabel = new JLabel(subtitle);
+    public static Map<String, JComponent> createCardPanel(final JPanel bodyPanel, final String subtitle) {
+        final var secondPanel = new JPanel();
+        final var subtitleLabel = new JLabel(subtitle);
         subtitleLabel.setFont(new Font("Arial", Font.BOLD, 25));
         subtitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         secondPanel.add(subtitleLabel);
         bodyPanel.add(secondPanel);
         bodyPanel.add(Box.createRigidArea(new Dimension(0, 30)));
 
-        var thirdPanel = new JPanel();
+        final var thirdPanel = new JPanel();
         thirdPanel.setLayout(new BoxLayout(thirdPanel, BoxLayout.Y_AXIS));
-        var thirdPanelBody = new JPanel(new BorderLayout());
+        final var thirdPanelBody = new JPanel(new BorderLayout());
         thirdPanel.add(thirdPanelBody);
 
-        var comboBoxPanel = new JPanel();
-        var comboBox = new JComboBox<String>();
+        final var comboBoxPanel = new JPanel();
+        final var comboBox = new JComboBox<String>();
         comboBoxPanel.add(comboBox);
         thirdPanelBody.add(comboBoxPanel, BorderLayout.NORTH);
 
-        var resultLabel = new JLabel();
+        final var resultLabel = new JLabel();
         resultLabel.setFont(new Font("Arial", Font.BOLD, 12));
         resultLabel.setText("Choisissez une carte à afficher...");
         resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
         resultLabel.setVerticalAlignment(SwingConstants.TOP);
-        var resultImagePanel = new JPanel();
+        final var resultImagePanel = new JPanel();
 
-        var resultPanel = new JPanel();
+        final var resultPanel = new JPanel();
         resultPanel.add(resultLabel);
         resultPanel.add(resultImagePanel);
         thirdPanelBody.add(resultPanel, BorderLayout.CENTER);
@@ -230,15 +230,15 @@ public class Utils {
         return Map.of("comboBox", comboBox, "resultLabel", resultLabel, "resultImagePanel", resultImagePanel, "resultPanel", resultPanel);
     }
 
-    public static void displayCardImage(JLabel resultLabel, JPanel resultImagePanel, JPanel resultPanel, String cardImage) {
+    public static void displayCardImage(final JLabel resultLabel, final JPanel resultImagePanel, final JPanel resultPanel, final String cardImage) {
         try {
-            var url = new URL(cardImage);
-            var image = ImageIO.read(url);
-            var scaledImage = image.getScaledInstance(280, 435, Image.SCALE_SMOOTH); // Default size : 525 × 768
-            var picLabel = new JLabel(new ImageIcon(scaledImage));
+            final var url = new URL(cardImage);
+            final var image = ImageIO.read(url);
+            final var scaledImage = image.getScaledInstance(280, 435, Image.SCALE_SMOOTH); // Default size : 525 × 768
+            final var picLabel = new JLabel(new ImageIcon(scaledImage));
             resultImagePanel.add(picLabel);
-        } catch (IOException ioException) {
-            var errorLabel = new JLabel("Image error 404");
+        } catch (final IOException ioException) {
+            final var errorLabel = new JLabel("Image error 404");
             resultImagePanel.add(errorLabel);
         }
         resultImagePanel.setVisible(true);

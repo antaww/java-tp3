@@ -7,24 +7,23 @@ import fr.ynov.tp3.PExo4.SpecialType;
 import java.io.Serial;
 
 public abstract class AMonstre implements ICarteYuGiOh {
-    @Serial
-    private void readObject(java.io.ObjectInputStream stream) throws java.io.IOException, ClassNotFoundException {
-        stream.defaultReadObject();
-    }
-
-    @Serial
-    private void writeObject(java.io.ObjectOutputStream stream) throws java.io.IOException {
-        stream.defaultWriteObject();
-    }
-
     protected String name;
     protected int level;
     protected Attribute attribute;
     protected String types;
     protected String reference;
     protected int[] stats = new int[0];
-
     protected String description;
+
+    @Serial
+    private void readObject(final java.io.ObjectInputStream stream) throws java.io.IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+    }
+
+    @Serial
+    private void writeObject(final java.io.ObjectOutputStream stream) throws java.io.IOException {
+        stream.defaultWriteObject();
+    }
 
     @Override
     public String getName() {
@@ -32,7 +31,7 @@ public abstract class AMonstre implements ICarteYuGiOh {
     }
 
     @Override
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -42,7 +41,7 @@ public abstract class AMonstre implements ICarteYuGiOh {
     }
 
     @Override
-    public void setLevel(int level) {
+    public void setLevel(final int level) {
         this.level = level;
     }
 
@@ -52,7 +51,7 @@ public abstract class AMonstre implements ICarteYuGiOh {
     }
 
     @Override
-    public void setAttribute(Attribute attribute) {
+    public void setAttribute(final Attribute attribute) {
         this.attribute = attribute;
     }
 
@@ -62,7 +61,7 @@ public abstract class AMonstre implements ICarteYuGiOh {
     }
 
     @Override
-    public void setReference(String reference) {
+    public void setReference(final String reference) {
         this.reference = reference;
     }
 
@@ -72,7 +71,7 @@ public abstract class AMonstre implements ICarteYuGiOh {
     }
 
     @Override
-    public void setStats(int[] stats) {
+    public void setStats(final int[] stats) {
         this.stats = stats;
     }
 
@@ -82,7 +81,7 @@ public abstract class AMonstre implements ICarteYuGiOh {
     }
 
     @Override
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -92,7 +91,7 @@ public abstract class AMonstre implements ICarteYuGiOh {
     }
 
     @Override
-    public void setTypes(String types) {
+    public void setTypes(final String types) {
         this.types = types;
     }
 
@@ -102,7 +101,7 @@ public abstract class AMonstre implements ICarteYuGiOh {
     }
 
     @Override
-    public void setSpecialIcon(SpecialIcon specialIcon) {
+    public void setSpecialIcon(final SpecialIcon specialIcon) {
         //Aucune implémentation nécessaire pour MonsterCard
     }
 
@@ -112,7 +111,7 @@ public abstract class AMonstre implements ICarteYuGiOh {
     }
 
     @Override
-    public void setType(SpecialType type) {
+    public void setType(final SpecialType type) {
         //Aucune implémentation nécessaire pour MonsterCard
     }
 }

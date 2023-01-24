@@ -9,7 +9,7 @@ public class CheckList {
         private final String label;
         private boolean isSelected = false;
 
-        public CheckListItem(String label) {
+        public CheckListItem(final String label) {
             this.label = label;
         }
 
@@ -17,7 +17,7 @@ public class CheckList {
             return isSelected;
         }
 
-        public void setSelected(boolean isSelected) {
+        public void setSelected(final boolean isSelected) {
             this.isSelected = isSelected;
         }
 
@@ -28,7 +28,7 @@ public class CheckList {
     }
 
     public static class CheckListRenderer extends JCheckBox implements ListCellRenderer {
-        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus) {
+        public Component getListCellRendererComponent(final JList list, final Object value, final int index, final boolean isSelected, final boolean hasFocus) {
             setEnabled(list.isEnabled());
             setSelected(((CheckListItem) value).isSelected());
             setFont(list.getFont());

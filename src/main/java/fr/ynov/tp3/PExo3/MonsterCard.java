@@ -5,7 +5,7 @@ import fr.ynov.tp3.PExo5.AMonstre;
 import java.util.Arrays;
 
 public class MonsterCard extends AMonstre {
-    public MonsterCard(String name, int level, Attribute attribute, String types, String reference, int atk, int def, String description) {
+    public MonsterCard(final String name, final int level, final Attribute attribute, final String types, final String reference, final int atk, final int def, final String description) {
         this.name = name;
         this.level = level;
         this.attribute = attribute;
@@ -17,14 +17,6 @@ public class MonsterCard extends AMonstre {
 
     @Override
     public String toString() {
-        return "MonsterCard{" +
-                "name='" + name + '\'' +
-                ", level=" + level +
-                ", attribute=" + attribute +
-                ", types='" + types + '\'' +
-                ", reference='" + reference + '\'' +
-                ", stats=" + Arrays.toString(stats) +
-                ", description='" + description + '\'' +
-                '}';
+        return "MonsterCard{" + "name='" + name + '\'' + ", level=" + level + ", attribute=" + attribute + ", types='" + types + '\'' + ", reference='" + reference + '\'' + ", stats=" + Arrays.toString(stats) + ", description='" + description + '\'' + '}';
     }
 }

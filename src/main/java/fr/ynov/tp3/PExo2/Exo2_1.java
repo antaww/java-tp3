@@ -6,15 +6,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Exo2_1 {
-    public static void main(JFrame frame) {
-        var bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
+    public static void main(final JFrame frame) {
+        final var bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
         Utils.cleanBodyPanel(bodyPanel);
-        var titleLabel = (JLabel) ((JPanel) ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).getComponent(0)).getComponent(0);
+        final var titleLabel = (JLabel) ((JPanel) ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).getComponent(0)).getComponent(0);
         titleLabel.setText("Exercice 2.1 - JButton");
 
-        var buttonsPanel = new JPanel();
-        var button1 = new JButton("Bouton simple");
-        var button2 = new JButton("Bouton fantaisie");
+        final var buttonsPanel = new JPanel();
+        final var button1 = new JButton("Bouton simple");
+        final var button2 = new JButton("Bouton fantaisie");
         button1.setFont(new Font("Arial", Font.BOLD, 16));
         button2.setFont(new Font("Arial", Font.BOLD, 15));
         button2.setIcon(new ImageIcon(new ImageIcon("src/main/resources/canard.png").getImage().getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH)));

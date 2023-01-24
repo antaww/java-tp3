@@ -12,49 +12,48 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
-import java.nio.file.Paths;
-import java.util.List;
 
 public class TP_Classe {
 
     static Classe maClasse;
 
-    public static void main(JFrame frame) {
-        var bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
+    public static void main(final JFrame frame) {
+        final var bodyPanel = (JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1);
         Utils.cleanBodyPanel(bodyPanel);
-        var titleLabel = (JLabel) ((JPanel) ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).getComponent(0)).getComponent(0);
+        final var titleLabel = (JLabel) ((JPanel) ((JPanel) ((JPanel) frame.getContentPane().getComponent(0)).getComponent(1)).getComponent(0)).getComponent(0);
         titleLabel.setText("Exercice 1 - TP Classe & Étudiant");
 
 
-        var etudiant1 = new Etudiant("Crews", "Apollo");
+        final var etudiant1 = new Etudiant("Crews", "Apollo");
         etudiant1.setNote("Mathématiques", "Examen", 2, 10);
         etudiant1.setNote("Français", "Partiels", 5, 2);
         etudiant1.setNote("Français", "Dissertation", 1, 7);
         etudiant1.setNote("EPS", "Badminton", 1, 19.5);
-        var etudiant2 = new Etudiant("Buzz", "Léclair");
+        final var etudiant2 = new Etudiant("Buzz", "Léclair");
 
         maClasse = new Classe("B2 - Linux/Réseaux");
         maClasse.setEtudiant(etudiant1);
         maClasse.setEtudiant(etudiant2);
 
-        var student3 = maClasse.getEtudiant("Crews Apollo");
+        final var student3 = maClasse.getEtudiant("Crews Apollo");
         student3.afficherNote();
 
 
-        var listScrollPanel = new JComboBox<String>();
-        var studentList = new ArrayList<>(Arrays.asList(maClasse.getEtudiants()));
+        final var listScrollPanel = new JComboBox<String>();
+        final var studentList = new ArrayList<>(Arrays.asList(maClasse.getEtudiants()));
         studentList.sort(String::compareToIgnoreCase);
-        for (var student : studentList) {
+        for (final var student : studentList) {
             listScrollPanel.addItem(student);
         }
 
-        var buttonsPanel = new JPanel();
-        var classButton = new JButton(maClasse.nom);
-        var studentLabel = new JLabel("Sélectionnez un étudiant pour afficher ses informations");
-        var classLabel = new JLabel("Cliquez sur la classe pour afficher ses informations");
+        final var buttonsPanel = new JPanel();
+        final var classButton = new JButton(maClasse.nom);
+        final var studentLabel = new JLabel("Sélectionnez un étudiant pour afficher ses informations");
+        final var classLabel = new JLabel("Cliquez sur la classe pour afficher ses informations");
 
         listScrollPanel.setPreferredSize(new Dimension(200, 30));
         listScrollPanel.setFont(new Font("Arial", Font.BOLD, 15));
@@ -65,7 +64,7 @@ public class TP_Classe {
 
 
         buttonsPanel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
+        final var gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 15, 5, 15);
 
         gbc.gridx = 0;
@@ -94,7 +93,7 @@ public class TP_Classe {
 
         bodyPanel.add(buttonsPanel);
 
-        var infoPanel = new JPanel();
+        final var infoPanel = new JPanel();
         infoPanel.setPreferredSize(new Dimension(200, 500));
         bodyPanel.setLayout(new BoxLayout(bodyPanel, BoxLayout.Y_AXIS));
 
@@ -106,9 +105,9 @@ public class TP_Classe {
         Utils.displayFrame(frame);
 
 
-        var panels = bodyPanel.getComponents();
+        final var panels = bodyPanel.getComponents();
         for (var i = 0; i < panels.length; i++) {
-            var panel = (JPanel) panels[i];
+            final var panel = (JPanel) panels[i];
             if (i % 2 == 0) {
                 panel.setBackground(new Color(0x2ECC71));
             } else {
@@ -118,19 +117,19 @@ public class TP_Classe {
     }
 
 
-    private static void displayStudentInfo(JFrame frame, JPanel bodyPanel, JComboBox<String> listScrollPane, JPanel infoPanel) {
+    private static void displayStudentInfo(final JFrame frame, final JPanel bodyPanel, final JComboBox<String> listScrollPane, final JPanel infoPanel) {
         listScrollPane.addActionListener(e -> {
             infoPanel.removeAll();
-            var selectedStudent = Objects.requireNonNull(listScrollPane.getSelectedItem()).toString();
-            var student = maClasse.getEtudiant(selectedStudent);
+            final var selectedStudent = Objects.requireNonNull(listScrollPane.getSelectedItem()).toString();
+            final var student = maClasse.getEtudiant(selectedStudent);
 
-            var studentInfoNameLabel = new JLabel(student.nom + " " + student.prenom);
-            var studentInfoActionPanel = new JPanel();
-            var studentInfoActionButton1 = new JButton("Moyenne");
-            var studentInfoActionButton2 = new JButton("Afficher toutes les notes");
-            var studentInfoActionButton3 = new JButton("Afficher les notes d'une matière");
-            var studentInfoActionButton4 = new JButton("Ajouter une note");
-            var studentInfoActionResultPanel = new JPanel();
+            final var studentInfoNameLabel = new JLabel(student.nom + " " + student.prenom);
+            final var studentInfoActionPanel = new JPanel();
+            final var studentInfoActionButton1 = new JButton("Moyenne");
+            final var studentInfoActionButton2 = new JButton("Afficher toutes les notes");
+            final var studentInfoActionButton3 = new JButton("Afficher les notes d'une matière");
+            final var studentInfoActionButton4 = new JButton("Ajouter une note");
+            final var studentInfoActionResultPanel = new JPanel();
 
             infoPanel.setLayout(new BorderLayout());
 
@@ -167,25 +166,25 @@ public class TP_Classe {
         });
     }
 
-    private static void addGrade(JFrame frame, JPanel bodyPanel, Etudiant student, JButton studentInfoActionButton4, JPanel studentInfoActionResultPanel) {
+    private static void addGrade(final JFrame frame, final JPanel bodyPanel, final Etudiant student, final JButton studentInfoActionButton4, final JPanel studentInfoActionResultPanel) {
         studentInfoActionButton4.addActionListener(e1 -> {
             studentInfoActionResultPanel.removeAll();
-            var studentInfoActionResultComboBox = new JComboBox<>();
-            var studentInfoActionResultTextField2 = new JTextField();
-            var studentInfoActionResultTextField3 = new JTextField();
-            var studentInfoActionResultTextField4 = new JTextField();
-            var studentInfoActionResultButton = new JButton("Ajouter la note");
-            var topPanel = new JPanel();
-            var bottomPanel = new JPanel();
+            final var studentInfoActionResultComboBox = new JComboBox<>();
+            final var studentInfoActionResultTextField2 = new JTextField();
+            final var studentInfoActionResultTextField3 = new JTextField();
+            final var studentInfoActionResultTextField4 = new JTextField();
+            final var studentInfoActionResultButton = new JButton("Ajouter la note");
+            final var topPanel = new JPanel();
+            final var bottomPanel = new JPanel();
             var matieres = new ArrayList<String>();
             try {
-                String filePath = "matieres.txt";
-                List<String> lines = Files.readAllLines(Paths.get(filePath));
+                final var filePath = "matieres.txt";
+                final var lines = Files.readAllLines(Paths.get(filePath));
                 matieres = new ArrayList<>(lines);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
-            for (var matiere : matieres) {
+            for (final var matiere : matieres) {
                 studentInfoActionResultComboBox.addItem(matiere);
             }
 
@@ -217,10 +216,10 @@ public class TP_Classe {
             studentInfoActionResultPanel.add(bottomPanel);
 
             studentInfoActionResultButton.addActionListener(e2 -> {
-                var subject = Objects.requireNonNull(studentInfoActionResultComboBox.getSelectedItem()).toString();
-                var exam = studentInfoActionResultTextField2.getText();
-                var grade = studentInfoActionResultTextField3.getText();
-                var coefficient = studentInfoActionResultTextField4.getText();
+                final var subject = Objects.requireNonNull(studentInfoActionResultComboBox.getSelectedItem()).toString();
+                final var exam = studentInfoActionResultTextField2.getText();
+                final var grade = studentInfoActionResultTextField3.getText();
+                final var coefficient = studentInfoActionResultTextField4.getText();
 
                 if (subject.isEmpty() || exam.isEmpty() || grade.isEmpty()) {
                     JOptionPane.showMessageDialog(frame, "Veuillez remplir tous les champs obligatoires", "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -229,7 +228,7 @@ public class TP_Classe {
 
                 try {
                     Double.parseDouble(grade);
-                } catch (NumberFormatException e) {
+                } catch (final NumberFormatException e) {
                     JOptionPane.showMessageDialog(frame, "La note doit être un nombre", "Erreur", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
@@ -242,7 +241,7 @@ public class TP_Classe {
                 if (!coefficient.isEmpty()) {
                     try {
                         Integer.parseInt(coefficient);
-                    } catch (NumberFormatException e) {
+                    } catch (final NumberFormatException e) {
                         JOptionPane.showMessageDialog(frame, "Le coefficient doit être un nombre", "Erreur", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
@@ -262,25 +261,25 @@ public class TP_Classe {
         });
     }
 
-    private static void displaySpecificGrades(JFrame frame, JPanel bodyPanel, Etudiant student, JButton studentInfoActionButton3, JPanel infoPanel) {
+    private static void displaySpecificGrades(final JFrame frame, final JPanel bodyPanel, final Etudiant student, final JButton studentInfoActionButton3, final JPanel infoPanel) {
         studentInfoActionButton3.addActionListener(e1 -> {
             infoPanel.removeAll();
-            var topPanel = new JPanel();
-            var bottomPanel = new JPanel();
-            var comboBoxPanel = new JPanel();
-            var comboBox = new JComboBox<>();
+            final var topPanel = new JPanel();
+            final var bottomPanel = new JPanel();
+            final var comboBoxPanel = new JPanel();
+            final var comboBox = new JComboBox<>();
 
-            var listModel = new DefaultListModel<String>();
-            var studentInfoActionResultList = new JList<>(listModel);
+            final var listModel = new DefaultListModel<String>();
+            final var studentInfoActionResultList = new JList<>(listModel);
             var matieres = new ArrayList<String>();
             try {
-                String filePath = "matieres.txt";
-                List<String> lines = Files.readAllLines(Paths.get(filePath));
+                final var filePath = "matieres.txt";
+                final var lines = Files.readAllLines(Paths.get(filePath));
                 matieres = new ArrayList<>(lines);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
-            for (var matiere : matieres) {
+            for (final var matiere : matieres) {
                 comboBox.addItem(matiere);
             }
 
@@ -295,19 +294,19 @@ public class TP_Classe {
             infoPanel.add(topPanel);
             infoPanel.add(bottomPanel);
 
-            var notes = student.afficherNote();
+            final var notes = student.afficherNote();
             if (notes.length == 0) {
                 studentInfoActionResultList.setListData(new String[]{"L'étudiant n'a pas encore de notes"});
                 infoPanel.add(studentInfoActionResultList);
             } else {
                 comboBox.addActionListener(e2 -> {
                     listModel.removeAllElements();
-                    var subject = Objects.requireNonNull(comboBox.getSelectedItem()).toString();
-                    var notesOfSubject = student.afficherNote(subject);
+                    final var subject = Objects.requireNonNull(comboBox.getSelectedItem()).toString();
+                    final var notesOfSubject = student.afficherNote(subject);
                     if (notesOfSubject == null) {
                         listModel.addElement("L'étudiant n'a pas encore de notes dans cette matière");
                     } else {
-                        for (var note : notesOfSubject) {
+                        for (final var note : notesOfSubject) {
                             listModel.addElement(note);
                         }
                     }
@@ -323,12 +322,12 @@ public class TP_Classe {
         });
     }
 
-    private static void displayAllGrades(JFrame frame, JPanel bodyPanel, Etudiant student, JButton studentInfoActionButton2, JPanel studentInfoActionResultPanel) {
+    private static void displayAllGrades(final JFrame frame, final JPanel bodyPanel, final Etudiant student, final JButton studentInfoActionButton2, final JPanel studentInfoActionResultPanel) {
         studentInfoActionButton2.addActionListener(e1 -> {
             studentInfoActionResultPanel.removeAll();
-            var listModel = new DefaultListModel<String>();
-            var studentInfoActionResultList = new JList<>(listModel);
-            var notes = student.afficherNote();
+            final var listModel = new DefaultListModel<String>();
+            final var studentInfoActionResultList = new JList<>(listModel);
+            final var notes = student.afficherNote();
             Arrays.sort(notes);
 
             studentInfoActionResultList.setFont(new Font("Arial", Font.BOLD, 25));
@@ -340,7 +339,7 @@ public class TP_Classe {
                 studentInfoActionResultPanel.add(studentInfoActionResultList);
             } else {
                 studentInfoActionResultList.setListData(notes);
-                JScrollPane scrollPane = new JScrollPane(studentInfoActionResultList);
+                final var scrollPane = new JScrollPane(studentInfoActionResultList);
                 scrollPane.setPreferredSize(new Dimension(studentInfoActionResultPanel.getWidth(), 400));
                 studentInfoActionResultPanel.add(scrollPane);
             }
@@ -350,11 +349,11 @@ public class TP_Classe {
         });
     }
 
-    private static void displayAverage(JFrame frame, JPanel bodyPanel, Etudiant student, JButton studentInfoActionButton1, JPanel studentInfoActionResultPanel) {
+    private static void displayAverage(final JFrame frame, final JPanel bodyPanel, final Etudiant student, final JButton studentInfoActionButton1, final JPanel studentInfoActionResultPanel) {
         studentInfoActionButton1.addActionListener(e1 -> {
             studentInfoActionResultPanel.removeAll();
-            var studentInfoActionResultLabel = new JLabel();
-            var moyenne = student.moyenne("");
+            final var studentInfoActionResultLabel = new JLabel();
+            final var moyenne = student.moyenne("");
 
             if (moyenne == -1) {
                 studentInfoActionResultLabel.setText("L'étudiant n'a pas encore de notes");
@@ -371,20 +370,20 @@ public class TP_Classe {
         });
     }
 
-    private static void displayClassInfo(JFrame frame, JPanel bodyPanel, JButton button, JComboBox<String> listScrollPane, JPanel infoPanel) {
+    private static void displayClassInfo(final JFrame frame, final JPanel bodyPanel, final JButton button, final JComboBox<String> listScrollPane, final JPanel infoPanel) {
         button.addActionListener(e -> {
             infoPanel.removeAll();
-            var classInfoNameLabel = new JLabel(maClasse.nom);
-            var classInfoActionPanel = new JPanel();
-            var classInfoActionResultPanel = new JPanel();
-            var classInfoActionButton1 = new JButton("Afficher les étudiants");
-            var classInfoActionButton2 = new JButton("Afficher les moyennes des étudiants");
-            var classInfoActionButton3 = new JButton("Afficher les moyennes des matières");
-            var classInfoActionButton4 = new JButton("Ajouter un étudiant");
-            var classInfoActionButton5 = new JButton("Ajouter une matière");
-            var classInfoActionButton6 = new JButton("Renommer la classe");
-            var classInfoActionButton7 = new JButton("Sauvegarder la classe");
-            var classInfoActionButton8 = new JButton("Charger une classe");
+            final var classInfoNameLabel = new JLabel(maClasse.nom);
+            final var classInfoActionPanel = new JPanel();
+            final var classInfoActionResultPanel = new JPanel();
+            final var classInfoActionButton1 = new JButton("Afficher les étudiants");
+            final var classInfoActionButton2 = new JButton("Afficher les moyennes des étudiants");
+            final var classInfoActionButton3 = new JButton("Afficher les moyennes des matières");
+            final var classInfoActionButton4 = new JButton("Ajouter un étudiant");
+            final var classInfoActionButton5 = new JButton("Ajouter une matière");
+            final var classInfoActionButton6 = new JButton("Renommer la classe");
+            final var classInfoActionButton7 = new JButton("Sauvegarder la classe");
+            final var classInfoActionButton8 = new JButton("Charger une classe");
 
             infoPanel.setLayout(new BorderLayout());
 
@@ -415,33 +414,33 @@ public class TP_Classe {
             classInfoActionPanel.add(classInfoActionButton7);
             classInfoActionPanel.add(classInfoActionButton8);
 
-            displayClass(frame, bodyPanel,  classInfoActionButton1, classInfoActionResultPanel);
+            displayClass(frame, bodyPanel, classInfoActionButton1, classInfoActionResultPanel);
 
-            displayClassAverage(frame, bodyPanel,  classInfoActionButton2, classInfoActionResultPanel);
+            displayClassAverage(frame, bodyPanel, classInfoActionButton2, classInfoActionResultPanel);
 
-            displaySubjectsAverage(frame, bodyPanel,  classInfoActionButton3, classInfoActionResultPanel);
+            displaySubjectsAverage(frame, bodyPanel, classInfoActionButton3, classInfoActionResultPanel);
 
-            addStudent(frame,  classInfoActionButton4, listScrollPane, classInfoActionResultPanel);
+            addStudent(frame, classInfoActionButton4, listScrollPane, classInfoActionResultPanel);
 
             addSubject(frame, classInfoActionButton5, classInfoActionResultPanel);
 
-            renameClass(frame,  classInfoActionButton6, button, classInfoNameLabel, classInfoActionResultPanel);
+            renameClass(frame, classInfoActionButton6, button, classInfoNameLabel, classInfoActionResultPanel);
 
-            saveClass(frame,  classInfoActionButton7);
+            saveClass(frame, classInfoActionButton7);
 
-            loadClass(frame,  classInfoActionButton8);
+            loadClass(frame, classInfoActionButton8);
 
             bodyPanel.add(infoPanel);
             Utils.displayFrame(frame);
         });
     }
 
-    private static void displayClass(JFrame frame, JPanel bodyPanel, JButton button, JPanel infoPanel) {
+    private static void displayClass(final JFrame frame, final JPanel bodyPanel, final JButton button, final JPanel infoPanel) {
         button.addActionListener(e -> {
             infoPanel.removeAll();
-            var listModel = new DefaultListModel<String>();
-            var classInfoActionResultList = new JList<>(listModel);
-            var students = maClasse.afficher();
+            final var listModel = new DefaultListModel<String>();
+            final var classInfoActionResultList = new JList<>(listModel);
+            final var students = maClasse.afficher();
 
             classInfoActionResultList.setFont(new Font("Arial", Font.BOLD, 25));
             classInfoActionResultList.setForeground(Color.WHITE);
@@ -452,7 +451,7 @@ public class TP_Classe {
                 infoPanel.add(classInfoActionResultList);
             } else {
                 classInfoActionResultList.setListData(students);
-                JScrollPane scrollPane = new JScrollPane(classInfoActionResultList);
+                final var scrollPane = new JScrollPane(classInfoActionResultList);
                 scrollPane.setPreferredSize(new Dimension(infoPanel.getWidth(), 400));
                 infoPanel.add(scrollPane);
             }
@@ -462,11 +461,11 @@ public class TP_Classe {
         });
     }
 
-    private static void displayClassAverage(JFrame frame, JPanel bodyPanel, JButton button, JPanel infoPanel) {
+    private static void displayClassAverage(final JFrame frame, final JPanel bodyPanel, final JButton button, final JPanel infoPanel) {
         button.addActionListener(e -> {
             infoPanel.removeAll();
-            var classInfoResultLabel = new JLabel();
-            var studentsAverage = maClasse.moyenneClasse("");
+            final var classInfoResultLabel = new JLabel();
+            final var studentsAverage = maClasse.moyenneClasse("");
 
 
             if (studentsAverage == -1) {
@@ -484,25 +483,25 @@ public class TP_Classe {
         });
     }
 
-    private static void displaySubjectsAverage(JFrame frame, JPanel bodyPanel, JButton button, JPanel infoPanel) {
+    private static void displaySubjectsAverage(final JFrame frame, final JPanel bodyPanel, final JButton button, final JPanel infoPanel) {
         button.addActionListener(e1 -> {
             infoPanel.removeAll();
-            var topPanel = new JPanel();
-            var bottomPanel = new JPanel();
-            var comboBoxPanel = new JPanel();
-            var comboBox = new JComboBox<String>();
+            final var topPanel = new JPanel();
+            final var bottomPanel = new JPanel();
+            final var comboBoxPanel = new JPanel();
+            final var comboBox = new JComboBox<String>();
 
-            var listModel = new DefaultListModel<String>();
-            var classInfoActionResultList = new JList<>(listModel);
+            final var listModel = new DefaultListModel<String>();
+            final var classInfoActionResultList = new JList<>(listModel);
             var matieres = new ArrayList<String>();
             try {
-                String filePath = "matieres.txt";
-                List<String> lines = Files.readAllLines(Paths.get(filePath));
+                final var filePath = "matieres.txt";
+                final var lines = Files.readAllLines(Paths.get(filePath));
                 matieres = new ArrayList<>(lines);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
-            for (var matiere : matieres) {
+            for (final var matiere : matieres) {
                 comboBox.addItem(matiere);
             }
 
@@ -520,7 +519,7 @@ public class TP_Classe {
 
 
             comboBox.addActionListener(e -> {
-                var subjectAverage = maClasse.moyenneClasse(Objects.requireNonNull(comboBox.getSelectedItem()).toString());
+                final var subjectAverage = maClasse.moyenneClasse(Objects.requireNonNull(comboBox.getSelectedItem()).toString());
                 System.out.println(subjectAverage);
                 if (subjectAverage == -1) {
                     classInfoActionResultList.setListData(new String[]{"La classe n'a pas encore de notes en " + comboBox.getSelectedItem().toString() + "."});
@@ -538,18 +537,18 @@ public class TP_Classe {
         });
     }
 
-    private static void addStudent(JFrame frame, JButton button, JComboBox<String> listScrollPane, JPanel infoPanel) {
+    private static void addStudent(final JFrame frame, final JButton button, final JComboBox<String> listScrollPane, final JPanel infoPanel) {
         button.addActionListener(e -> {
             infoPanel.removeAll();
-            var topPanel = new JPanel();
-            var bottomPanel = new JPanel();
-            var studentFirstNamePanel = new JPanel();
-            var studentFirstNameLabel = new JLabel("Nom de l'étudiant : ");
-            var studentFirstNameTextField = new JTextField();
-            var studentLastNamePanel = new JPanel();
-            var studentLastNameLabel = new JLabel("Prénom de l'étudiant : ");
-            var studentLastNameTextField = new JTextField();
-            var addStudentButton = new JButton("Ajouter l'étudiant");
+            final var topPanel = new JPanel();
+            final var bottomPanel = new JPanel();
+            final var studentFirstNamePanel = new JPanel();
+            final var studentFirstNameLabel = new JLabel("Nom de l'étudiant : ");
+            final var studentFirstNameTextField = new JTextField();
+            final var studentLastNamePanel = new JPanel();
+            final var studentLastNameLabel = new JLabel("Prénom de l'étudiant : ");
+            final var studentLastNameTextField = new JTextField();
+            final var addStudentButton = new JButton("Ajouter l'étudiant");
 
             studentFirstNameLabel.setFont(new Font("Arial", Font.BOLD, 25));
             studentFirstNameLabel.setForeground(Color.WHITE);
@@ -571,12 +570,12 @@ public class TP_Classe {
             bottomPanel.add(addStudentButton);
 
             addStudentButton.addActionListener(e1 -> {
-                var studentFirstName = studentFirstNameTextField.getText();
-                var studentLastName = studentLastNameTextField.getText();
+                final var studentFirstName = studentFirstNameTextField.getText();
+                final var studentLastName = studentLastNameTextField.getText();
                 if (studentFirstName.equals("") || studentLastName.equals("")) {
                     JOptionPane.showMessageDialog(frame, "Veuillez remplir tous les champs");
                 } else {
-                    var newStudent = new Etudiant(studentFirstName, studentLastName);
+                    final var newStudent = new Etudiant(studentFirstName, studentLastName);
                     maClasse.setEtudiant(newStudent);
                     JOptionPane.showMessageDialog(frame, "L'étudiant a bien été ajouté");
                     listScrollPane.addItem(newStudent.nom + " " + newStudent.prenom);
@@ -591,15 +590,15 @@ public class TP_Classe {
         });
     }
 
-    private static void addSubject(JFrame frame, JButton button, JPanel infoPanel) {
+    private static void addSubject(final JFrame frame, final JButton button, final JPanel infoPanel) {
         button.addActionListener(e -> {
             infoPanel.removeAll();
-            var topPanel = new JPanel();
-            var bottomPanel = new JPanel();
-            var subjectNamePanel = new JPanel();
-            var subjectNameLabel = new JLabel("Nom de la matière : ");
-            var subjectNameTextField = new JTextField();
-            var addSubjectButton = new JButton("Ajouter la matière");
+            final var topPanel = new JPanel();
+            final var bottomPanel = new JPanel();
+            final var subjectNamePanel = new JPanel();
+            final var subjectNameLabel = new JLabel("Nom de la matière : ");
+            final var subjectNameTextField = new JTextField();
+            final var addSubjectButton = new JButton("Ajouter la matière");
 
             subjectNameLabel.setFont(new Font("Arial", Font.BOLD, 25));
             subjectNameLabel.setForeground(Color.WHITE);
@@ -614,24 +613,24 @@ public class TP_Classe {
             bottomPanel.add(addSubjectButton);
 
             addSubjectButton.addActionListener(e1 -> {
-                var subjectName = subjectNameTextField.getText();
+                final var subjectName = subjectNameTextField.getText();
                 if (subjectName.equals("")) {
                     JOptionPane.showMessageDialog(frame, "Veuillez remplir tous les champs");
                 } else {
 
                     try {
-                        var file = new File("matieres.txt");
-                        String filePath = "matieres.txt";
-                        List<String> lines = Files.readAllLines(Paths.get(filePath));
-                        var matieres = new ArrayList<>(lines);
+                        final var file = new File("matieres.txt");
+                        final var filePath = "matieres.txt";
+                        final var lines = Files.readAllLines(Paths.get(filePath));
+                        final var matieres = new ArrayList<>(lines);
                         if (matieres.contains(subjectName)) {
                             JOptionPane.showMessageDialog(frame, "La matière existe déjà");
                             return;
                         }
-                        var fileWriter = new FileWriter(file, true);
+                        final var fileWriter = new FileWriter(file, true);
                         fileWriter.write(subjectName + "\n");
                         fileWriter.close();
-                    } catch (IOException ioException) {
+                    } catch (final IOException ioException) {
                         ioException.printStackTrace();
                     }
                     JOptionPane.showMessageDialog(frame, "La matière a bien été ajoutée");
@@ -646,16 +645,16 @@ public class TP_Classe {
         });
     }
 
-    private static void renameClass(JFrame frame, JButton button, JButton classButton, JLabel classInfoNameLabel, JPanel infoPanel) {
+    private static void renameClass(final JFrame frame, final JButton button, final JButton classButton, final JLabel classInfoNameLabel, final JPanel infoPanel) {
         button.addActionListener(e -> {
             System.out.println(maClasse.nom);
             infoPanel.removeAll();
-            var topPanel = new JPanel();
-            var bottomPanel = new JPanel();
-            var classNamePanel = new JPanel();
-            var classNameLabel = new JLabel("Nom de la classe : ");
-            var classNameTextField = new JTextField();
-            var renameClassButton = new JButton("Renommer la classe");
+            final var topPanel = new JPanel();
+            final var bottomPanel = new JPanel();
+            final var classNamePanel = new JPanel();
+            final var classNameLabel = new JLabel("Nom de la classe : ");
+            final var classNameTextField = new JTextField();
+            final var renameClassButton = new JButton("Renommer la classe");
 
             classNameLabel.setFont(new Font("Arial", Font.BOLD, 25));
             classNameLabel.setForeground(Color.WHITE);
@@ -670,7 +669,7 @@ public class TP_Classe {
             bottomPanel.add(renameClassButton);
 
             renameClassButton.addActionListener(e1 -> {
-                var className = classNameTextField.getText();
+                final var className = classNameTextField.getText();
                 if (className.equals("")) {
                     JOptionPane.showMessageDialog(frame, "Veuillez remplir tous les champs");
                 } else {
@@ -690,20 +689,20 @@ public class TP_Classe {
 
     }
 
-    private static void saveClass(JFrame frame, JButton button) {
+    private static void saveClass(final JFrame frame, final JButton button) {
         button.addActionListener(e -> {
-            var message = maClasse.saveClasse();
+            final var message = maClasse.saveClasse();
             JOptionPane.showMessageDialog(frame, message);
         });
     }
 
-    private static void loadClass(JFrame frame,  JButton button) {
+    private static void loadClass(final JFrame frame, final JButton button) {
         button.addActionListener(e -> {
-            JFileChooser fileChooser = new JFileChooser();
+            final var fileChooser = new JFileChooser();
             fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-            int result = fileChooser.showOpenDialog(frame);
+            final var result = fileChooser.showOpenDialog(frame);
             if (result == JFileChooser.APPROVE_OPTION) {
-                File selectedFile = fileChooser.getSelectedFile();
+                final var selectedFile = fileChooser.getSelectedFile();
                 maClasse.loadClasse(selectedFile.getName());
                 System.out.println(maClasse.nom);
             }

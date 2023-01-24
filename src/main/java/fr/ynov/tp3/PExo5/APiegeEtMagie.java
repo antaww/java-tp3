@@ -7,22 +7,21 @@ import fr.ynov.tp3.PExo4.SpecialType;
 import java.io.Serial;
 
 public abstract class APiegeEtMagie implements ICarteYuGiOh {
-    @Serial
-    private void readObject(java.io.ObjectInputStream stream) throws java.io.IOException, ClassNotFoundException {
-        stream.defaultReadObject();
-    }
-
-    @Serial
-    private void writeObject(java.io.ObjectOutputStream stream) throws java.io.IOException {
-        stream.defaultWriteObject();
-    }
-
     protected String name;
     protected SpecialType type;
     protected SpecialIcon specialIcon;
     protected String reference;
-
     protected String description;
+
+    @Serial
+    private void readObject(final java.io.ObjectInputStream stream) throws java.io.IOException, ClassNotFoundException {
+        stream.defaultReadObject();
+    }
+
+    @Serial
+    private void writeObject(final java.io.ObjectOutputStream stream) throws java.io.IOException {
+        stream.defaultWriteObject();
+    }
 
     @Override
     public String getName() {
@@ -30,7 +29,7 @@ public abstract class APiegeEtMagie implements ICarteYuGiOh {
     }
 
     @Override
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -40,7 +39,7 @@ public abstract class APiegeEtMagie implements ICarteYuGiOh {
     }
 
     @Override
-    public void setType(SpecialType type) {
+    public void setType(final SpecialType type) {
         this.type = type;
     }
 
@@ -50,7 +49,7 @@ public abstract class APiegeEtMagie implements ICarteYuGiOh {
     }
 
     @Override
-    public void setSpecialIcon(SpecialIcon specialIcon) {
+    public void setSpecialIcon(final SpecialIcon specialIcon) {
         this.specialIcon = specialIcon;
     }
 
@@ -60,7 +59,7 @@ public abstract class APiegeEtMagie implements ICarteYuGiOh {
     }
 
     @Override
-    public void setReference(String reference) {
+    public void setReference(final String reference) {
         this.reference = reference;
     }
 
@@ -70,7 +69,7 @@ public abstract class APiegeEtMagie implements ICarteYuGiOh {
     }
 
     @Override
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 
@@ -80,7 +79,7 @@ public abstract class APiegeEtMagie implements ICarteYuGiOh {
     }
 
     @Override
-    public void setStats(int[] stats) {
+    public void setStats(final int[] stats) {
         //Aucune stats pour les cartes pieges et magies
     }
 
@@ -90,7 +89,7 @@ public abstract class APiegeEtMagie implements ICarteYuGiOh {
     }
 
     @Override
-    public void setTypes(String types) {
+    public void setTypes(final String types) {
         //Aucun type pour les cartes pieges et magies
     }
 
@@ -100,7 +99,7 @@ public abstract class APiegeEtMagie implements ICarteYuGiOh {
     }
 
     @Override
-    public void setAttribute(Attribute attribute) {
+    public void setAttribute(final Attribute attribute) {
         //Aucun attribut pour les cartes pieges et magies
     }
 
@@ -110,7 +109,7 @@ public abstract class APiegeEtMagie implements ICarteYuGiOh {
     }
 
     @Override
-    public void setLevel(int level) {
+    public void setLevel(final int level) {
         //Aucun level pour les cartes pieges et magies
     }
 

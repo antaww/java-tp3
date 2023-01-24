@@ -24,7 +24,7 @@ public class YuGiOhField {
         isGameRunning = !isGameRunning;
     }
 
-    public void addCardToField(MonsterCard card) {
+    public void addCardToField(final MonsterCard card) {
         fieldCards.add(card);
     }
 
@@ -32,19 +32,19 @@ public class YuGiOhField {
         return fieldCards;
     }
 
-    public void addCardToPlayer(MonsterCard card) {
+    public void addCardToPlayer(final MonsterCard card) {
         playerCards.add(card);
     }
 
-    public void addCardImageToPlayer(String cardImage) {
+    public void addCardImageToPlayer(final String cardImage) {
         playerCardsImages.add(cardImage);
     }
 
-    public void addCardToOpponent(MonsterCard card) {
+    public void addCardToOpponent(final MonsterCard card) {
         opponentCards.add(card);
     }
 
-    public void addCardImageToOpponent(String cardImage) {
+    public void addCardImageToOpponent(final String cardImage) {
         opponentCardsImages.add(cardImage);
     }
 
@@ -61,7 +61,7 @@ public class YuGiOhField {
     }
 
     public String pickRandomBeginner() {
-        var random = (int) (Math.random() * 2);
+        final var random = (int) (Math.random() * 2);
         if (random == 0) {
             currentPlayer = "Joueur";
         } else {
@@ -85,7 +85,7 @@ public class YuGiOhField {
         return "";
     }
 
-    public int getCardAttack(int index, String player) {
+    public int getCardAttack(final int index, final String player) {
         switch (player) {
             case "Joueur" -> {
                 return Integer.parseInt(playerCards.get(index).getStats().split(" ")[0].split("/")[1]);
@@ -99,7 +99,7 @@ public class YuGiOhField {
         }
     }
 
-    public String getCardName(int index, String player) {
+    public String getCardName(final int index, final String player) {
         switch (player) {
             case "Joueur" -> {
                 return playerCards.get(index).getName();
@@ -118,7 +118,7 @@ public class YuGiOhField {
         currentTurn++;
     }
 
-    public String decreasePlayerLifePoints(int attackPoints, String cardName) {
+    public String decreasePlayerLifePoints(final int attackPoints, final String cardName) {
         //todo: take defense points into account (if the card has any)
         if (currentPlayer.equals("Joueur")) {
             opponentLifePoints -= attackPoints;

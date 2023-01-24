@@ -9,10 +9,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Classe {
-    public String nom;
     private final Map<String, Etudiant> etudiants;
+    public String nom;
 
-    public Classe(String nom) {
+    public Classe(final String nom) {
         this.nom = nom;
         this.etudiants = new HashMap<>();
     }
@@ -27,25 +27,25 @@ public class Classe {
 //    }
 
     public String[] afficher() {
-        String[] etudiants = new String[this.etudiants.size()];
-        int i = 0;
-        for (var entry : this.etudiants.entrySet()) {
+        final var etudiants = new String[this.etudiants.size()];
+        var i = 0;
+        for (final var entry : this.etudiants.entrySet()) {
             etudiants[i] = entry.getKey();
             i++;
         }
         return etudiants;
     }
 
-    public Etudiant getEtudiant(String nomEtudiant) {
+    public Etudiant getEtudiant(final String nomEtudiant) {
         return etudiants.get(nomEtudiant);
     }
 
-    public float moyenneClasse(String matiere) {
+    public float moyenneClasse(final String matiere) {
         double somme = 0;
         var nbEtudiants = 0;
         if (matiere == null) {
-            for (var entry : etudiants.entrySet()) {
-                var etudiant = entry.getValue();
+            for (final var entry : etudiants.entrySet()) {
+                final var etudiant = entry.getValue();
                 if (etudiant.moyenne("") != -1) {
                     somme += etudiant.moyenne("");
                     nbEtudiants++;
@@ -53,8 +53,8 @@ public class Classe {
             }
         } else {
             var hasNote = false;
-            for (var entry : etudiants.entrySet()) {
-                var etudiant = entry.getValue();
+            for (final var entry : etudiants.entrySet()) {
+                final var etudiant = entry.getValue();
                 if (etudiant.moyenne(matiere) != -1) {
                     somme += etudiant.moyenne(matiere);
                     nbEtudiants++;
@@ -68,17 +68,17 @@ public class Classe {
         return (float) (somme / nbEtudiants);
     }
 
-    public void setEtudiant(Etudiant etudiant) {
-        var nomEtudiant = etudiant.nom;
-        var prenomEtudiant = etudiant.prenom;
-        var cle = nomEtudiant + " " + prenomEtudiant;
+    public void setEtudiant(final Etudiant etudiant) {
+        final var nomEtudiant = etudiant.nom;
+        final var prenomEtudiant = etudiant.prenom;
+        final var cle = nomEtudiant + " " + prenomEtudiant;
         etudiants.put(cle, etudiant);
     }
 
     public String[] getEtudiants() {
-        String[] etudiants = new String[this.etudiants.size()];
-        int i = 0;
-        for (var entry : this.etudiants.entrySet()) {
+        final var etudiants = new String[this.etudiants.size()];
+        var i = 0;
+        for (final var entry : this.etudiants.entrySet()) {
             etudiants[i] = entry.getKey();
             i++;
         }
@@ -86,25 +86,25 @@ public class Classe {
     }
 
     public String saveClasse() {
-        String filePath = "maClasse.txt";
+        final var filePath = "maClasse.txt";
         try {
-            FileWriter fileWriter = new FileWriter(filePath);
+            final var fileWriter = new FileWriter(filePath);
             fileWriter.write("");
 
             fileWriter.write(this.nom);
             fileWriter.write("\r \n");
-            for (var entry : etudiants.entrySet()) {
-                var nomEtudiant = entry.getKey();
+            for (final var entry : etudiants.entrySet()) {
+                final var nomEtudiant = entry.getKey();
                 fileWriter.write(nomEtudiant);
                 fileWriter.write("\n");
-                for (var entry2 : entry.getValue().notes.entrySet()) {
-                    var matiere = entry2.getKey();
-                    for (var entry3 : entry2.getValue().entrySet()) {
-                        var evaluation = entry3.getKey();
+                for (final var entry2 : entry.getValue().notes.entrySet()) {
+                    final var matiere = entry2.getKey();
+                    for (final var entry3 : entry2.getValue().entrySet()) {
+                        final var evaluation = entry3.getKey();
                         fileWriter.write(matiere + " : " + evaluation + " : ");
-                        for (var entry4 : entry3.getValue().entrySet()) {
-                            int coef = entry4.getKey();
-                            double note = entry4.getValue();
+                        for (final var entry4 : entry3.getValue().entrySet()) {
+                            final int coef = entry4.getKey();
+                            final double note = entry4.getValue();
                             fileWriter.write(String.valueOf(note));
                             fileWriter.write(" (x" + coef + ")");
                             fileWriter.write("\n");
@@ -114,38 +114,38 @@ public class Classe {
                 fileWriter.write("\r \n");
             }
             fileWriter.close();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             return "Erreur lors de la sauvegarde de la classe";
         }
         return "Classe sauvegardée";
     }
 
-    public void loadClasse(String filePath) {
+    public void loadClasse(final String filePath) {
         try {
-            FileReader fileReader = new FileReader(filePath);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line = bufferedReader.readLine();
+            final var fileReader = new FileReader(filePath);
+            final var bufferedReader = new BufferedReader(fileReader);
+            var line = bufferedReader.readLine();
             this.nom = line;
             System.out.println("TEST 1");
 
             while ((line = bufferedReader.readLine()) != null && !line.equals("\r \n")) {
                 System.out.println("TEST 2");
-                String[] etudiant = line.split(" ");
+                final var etudiant = line.split(" ");
                 if (etudiant.length == 2) {
-                    String nomEtudiant = etudiant[0];
+                    final var nomEtudiant = etudiant[0];
                     System.out.println("TEST 4");
-                    String prenomEtudiant = etudiant[1];
+                    final var prenomEtudiant = etudiant[1];
                     System.out.println("TEST 5");
                     System.out.println(nomEtudiant);
                     System.out.println(prenomEtudiant);
-                    Etudiant etudiant1 = new Etudiant(nomEtudiant, prenomEtudiant);
+                    final var etudiant1 = new Etudiant(nomEtudiant, prenomEtudiant);
                     while ((line = bufferedReader.readLine()) != null && !line.equals("")) {
-                        String[] note = line.split(" : ");
-                        String matiere = note[0];
-                        String evaluation = note[1];
-                        String[] note2 = note[2].split(" ");
-                        double noteEtudiant = Double.parseDouble(note2[0]);
-                        int coef = Integer.parseInt(note2[2].substring(1));
+                        final var note = line.split(" : ");
+                        final var matiere = note[0];
+                        final var evaluation = note[1];
+                        final var note2 = note[2].split(" ");
+                        final var noteEtudiant = Double.parseDouble(note2[0]);
+                        final var coef = Integer.parseInt(note2[2].substring(1));
                         etudiant1.setNote(matiere, evaluation, coef, noteEtudiant);
                     }
                     this.setEtudiant(etudiant1);
@@ -153,7 +153,7 @@ public class Classe {
 
             }
             bufferedReader.close();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             System.out.println("Erreur lors du chargement de la classe");
         }
     }

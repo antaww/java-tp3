@@ -15,8 +15,8 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class Menu {
-    public static void main(String[] args) {
-        var frame = new JFrame("JAVA - TP3");
+    public static void main(final String[] args) {
+        final var frame = new JFrame("JAVA - TP3");
         frame.setSize(800, 800);
         UIManager.put("PopupMenu.border", new LineBorder(new Color(33, 33, 33)));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -24,57 +24,57 @@ public class Menu {
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
 
-        var mainPanel = new JPanel(new BorderLayout());
+        final var mainPanel = new JPanel(new BorderLayout());
         frame.add(mainPanel);
 
-        var navbarPanel = new JPanel();
+        final var navbarPanel = new JPanel();
         navbarPanel.setLayout(new BoxLayout(navbarPanel, BoxLayout.X_AXIS));
         mainPanel.add(navbarPanel, BorderLayout.NORTH);
 
-        var menuBar = new JMenuBar();
+        final var menuBar = new JMenuBar();
         navbarPanel.add(menuBar);
 
-        var menuMenu = new JMenu("Menu");
+        final var menuMenu = new JMenu("Menu");
         menuBar.add(menuMenu);
-        var creditsMenu = new JMenu("Crédits");
+        final var creditsMenu = new JMenu("Crédits");
         menuBar.add(creditsMenu);
 
-        var exercise1Item = new JMenuItem("Exercice 1 - TP Classe & Étudiant");
+        final var exercise1Item = new JMenuItem("Exercice 1 - TP Classe & Étudiant");
         menuMenu.add(exercise1Item);
-        var exercise2Item1 = new JMenuItem("Exercice 2.1 - JButton");
+        final var exercise2Item1 = new JMenuItem("Exercice 2.1 - JButton");
         menuMenu.add(exercise2Item1);
-        var exercise2Item2 = new JMenuItem("Exercice 2.2 - BoxLayout");
+        final var exercise2Item2 = new JMenuItem("Exercice 2.2 - BoxLayout");
         menuMenu.add(exercise2Item2);
-        var exercise2Item3 = new JMenuItem("Exercice 2.3 - Afficher Cartes");
+        final var exercise2Item3 = new JMenuItem("Exercice 2.3 - Afficher Cartes");
         menuMenu.add(exercise2Item3);
-        var exercise3Item = new JMenuItem("Exercice 3 - Yu-Gi-Oh! Carte Monstre");
+        final var exercise3Item = new JMenuItem("Exercice 3 - Yu-Gi-Oh! Carte Monstre");
         menuMenu.add(exercise3Item);
-        var exercise4Item1 = new JMenuItem("Exercice 4.1 - Yu-Gi-Oh! Carte Magie");
+        final var exercise4Item1 = new JMenuItem("Exercice 4.1 - Yu-Gi-Oh! Carte Magie");
         menuMenu.add(exercise4Item1);
-        var exercise4Item2 = new JMenuItem("Exercice 4.2 - Yu-Gi-Oh! Carte Piège");
+        final var exercise4Item2 = new JMenuItem("Exercice 4.2 - Yu-Gi-Oh! Carte Piège");
         menuMenu.add(exercise4Item2);
-        var exercise5Item = new JMenuItem("Exercice 5 - Yu-Gi-Oh! Héritage");
+        final var exercise5Item = new JMenuItem("Exercice 5 - Yu-Gi-Oh! Héritage");
         menuMenu.add(exercise5Item);
-        var exercise6Item = new JMenuItem("Exercice 6 - DU-DU-DU-DUEL !");
+        final var exercise6Item = new JMenuItem("Exercice 6 - DU-DU-DU-DUEL !");
         menuMenu.add(exercise6Item);
-        var exercise7Item = new JMenuItem("Exercice 7 - Deck");
+        final var exercise7Item = new JMenuItem("Exercice 7 - Deck");
         menuMenu.add(exercise7Item);
-        var leaveItem = new JMenuItem("Quitter");
+        final var leaveItem = new JMenuItem("Quitter");
         menuMenu.add(leaveItem);
 
-        var name1Item = new JMenuItem("Olivier MISTRAL");
+        final var name1Item = new JMenuItem("Olivier MISTRAL");
         creditsMenu.add(name1Item);
-        var name2Item = new JMenuItem("Antoine PIZZETTA");
+        final var name2Item = new JMenuItem("Antoine PIZZETTA");
         creditsMenu.add(name2Item);
 
-        var bodyPanel = new JPanel();
+        final var bodyPanel = new JPanel();
         bodyPanel.setLayout(new GridLayout(1, 1));
         mainPanel.add(bodyPanel, BorderLayout.CENTER);
 
-        var titleLabel = new JLabel("JAVA - TP3", SwingConstants.CENTER);
+        final var titleLabel = new JLabel("JAVA - TP3", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 33));
 
-        var titlePanel = new JPanel();
+        final var titlePanel = new JPanel();
         titlePanel.setLayout(new BorderLayout());
         titlePanel.add(titleLabel, BorderLayout.CENTER);
         bodyPanel.add(titlePanel);

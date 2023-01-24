@@ -54,9 +54,7 @@ public class Exo7 {
                 final var cardLevel = jsonElement1.getAsJsonObject().has("level") ? jsonElement1.getAsJsonObject().get("level").getAsInt() : -1;
                 final var cardAttribute = jsonElement1.getAsJsonObject().get("attribute").getAsString();
                 final var cardTypes = jsonElement1.getAsJsonObject().get("race").getAsString() + " " + jsonElement1.getAsJsonObject().get("type").getAsString();
-                final var cardReference = jsonElement1.getAsJsonObject().has("card_sets") && jsonElement1.getAsJsonObject().get("card_sets").getAsJsonArray().size() > 0
-                        ? jsonElement1.getAsJsonObject().get("card_sets").getAsJsonArray().get(0).getAsJsonObject().get("set_code").getAsString()
-                        : "N/A";
+                final var cardReference = jsonElement1.getAsJsonObject().has("card_sets") && jsonElement1.getAsJsonObject().get("card_sets").getAsJsonArray().size() > 0 ? jsonElement1.getAsJsonObject().get("card_sets").getAsJsonArray().get(0).getAsJsonObject().get("set_code").getAsString() : "N/A";
                 final var cardAtk = jsonElement1.getAsJsonObject().has("atk") ? jsonElement1.getAsJsonObject().get("atk").getAsInt() : -1;
                 final var cardDef = jsonElement1.getAsJsonObject().has("def") ? jsonElement1.getAsJsonObject().get("def").getAsInt() : -1;
                 final var cardDescription = jsonElement1.getAsJsonObject().get("desc").getAsString();
@@ -114,7 +112,7 @@ public class Exo7 {
 
         final var deckList = deck.getDeckList();
         final var deckImages = deckList.values();
-        deckPanel.setBorder(BorderFactory.createTitledBorder(null, "Vos cartes : " + deckList.size() + " dont " + deck.getMonstersCount() + " cartes monstres et " + deck.getSpecialsCount() + " cartes spéciales :" , TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, Color.WHITE));
+        deckPanel.setBorder(BorderFactory.createTitledBorder(null, "Vos cartes : " + deckList.size() + " dont " + deck.getMonstersCount() + " cartes monstres et " + deck.getSpecialsCount() + " cartes spéciales :", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, Color.WHITE));
 
         for (final var s : deckImages) {
             try {
