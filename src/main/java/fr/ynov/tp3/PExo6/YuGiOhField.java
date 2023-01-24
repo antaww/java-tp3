@@ -5,29 +5,16 @@ import fr.ynov.tp3.PExo3.MonsterCard;
 import java.util.ArrayList;
 
 public class YuGiOhField {
-    private final ArrayList<MonsterCard> fieldCards;
-    private final ArrayList<MonsterCard> playerCards;
-    private final ArrayList<String> playerCardsImages;
-    private final ArrayList<MonsterCard> opponentCards;
-    private final ArrayList<String> opponentCardsImages;
-    private String currentPlayer;
-    private int currentTurn;
-    private int playerLifePoints;
-    private int opponentLifePoints;
-    private boolean isGameRunning;
-
-    public YuGiOhField() {
-        fieldCards = new ArrayList<>();
-        playerCards = new ArrayList<>();
-        playerCardsImages = new ArrayList<>();
-        opponentCards = new ArrayList<>();
-        opponentCardsImages = new ArrayList<>();
-        currentPlayer = "";
-        playerLifePoints = 8000;
-        opponentLifePoints = 8000;
-        currentTurn = 1;
-        isGameRunning = false;
-    }
+    private final ArrayList<MonsterCard> fieldCards = new ArrayList<>();
+    private final ArrayList<MonsterCard> playerCards = new ArrayList<>();
+    private final ArrayList<String> playerCardsImages = new ArrayList<>();
+    private final ArrayList<MonsterCard> opponentCards = new ArrayList<>();
+    private final ArrayList<String> opponentCardsImages = new ArrayList<>();
+    private String currentPlayer = "";
+    private int currentTurn = 1;
+    private int playerLifePoints = 8000;
+    private int opponentLifePoints = 8000;
+    private boolean isGameRunning = false;
 
     public boolean getGameStatus() {
         return isGameRunning;
@@ -35,7 +22,6 @@ public class YuGiOhField {
 
     public void changeGameStatus() {
         isGameRunning = !isGameRunning;
-        System.out.println("Game status changed to " + isGameRunning);
     }
 
     public void addCardToField(MonsterCard card) {
@@ -136,11 +122,9 @@ public class YuGiOhField {
         //todo: take defense points into account (if the card has any)
         if (currentPlayer.equals("Joueur")) {
             opponentLifePoints -= attackPoints;
-            System.out.println("Vous utilisez " + cardName + " ! Cela inflige " + attackPoints + " points de dégâts à l'adversaire !");
             return "<html>Vous utilisez " + cardName + " !<br>Cela inflige " + attackPoints + " points de dégâts à l'adversaire !</html>";
         } else {
             playerLifePoints -= attackPoints;
-            System.out.println("L'adversaire utilise " + cardName + " ! Cela vous inflige " + attackPoints + " points de dégâts !");
             return "<html>L'adversaire utilise " + cardName + " !<br>Cela vous inflige " + attackPoints + " points de dégâts !</html>";
         }
     }
@@ -151,10 +135,8 @@ public class YuGiOhField {
 
     public String displayWinner() {
         if (playerLifePoints > 0) {
-            System.out.println("Joueur l'emporte !");
             return "Joueur l'emporte !";
         } else {
-            System.out.println("L'adversaire l'emporte !");
             return "L'adversaire l'emporte !";
         }
     }
