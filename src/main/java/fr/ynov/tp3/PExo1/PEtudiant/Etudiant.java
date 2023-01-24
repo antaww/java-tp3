@@ -44,7 +44,7 @@ public class Etudiant {
                     final int coef = entry3.getKey();
                     final double note = entry3.getValue();
                     notesArray = Arrays.copyOf(notesArray, notesArray.length + 1);
-                    notesArray[notesArray.length - 1] = matiere + " : " + evaluation + " > " + note + " (" + "coefficient " + coef + ")";
+                    notesArray[notesArray.length - 1] = matiere + " : " + evaluation + " : " + note + " (" + "coefficient " + coef + ")";
                 }
             }
         }
