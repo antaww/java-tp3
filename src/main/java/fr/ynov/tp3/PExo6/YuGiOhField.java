@@ -135,7 +135,7 @@ public class YuGiOhField {
 
     public String displayWinner() {
         if (playerLifePoints > 0) {
-            return "Joueur l'emporte !";
+            return "Vous l'emportez !";
         } else {
             return "L'adversaire l'emporte !";
         }

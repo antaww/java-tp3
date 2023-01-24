@@ -88,7 +88,6 @@ public class Exo6 {
         });
 
         final var field = new YuGiOhField();
-        //todo: convert monsterImages to field.getCardImages()
         final var randomMonsters = new ArrayList<MonsterCard>();
         final var randomMonstersImages = new ArrayList<String>();
         for (var i = 0; i < 6; i++) {
@@ -105,12 +104,10 @@ public class Exo6 {
         opponentHpLabel.setText(field.getOpponentHp());
 
         controlButton.addActionListener(e -> {
-            //todo: fix button once game is over
             field.changeGameStatus();
             controlButton.setText(field.getGameStatus() ? "Arrêter le duel." : "Commencer le duel !");
             if (field.getGameStatus()) {
                 final var firstPlayer = field.pickRandomBeginner();
-                //todo: fix labeled rule's code block is redundant
                 switch (firstPlayer) {
                     case "Joueur" -> {
                         textLabel.setText("<html>Vous commencez le duel !<br>Cliquez sur une carte pour l'utiliser</html>");
@@ -123,7 +120,7 @@ public class Exo6 {
                 Exo6.main(frame);
             }
 
-            if (field.getCurrentPlayer().equals("Adversaire") & field.getGameStatus()) {
+            if (field.getCurrentPlayer().equals("Adversaire") && field.getGameStatus() && !isGameFinished(field, textPanel, controlButton, attackLabel)) {
                 playOpponent(playerHpLabel, opponentHpLabel, textLabel, field, attackLabel, textPanel, controlButton);
             }
         });
@@ -142,31 +139,23 @@ public class Exo6 {
                         opponentHpLabel.setText(field.getOpponentHp());
                         field.changeCurrentPlayer();
                         textLabel.setText(field.displayCurrentPlayer());
-                        if (isGameFinished(field, textPanel, controlButton, textLabel)) return;
+                        if (isGameFinished(field, textPanel, controlButton, attackLabel)) return;
                         playOpponent(playerHpLabel, opponentHpLabel, textLabel, field, attackLabel, textPanel, controlButton);
                     }
                 });
                 labelIndex++;
             }
         }
-
-        //todo: if button duel stop : reset the game
-//        field.displayWinner();
-
         Utils.displayFrame(frame);
     }
 
-    private static boolean isGameFinished(final YuGiOhField field, final JPanel textPanel, final JButton controlButton, final JLabel textLabel) {
+    private static boolean isGameFinished(final YuGiOhField field, final JPanel textPanel, final JButton controlButton, final JLabel attackLabel) {
         if (field.checkPlayerLost()) {
-            //todo: fix for loop, so that it hides all the labels except the last one & set the text of the last one to the winner
-            for (var i = 0; i < textPanel.getComponentCount() - 1; i++) {
-                if (textPanel.getComponent(i) instanceof JLabel) {
-                    textPanel.getComponent(i).setVisible(false);
-                }
+            for (var i = 0; i <= 3; i++) {
+                textPanel.getComponent(i).setVisible(false);
             }
-            field.changeGameStatus();
-            controlButton.setText(field.getGameStatus() ? "Arrêter le duel." : "Commencer le duel !");
-            textLabel.setText(field.displayWinner());
+            controlButton.setText("Rejouer");
+            attackLabel.setText(field.displayWinner());
             return true;
         }
         return false;
@@ -178,7 +167,7 @@ public class Exo6 {
             attackLabel.setText(field.decreasePlayerLifePoints(field.getCardAttack(randomIndex, field.getCurrentPlayer()), field.getCardName(randomIndex, field.getCurrentPlayer())));
             playerHpLabel.setText(field.getPlayerHp());
             opponentHpLabel.setText(field.getOpponentHp());
-            if (isGameFinished(field, textPanel, controlButton, textLabel)) return;
+            if (isGameFinished(field, textPanel, controlButton, attackLabel)) return;
             field.changeCurrentPlayer();
             textLabel.setText(field.displayCurrentPlayer());
         }
