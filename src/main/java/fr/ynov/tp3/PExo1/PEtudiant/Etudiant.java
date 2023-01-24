@@ -15,23 +15,6 @@ public class Etudiant {
         this.notes = new HashMap<>();
     }
 
-//    public void afficherNote() {
-//        System.out.println("Voici toutes les notes de l'étudiant " + prenom + " " + nom + " :");
-//        for (var entry : notes.entrySet()) {
-//            var matiere = entry.getKey();
-//            var notesMatiere = entry.getValue();
-//            for (var entry2 : notesMatiere.entrySet()) {
-//                var evaluation = entry2.getKey();
-//                var notesEvaluation = entry2.getValue();
-//                for (var entry3 : notesEvaluation.entrySet()) {
-//                    int coef = entry3.getKey();
-//                    double note = entry3.getValue();
-//                    System.out.println("  " + evaluation + " (" + matiere + ", coefficient " + coef + ") : " + note);
-//                }
-//            }
-//        }
-//    }
-
     public String[] afficherNote() {
         var notesArray = new String[0];
         for (final var entry : notes.entrySet()) {
@@ -50,24 +33,6 @@ public class Etudiant {
         }
         return notesArray;
     }
-
-//    public void afficherNote (String matiere) {
-//        var notesMatiere = notes.get(matiere);
-//        if (notesMatiere == null) {
-//            System.out.println("L'étudiant " + prenom + " " + nom + " n'a pas de notes en " + matiere);
-//            return;
-//        }
-//        System.out.println("Notes de l'étudiant " + prenom + " " + nom + " en " + matiere + " :");
-//        for (var entry : notesMatiere.entrySet()) {
-//            var evaluation = entry.getKey();
-//            var notesEvaluation = entry.getValue();
-//            for (var entry2 : notesEvaluation.entrySet()) {
-//                int coef = entry2.getKey();
-//                double note = entry2.getValue();
-//                System.out.println("  " + evaluation + " (coefficient " + coef + ") : " + note);
-//            }
-//        }
-//    }
 
     public String[] afficherNote(final String matiere) {
         final var notesMatiere = notes.get(matiere);
