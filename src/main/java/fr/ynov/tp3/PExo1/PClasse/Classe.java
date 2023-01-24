@@ -8,15 +8,36 @@ import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Classe Classe : gère les informations sur les étudiants et les matières d'une classe
+ * Cette classe permet de stocker les informations sur les étudiants et les matières d'une classe, notamment leurs noms, prénoms, notes et moyennes. Elle contient également des méthodes pour afficher les informations sur les étudiants, calculer la moyenne de la classe pour une matière donnée, récupérer un étudiant en particulier, ajouter un étudiant à la classe et sauvegarder les informations sur la classe dans un fichier.
+ * Elle utilise les classes Etudiant, HashMap, FileReader et FileWriter pour gérer les informations sur les étudiants et les matières.
+ *
+ * @see fr.ynov.tp3.PExo1.PEtudiant.Etudiant
+ * @see java.util.HashMap
+ * @see java.io.FileReader
+ * @see java.io.FileWriter
+ */
 public class Classe {
     private final Map<String, Etudiant> etudiants;
     public String nom;
 
+    /**
+     * Constructeur Classe : création d'une classe.
+     *
+     * @param nom nom de la classe
+     */
     public Classe(final String nom) {
         this.nom = nom;
         this.etudiants = new HashMap<>();
     }
 
+    /**
+     * Méthode afficher : méthode pour afficher les étudiants de la classe.
+     * Elle retourne un tableau de String contenant les noms des étudiants de la classe.
+     *
+     * @return tableau de String contenant les noms des étudiants de la classe
+     */
     public String[] afficher() {
         final var etudiants = new String[this.etudiants.size()];
         var i = 0;
@@ -27,10 +48,23 @@ public class Classe {
         return etudiants;
     }
 
+    /**
+     * Méthode getEtudiant : méthode pour récupérer un étudiant de la classe.
+     * Elle retourne l'étudiant de la classe dont le nom est passé en paramètre.
+     *
+     * @param nomEtudiant nom de l'étudiant à récupérer
+     * @return étudiant de la classe dont le nom est passé en paramètre
+     */
     public Etudiant getEtudiant(final String nomEtudiant) {
         return etudiants.get(nomEtudiant);
     }
 
+    /**
+     * Méthode moyenneClasse : méthode pour calculer la moyenne de la classe.
+     *
+     * @param matiere matière pour laquelle calculer la moyenne de la classe
+     * @return moyenne de la classe
+     */
     public float moyenneClasse(final String matiere) {
         double somme = 0;
         var nbEtudiants = 0;
@@ -59,6 +93,11 @@ public class Classe {
         return (float) (somme / nbEtudiants);
     }
 
+    /**
+     * Méthode setEtudiant : méthode pour ajouter un étudiant à la classe.
+     *
+     * @param etudiant étudiant à ajouter à la classe
+     */
     public void setEtudiant(final Etudiant etudiant) {
         final var nomEtudiant = etudiant.nom;
         final var prenomEtudiant = etudiant.prenom;
@@ -66,6 +105,11 @@ public class Classe {
         etudiants.put(cle, etudiant);
     }
 
+    /**
+     * Méthode getEtudiants : méthode pour récupérer les étudiants de la classe.
+     *
+     * @return tableau de String contenant les noms des étudiants de la classe
+     */
     public String[] getEtudiants() {
         final var etudiants = new String[this.etudiants.size()];
         var i = 0;
@@ -76,6 +120,11 @@ public class Classe {
         return etudiants;
     }
 
+    /**
+     * Méthode saveClasse : méthode pour sauvegarder la classe dans un fichier.
+     *
+     * @return String contenant le chemin du fichier
+     */
     public String saveClasse() {
         final var filePath = "maClasse.txt";
         try {
@@ -111,6 +160,11 @@ public class Classe {
         return "Classe sauvegardée";
     }
 
+    /**
+     * Méthode loadClasse : méthode pour charger une classe depuis un fichier.
+     *
+     * @param filePath chemin du fichier à charger
+     */
     public void loadClasse(final String filePath) {
         try {
             final var fileReader = new FileReader(filePath);
